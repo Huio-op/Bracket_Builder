@@ -1,0 +1,14 @@
+
+
+.jfx-text-field, .jfx-password-field {
+	
+	-fx-text-inner-color: WHITE;
+    -fx-prompt-text-fill: WHITE;
+   
+}
+
+#paneAnchor{
+	
+	-fx-background-color: linear-gradient(to right bottom, #5A78FF, #91A5FF);
+	
+}
