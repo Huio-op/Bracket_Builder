@@ -3,6 +3,8 @@ package br.application.apresentacao;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.event.ChangeListener;
@@ -10,13 +12,13 @@ import javax.swing.event.ChangeListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RegexValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 
-import br.univates.system32.JFXTransitionHandler;
-import br.univates.system32.JFXTransitionHandler.TransitionTypes;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import br.application.negocio.Usuario;
+import br.application.persistencia.DBUsuarios;
+import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.JFX.JFXTransitionHandler;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,12 +113,12 @@ public class LoginController implements Initializable {
 
 	@FXML
 	void cadastroTransition(ActionEvent event) {
-		th.transitionFadeExpand(paneLogin, TransitionTypes.FADEOUT, 0.5, loginPrefWidth, loginPrefHeight,
+		th.transitionFadeExpand(paneLogin, JFXTransitionHandler.FADEOUT, 0.5, loginPrefWidth, loginPrefHeight,
 				createPrefWidth, createPrefHeight);
 
 		paneCreateAccount.toFront();
 
-		th.transitionFadeExpand(paneCreateAccount, TransitionTypes.FADEIN, 0.5, loginPrefWidth, loginPrefHeight,
+		th.transitionFadeExpand(paneCreateAccount, JFXTransitionHandler.FADEIN, 0.5, loginPrefWidth, loginPrefHeight,
 				createPrefWidth, createPrefHeight);
 
 	}
@@ -124,12 +126,12 @@ public class LoginController implements Initializable {
 	@FXML
 	void loginTransition(ActionEvent event) {
 
-		th.transitionFadeExpand(paneCreateAccount, TransitionTypes.FADEOUT, 0.5, createPrefWidth, createPrefHeight,
+		th.transitionFadeExpand(paneCreateAccount, JFXTransitionHandler.FADEOUT, 0.5, createPrefWidth, createPrefHeight,
 				loginPrefWidth, loginPrefHeight);
 
 		paneLogin.toFront();
 
-		th.transitionFadeExpand(paneLogin, TransitionTypes.FADEIN, 0.5, createPrefWidth, createPrefHeight,
+		th.transitionFadeExpand(paneLogin, JFXTransitionHandler.FADEIN, 0.5, createPrefWidth, createPrefHeight,
 				loginPrefWidth, loginPrefHeight);
 
 	}
@@ -137,6 +139,26 @@ public class LoginController implements Initializable {
 	@FXML
 	void createAccount(ActionEvent event) {
 
+		if(textEmailCreate.validate() && textNomeCreate.validate() 
+				&& textPassCreate.validate() && textPassConfirm.validate()) {
+			
+			String email = textEmailCreate.getText();
+			String nome = textNomeCreate.getText();
+			String senha = textPassCreate.getText();
+			
+			try {
+				DBUsuarios db = new DBUsuarios();
+				Usuario u = new Usuario(email,nome,senha);
+				db.save(u);
+			} catch (DataBaseException e) {
+				
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				
+			}
+			
+		}
+		
 	}
 
 	@FXML
@@ -147,22 +169,41 @@ public class LoginController implements Initializable {
 	private void createEmailValidator() {
 
 		RequiredFieldValidator validator = new RequiredFieldValidator();
+		
+		RegexValidator emailValidator = new RegexValidator();
+		
+		emailValidator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		
 		textEmailCreate.getValidators().add(validator);
-		validator.setMessage("Este campo é obrigatório!");
-
+		textEmailCreate.getValidators().add(emailValidator);
+		emailValidator.setMessage("Digite um email válido!");
+		
 		textEmailCreate.focusedProperty().addListener(new javafx.beans.value.ChangeListener<Boolean>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 
 				if (!newValue) {
+					validator.setMessage("Este campo é obrigatório!");
 					textEmailCreate.validate();
-					imgIconEmail.setImage(
-							new Image("file:imgComponents/icon_crossmark.png"));
-				}else if(newValue){
-					
 				}
-
+				
+				try {
+					
+					DBUsuarios db = new DBUsuarios();
+					ArrayList<Usuario> array = db.loadAll();
+					
+					for (Usuario usuario : array) {
+						if (usuario.getEmail() == textEmailCreate.getText()) {
+							textEmailCreate.validate();
+						}
+					}
+					
+				} catch (DataBaseException | SQLException e) {
+					System.out.println(e.getMessage());
+				}
+				
 			}
 		});
 
@@ -171,6 +212,7 @@ public class LoginController implements Initializable {
 	private void createNomeValidator() {
 
 		RequiredFieldValidator validator = new RequiredFieldValidator();
+		
 		textNomeCreate.getValidators().add(validator);
 		validator.setMessage("Este campo é obrigatório!");
 
