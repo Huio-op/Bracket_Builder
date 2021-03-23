@@ -12,11 +12,6 @@
 
 <AnchorPane fx:id="paneAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.application.apresentacao.LoginController">
    <children>
-      <Label fx:id="labelClose" layoutX="627.0" layoutY="-8.0" onMouseClicked="#closeWindow" prefHeight="31.0" prefWidth="19.0" text="X" textFill="#191d1f">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Label>
       <Label layoutX="196.0" layoutY="42.0" text="Bracket Builder" textFill="#191d1f">
          <font>
             <Font size="39.0" />
@@ -75,5 +70,10 @@
             </AnchorPane>
          </children>
       </StackPane>
+      <ImageView fitHeight="45.0" fitWidth="32.0" layoutX="618.0" onMouseClicked="#closeWindow" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../imgComponents/icon_crossmark.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

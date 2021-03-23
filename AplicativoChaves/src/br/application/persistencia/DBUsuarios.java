@@ -74,4 +74,45 @@ public class DBUsuarios {
 		
 	}
 	
+	
+	/*
+	 * Método que retorna apenas uma coluna do Usuário, sendo ela definida pelo campo fieldToFilter em forma de String
+	 * 
+	 * @param fieldToFilter recebe o nome do campo em que será retornado todas as instâncias. ex: email.
+	 */
+	public ArrayList<String> loadAllFiltered(String fieldToFilter) throws DataBaseException, SQLException {
+		
+		ArrayList<String> array = new ArrayList<String>();
+		String sql = "SELECT "+fieldToFilter+" FROM usuario;";
+		
+		ResultSet rs = connection.runQuerySQL(sql);
+		
+		if(rs.isBeforeFirst()) {
+			while(rs.next()) {
+	
+				String aux = rs.getString(fieldToFilter);
+				array.add(aux);
+				
+			}
+		}
+		
+		return array;
+		
+	}
+	
+	public boolean checkEmail(String email) throws DataBaseException, SQLException {
+		
+		Boolean alreadyExists = false;
+		
+		String sql = "SELECT * FROM usuario WHERE email = '"+email+"';";
+		ResultSet rs = connection.runQuerySQL(sql);
+		
+		if(rs.isBeforeFirst()) {
+			alreadyExists = true;
+		}
+		
+		return alreadyExists;
+		
+	}
+	
 }

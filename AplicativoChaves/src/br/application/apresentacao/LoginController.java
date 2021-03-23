@@ -12,18 +12,25 @@ import javax.swing.event.ChangeListener;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTooltip;
 import com.jfoenix.validation.RegexValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
+import com.jfoenix.validation.StringLengthValidator;
 
+import br.application.apresentacao.validators.ComparePasswordValidator;
+import br.application.apresentacao.validators.SameEmailValidator;
 import br.application.negocio.Usuario;
 import br.application.persistencia.DBUsuarios;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import javafx.beans.value.ObservableValue;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -31,6 +38,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class LoginController implements Initializable {
@@ -89,6 +97,8 @@ public class LoginController implements Initializable {
 	private double createPrefHeight;
 	private double createPrefWidth;
 
+	private DBUsuarios db;
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
@@ -102,6 +112,15 @@ public class LoginController implements Initializable {
 		createPasswordValidator();
 		confirmPasswordValidator();
 
+		 try {
+			db = new DBUsuarios();
+		} catch (DataBaseException e) {
+			
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+		}
+		
 	}
 
 	@FXML
@@ -147,18 +166,15 @@ public class LoginController implements Initializable {
 			String senha = textPassCreate.getText();
 			
 			try {
-				DBUsuarios db = new DBUsuarios();
 				Usuario u = new Usuario(email,nome,senha);
 				db.save(u);
+				loginTransition(event);
 			} catch (DataBaseException e) {
-				
-				System.out.println(e.getMessage());
+				e.getMessage();
 				e.printStackTrace();
-				
 			}
 			
 		}
-		
 	}
 
 	@FXML
@@ -168,16 +184,22 @@ public class LoginController implements Initializable {
 
 	private void createEmailValidator() {
 
-		RequiredFieldValidator validator = new RequiredFieldValidator();
+		RequiredFieldValidator rfValidator = new RequiredFieldValidator();
 		
-		RegexValidator emailValidator = new RegexValidator();
-		
-		emailValidator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
+		//Valida se o texto colocado é um email válido de acordo com o padrão regex apresentado abaixo
+		RegexValidator rxValidator = new RegexValidator();
+		rxValidator.setRegexPattern("^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		
-		textEmailCreate.getValidators().add(validator);
-		textEmailCreate.getValidators().add(emailValidator);
-		emailValidator.setMessage("Digite um email válido!");
+		SameEmailValidator seValidator = new SameEmailValidator();
+		
+		
+		textEmailCreate.getValidators().add(rfValidator);
+		rfValidator.setMessage("Este campo é obrigatório!");
+		textEmailCreate.getValidators().add(rxValidator);
+		rxValidator.setMessage("Digite um email válido!");
+		textEmailCreate.getValidators().add(seValidator);
+		seValidator.setMessage("Email já cadastrado!");
 		
 		textEmailCreate.focusedProperty().addListener(new javafx.beans.value.ChangeListener<Boolean>() {
 
@@ -185,23 +207,7 @@ public class LoginController implements Initializable {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 
 				if (!newValue) {
-					validator.setMessage("Este campo é obrigatório!");
 					textEmailCreate.validate();
-				}
-				
-				try {
-					
-					DBUsuarios db = new DBUsuarios();
-					ArrayList<Usuario> array = db.loadAll();
-					
-					for (Usuario usuario : array) {
-						if (usuario.getEmail() == textEmailCreate.getText()) {
-							textEmailCreate.validate();
-						}
-					}
-					
-				} catch (DataBaseException | SQLException e) {
-					System.out.println(e.getMessage());
 				}
 				
 			}
@@ -231,10 +237,11 @@ public class LoginController implements Initializable {
 	}
 
 	private void createPasswordValidator() {
-
-		RequiredFieldValidator validator = new RequiredFieldValidator();
-		textPassCreate.getValidators().add(validator);
-		validator.setMessage("Este campo é obrigatório!");
+		
+		RequiredFieldValidator rfvalidator = new RequiredFieldValidator();
+		textPassCreate.getValidators().add(rfvalidator);
+		rfvalidator.setMessage("Este campo é obrigatório!");
+		
 
 		textPassCreate.focusedProperty().addListener(new javafx.beans.value.ChangeListener<Boolean>() {
 
@@ -252,9 +259,12 @@ public class LoginController implements Initializable {
 
 	private void confirmPasswordValidator() {
 
-		RequiredFieldValidator validator = new RequiredFieldValidator();
-		textPassConfirm.getValidators().add(validator);
-		validator.setMessage("Este campo é obrigatório!");
+		RequiredFieldValidator rfValidator = new RequiredFieldValidator();
+		textPassConfirm.getValidators().add(rfValidator);
+		rfValidator.setMessage("Este campo é obrigatório!");
+		ComparePasswordValidator cpValidator = new ComparePasswordValidator(textPassCreate);
+		textPassConfirm.getValidators().add(cpValidator);
+		cpValidator.setMessage("As senhas não coincidem!");
 
 		textPassConfirm.focusedProperty().addListener(new javafx.beans.value.ChangeListener<Boolean>() {
 
