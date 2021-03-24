@@ -5,11 +5,15 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javax.swing.event.ChangeListener;
 
+import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTooltip;
@@ -22,6 +26,7 @@ import br.application.apresentacao.validators.SameEmailValidator;
 import br.application.negocio.Usuario;
 import br.application.persistencia.DBUsuarios;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.JFX.JFXInfoDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
@@ -39,10 +44,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class LoginController implements Initializable {
 
+	@FXML
+    private StackPane rootStackPane;
+
+	@FXML
+    private AnchorPane paneAnchor;
+	
 	@FXML
 	private Label labelClose;
 
@@ -166,9 +178,21 @@ public class LoginController implements Initializable {
 			String senha = textPassCreate.getText();
 			
 			try {
+				
 				Usuario u = new Usuario(email,nome,senha);
 				db.save(u);
-				loginTransition(event);
+				
+				JFXButton btnSuccess = new JFXButton("Voltar à tela de Login");
+				btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e)->{
+					
+					loginTransition(event);
+					
+				});
+				
+				JFXInfoDialog dialogSuccess = new JFXInfoDialog(rootStackPane, paneAnchor,"Sucesso!", "Conta criada com sucesso!", 
+						Arrays.asList(btnSuccess));
+				dialogSuccess.showDialogPane();
+				
 			} catch (DataBaseException e) {
 				e.getMessage();
 				e.printStackTrace();
@@ -214,6 +238,8 @@ public class LoginController implements Initializable {
 		});
 
 	}
+	
+	
 
 	private void createNomeValidator() {
 
