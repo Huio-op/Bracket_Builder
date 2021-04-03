@@ -28,7 +28,7 @@ public class SameEmailValidator extends ValidatorBase{
 		
 	}
 	/*
-	 * Valida o email para não criar Usuarios no Banco de Dados com emails repetidos.
+	 * Valida o email para nï¿½o criar Usuarios no Banco de Dados com emails repetidos.
 	 */
 	private void evalTextInputField() throws DataBaseException, SQLException {
 		

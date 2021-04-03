@@ -28,28 +28,7 @@
                   </ImageView>
                   <StackPane fx:id="stackPane" layoutX="125.0" layoutY="121.0" prefHeight="380.0" prefWidth="400.0">
                      <children>
-                        <AnchorPane fx:id="paneLogin" maxHeight="330.0" maxWidth="350.0" opacity="0.0" prefHeight="330.0" prefWidth="350.0" style="-fx-background-color: #191D1F;">
-                           <children>
-                              <JFXTextField focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="99.0" prefHeight="25.0" prefWidth="210.0" promptText="E-mail" />
-                              <JFXPasswordField focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="160.0" prefHeight="25.0" prefWidth="210.0" promptText="Senha" />
-                              <JFXButton fx:id="btnLogin" layoutX="98.0" layoutY="215.0" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #5A78FF;" text="Confirmar" textFill="WHITE">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </JFXButton>
-                              <Label layoutX="134.0" layoutY="35.0" text="Log In" textFill="#5a78ff">
-                                 <font>
-                                    <Font size="30.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton fx:id="btnCadastro" layoutX="98.0" layoutY="264.0" onAction="#cadastroTransition" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #3C50AA;" text="Registrar-se" textFill="WHITE">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </JFXButton>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="paneCreateAccount" maxHeight="380.0" maxWidth="400.0" prefHeight="380.0" prefWidth="400.0" style="-fx-background-color: #191D1F;">
+                        <AnchorPane fx:id="paneCreateAccount" maxHeight="380.0" maxWidth="400.0" opacity="0.0" prefHeight="380.0" prefWidth="400.0" style="-fx-background-color: #191D1F;">
                            <children>
                               <JFXButton fx:id="btnVoltar" layoutX="7.0" layoutY="8.0" onAction="#loginTransition" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
                                  <font>
@@ -76,6 +55,27 @@
                               <ImageView fx:id="imgIconName" fitHeight="31.0" fitWidth="32.0" layoutX="316.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="imgIconPassword" fitHeight="31.0" fitWidth="32.0" layoutX="316.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="imgIconConfirmPass" fitHeight="31.0" fitWidth="32.0" layoutX="316.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="paneLogin" maxHeight="330.0" maxWidth="350.0" prefHeight="330.0" prefWidth="350.0" style="-fx-background-color: #191D1F;">
+                           <children>
+                              <JFXTextField focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="99.0" prefHeight="25.0" prefWidth="210.0" promptText="E-mail" />
+                              <JFXPasswordField focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="160.0" prefHeight="25.0" prefWidth="210.0" promptText="Senha" />
+                              <JFXButton fx:id="btnLogin" layoutX="98.0" layoutY="215.0" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #5A78FF;" text="Confirmar" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                              <Label layoutX="134.0" layoutY="35.0" text="Log In" textFill="#5a78ff">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton fx:id="btnCadastro" layoutX="98.0" layoutY="264.0" onAction="#cadastroTransition" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #3C50AA;" text="Registrar-se" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
                            </children>
                         </AnchorPane>
                      </children>
