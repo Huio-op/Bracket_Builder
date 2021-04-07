@@ -11,6 +11,12 @@ import javafx.scene.control.TextInputControl;
 
 public class SameEmailValidator extends ValidatorBase{
 
+	private boolean wantSame;
+
+	public SameEmailValidator(boolean wantSame){
+		this.wantSame = wantSame;
+	}
+
 	@Override
 	protected void eval() {
 		
@@ -28,7 +34,7 @@ public class SameEmailValidator extends ValidatorBase{
 		
 	}
 	/*
-	 * Valida o email para n�o criar Usuarios no Banco de Dados com emails repetidos.
+	 * Valida o email para não criar Usuarios no Banco de Dados com emails repetidos.
 	 */
 	private void evalTextInputField() throws DataBaseException, SQLException {
 		
@@ -36,7 +42,9 @@ public class SameEmailValidator extends ValidatorBase{
 		  hasErrors.set(false);
 		  DBUsuarios db = new DBUsuarios();
 		  
-		  if(db.checkEmail(textField.getText())) {
+		  if(db.checkEmail(textField.getText()) && wantSame == false) {
+			  hasErrors.set(true);
+		  }else if(!db.checkEmail(textField.getText()) && wantSame == true){
 			  hasErrors.set(true);
 		  }
 		

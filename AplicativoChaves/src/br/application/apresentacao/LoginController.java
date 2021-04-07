@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.event.ChangeListener;
 
+import br.application.apresentacao.validators.PasswordValidator;
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -94,6 +95,12 @@ public class LoginController implements Initializable {
 	private AnchorPane paneLogin;
 
 	@FXML
+	private JFXTextField textEmailLogin;
+
+	@FXML
+	private JFXPasswordField textPasswordLogin;
+
+	@FXML
 	private JFXButton btnCriarConta;
 
 	@FXML
@@ -128,6 +135,8 @@ public class LoginController implements Initializable {
 		createNomeValidator();
 		createPasswordValidator();
 		confirmPasswordValidator();
+		loginEmailValidator();
+		loginPasswordValidator();
 
 		try {
 			db = new DBUsuarios();
@@ -150,7 +159,9 @@ public class LoginController implements Initializable {
 	@FXML
     void doLogin(ActionEvent event) {
 
-		
+		if(textEmailLogin.validate() && textPasswordLogin.validate()){
+			System.out.println("Deu certo");
+		}
 		
     }
 
@@ -196,7 +207,7 @@ public class LoginController implements Initializable {
 						Usuario u = new Usuario(email, nome, senha);
 						db.save(u);
 
-						JFXButton btnSuccess = new JFXButton("Voltar ‡ tela de Login");
+						JFXButton btnSuccess = new JFXButton("Voltar ÔøΩ tela de Login");
 						btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 
 							textEmailCreate.setText("");
@@ -232,20 +243,49 @@ public class LoginController implements Initializable {
 
 	}
 
-	private void createEmailValidator() {
+	private void loginEmailValidator() {
 
-		// Valida se o texto colocado È um email v·lido de acordo com o padr„o regex
+		// Valida se o texto colocado √© um email v√°lido de acordo com o padr√£o regex
 		// apresentado abaixo
 		RegexValidator rxValidator = new RegexValidator();
 		rxValidator.setRegexPattern(
 				"^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
-		SameEmailValidator seValidator = new SameEmailValidator();
+		SameEmailValidator seValidator = new SameEmailValidator(true);
 
-		rxValidator.setMessage("Digite um email v·lido!");
-		seValidator.setMessage("Email j· cadastrado!");
-		
-		JFXValidatorCreator.createCustomFieldValidator(textEmailCreate, Arrays.asList(rxValidator, seValidator));
+		rxValidator.setMessage("Digite um email v√°lido!");
+		seValidator.setMessage("Email n√£o cadastrado!");
+
+		JFXValidatorCreator.createCustomFieldValidator(textEmailLogin, Arrays.asList(rxValidator, seValidator)
+				, true, false);
+
+	}
+
+	private void loginPasswordValidator(){
+
+		PasswordValidator pValidator = new PasswordValidator(textEmailLogin);
+
+		pValidator.setMessage("Senha incorreta!");
+
+		JFXValidatorCreator.createCustomFieldValidator(textPasswordLogin, Arrays.asList(pValidator)
+				, true, false);
+
+	}
+
+	private void createEmailValidator() {
+
+		// Valida se o texto colocado √© um email v√°lido de acordo com o padr√£o regex
+		// apresentado abaixo
+		RegexValidator rxValidator = new RegexValidator();
+		rxValidator.setRegexPattern(
+				"^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+
+		SameEmailValidator seValidator = new SameEmailValidator(false);
+
+		rxValidator.setMessage("Digite um email v√°lido!");
+		seValidator.setMessage("Email j√° cadastrado!");
+
+		JFXValidatorCreator.createCustomFieldValidator(textEmailCreate, Arrays.asList(rxValidator, seValidator), true, true);
 
 	}
 
@@ -264,9 +304,9 @@ public class LoginController implements Initializable {
 	private void confirmPasswordValidator() {
 
 		ComparePasswordValidator cpValidator = new ComparePasswordValidator(textPassCreate);
-		cpValidator.setMessage("As senhas n„o coincidem!");
+		cpValidator.setMessage("As senhas n√£o coincidem!");
 
-		JFXValidatorCreator.createCustomFieldValidator(textEmailCreate, Arrays.asList(cpValidator));
+		JFXValidatorCreator.createCustomFieldValidator(textPassConfirm, Arrays.asList(cpValidator), true, true);
 
 	}
 

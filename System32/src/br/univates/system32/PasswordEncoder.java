@@ -54,7 +54,6 @@ public class PasswordEncoder {
 		for(int i = 0; i < hash.length && i < comparisonHash.length; i++) {
 			diff |= hash[i] ^ comparisonHash[i];
 		}
-		
 		return diff == 0;
 		
 	}

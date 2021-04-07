@@ -59,9 +59,9 @@
                         </AnchorPane>
                         <AnchorPane fx:id="paneLogin" maxHeight="330.0" maxWidth="350.0" prefHeight="330.0" prefWidth="350.0" style="-fx-background-color: #191D1F;">
                            <children>
-                              <JFXTextField focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="99.0" prefHeight="25.0" prefWidth="210.0" promptText="E-mail" />
-                              <JFXPasswordField focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="160.0" prefHeight="25.0" prefWidth="210.0" promptText="Senha" />
-                              <JFXButton fx:id="btnLogin" layoutX="98.0" layoutY="215.0" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #5A78FF;" text="Confirmar" textFill="WHITE">
+                              <JFXTextField fx:id="textEmailLogin" focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="99.0" prefHeight="25.0" prefWidth="210.0" promptText="E-mail" />
+                              <JFXPasswordField fx:id="textPasswordLogin" focusColor="#5a78ff" labelFloat="true" layoutX="70.0" layoutY="160.0" prefHeight="25.0" prefWidth="210.0" promptText="Senha" />
+                              <JFXButton fx:id="btnLogin" layoutX="98.0" layoutY="215.0" onAction="#doLogin" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #5A78FF;" text="Confirmar" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

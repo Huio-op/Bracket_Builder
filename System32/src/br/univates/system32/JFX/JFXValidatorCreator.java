@@ -1,6 +1,7 @@
 package br.univates.system32.JFX;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.validation.Validator;
@@ -28,15 +29,20 @@ public class JFXValidatorCreator {
 		
 	}
 	
-	public static void createCustomFieldValidator(JFXTextField textField, List<ValidatorBase> validators) {
-		
-		setRequiredField(textField);
+	public static void createCustomFieldValidator(JFXTextField textField, List<ValidatorBase> validators,
+												  boolean requiredField, boolean validateOnFocus) {
+		if(requiredField == true){
+			setRequiredField(textField);
+		}
+
 		
 		validators.forEach(validator -> {
 			textField.getValidators().add(validator);
 		});
-		
-		setFocusedProperty(textField);
+
+		if(validateOnFocus == true) {
+			setFocusedProperty(textField);
+		}
 		
 	}
 	
@@ -72,7 +78,8 @@ public static void createRequiredFieldValidator(JFXPasswordField textField) {
 		
 	}
 	
-	public static void createCustomFieldValidator(JFXPasswordField textField, List<ValidatorBase> validators) {
+	public static void createCustomFieldValidator(JFXPasswordField textField, List<ValidatorBase> validators ,
+												  boolean requiredField, boolean validateOnFocus) {
 		
 		setRequiredField(textField);
 		
@@ -93,7 +100,7 @@ public static void createRequiredFieldValidator(JFXPasswordField textField) {
 	}
 	
 	private static void setFocusedProperty(JFXPasswordField textField) {
-		
+
 		textField.focusedProperty().addListener(new javafx.beans.value.ChangeListener<Boolean>() {
 
 			@Override
@@ -105,7 +112,7 @@ public static void createRequiredFieldValidator(JFXPasswordField textField) {
 
 			}
 		});
-		
+
 	}
 	
 }

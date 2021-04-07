@@ -1,5 +1,7 @@
 package br.application.persistencia;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import br.application.negocio.Usuario;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.PasswordEncoder;
 
 public class DBUsuarios {
 	
@@ -76,9 +79,9 @@ public class DBUsuarios {
 	
 	
 	/*
-	 * MÈtodo que retorna apenas uma coluna do Usu·rio, sendo ela definida pelo campo fieldToFilter em forma de String
+	 * M√©todo que retorna apenas uma coluna do Usu√°rio, sendo ela definida pelo campo fieldToFilter em forma de String
 	 * 
-	 * @param fieldToFilter recebe o nome do campo em que ser· retornado todas as inst‚ncias. ex: email.
+	 * @param fieldToFilter recebe o nome do campo em que ser√° retornado todas as inst√¢ncias. ex: email.
 	 */
 	public ArrayList<String> loadAllFiltered(String fieldToFilter) throws DataBaseException, SQLException {
 		
@@ -113,6 +116,24 @@ public class DBUsuarios {
 		
 		return alreadyExists;
 		
+	}
+
+	public boolean checkPassword(String email, String password) throws DataBaseException, SQLException,
+			NoSuchAlgorithmException, InvalidKeySpecException {
+
+		Boolean passRight = false;
+
+		String sql = "SELECT u.senha FROM usuario u WHERE email = '"+email+"';";
+		ResultSet rs = connection.runQuerySQL(sql);
+
+		if(rs.isBeforeFirst()) {
+			rs.next();
+			String passEncripted = rs.getString("senha");
+			passRight = PasswordEncoder.comparePasswords(password, passEncripted);
+		}
+
+		return passRight;
+
 	}
 	
 }
