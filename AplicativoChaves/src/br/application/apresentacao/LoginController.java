@@ -240,7 +240,7 @@ public class LoginController implements Initializable {
 
 	@FXML
 	void textFieldUserKeyReleased(KeyEvent event) {
-
+	
 	}
 
 	private void loginEmailValidator() {
