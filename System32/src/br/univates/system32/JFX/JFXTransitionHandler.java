@@ -3,9 +3,18 @@ package br.univates.system32.JFX;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.util.Stack;
 
 
 public class JFXTransitionHandler {
@@ -33,7 +42,7 @@ public class JFXTransitionHandler {
 	 * 
 	 * @param endHeight dita a altura final do painel quando a transição acabar
 	 */
-	public void transitionFadeExpand(Pane pane, int typeFade, double duration, 
+	public static void transitionFadeExpand(Pane pane, int typeFade, double duration,
 			double startingWidth, double startingHeight, double endWidth, double endHeight) {
 
 		Timeline timeline = new Timeline();
@@ -66,6 +75,21 @@ public class JFXTransitionHandler {
 		}
 
 		timeline.play();
+
+	}
+
+	public void sceneTransition(String fxmlPath, Event event) throws IOException {
+		System.out.println(fxmlPath);
+		Parent secondView = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+		Scene newScene = new Scene(secondView);
+
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		currentStage.setScene(newScene);
+		currentStage.centerOnScreen();
+		currentStage.show();
+
 
 	}
 
