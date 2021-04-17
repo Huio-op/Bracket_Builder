@@ -2,18 +2,29 @@ package br.com.application.negocio;
 
 import br.univates.system32.CPF;
 
-public class Organizador {
+public class Organizador extends Usuario{
 
 	private CPF cpf;
-	private String nome;
-	private String senha;
+	private int evetnos_realizados;
+	private int nota;
+	//private String nacionalidade;
 	
-	public Organizador(CPF cpf, String nome, String senha) {
-		
+	protected Organizador(CPF cpf, String email, String nome, String senha) {
+
+		super(email, nome,senha);
 		this.cpf = cpf;
-		this.nome = nome;
-		this.senha = senha;
+		this.evetnos_realizados = 0;
+		this.nota = 0;
 		
+	}
+
+	public Organizador(CPF cpf, String email, String nome, String senha, int evetnos_realizados, int nota) {
+
+		super(email, nome,senha);
+		this.cpf = cpf;
+		this.evetnos_realizados = evetnos_realizados;
+		this.nota = nota;
+
 	}
 
 	public CPF getCpf() {
@@ -25,7 +36,7 @@ public class Organizador {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {

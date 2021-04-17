@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import br.com.application.negocio.Usuario;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.DataBase.IDB;
 import br.univates.system32.PasswordEncoder;
 
-public class DBUsuarios {
+public class DBUsuarios implements IDB<Usuario> {
 	
 	private DBConnection connection;
 	
@@ -31,10 +32,20 @@ public class DBUsuarios {
 		}
 		
 	}
-	
+
+	@Override
+	public void delete(Usuario object) throws DataBaseException {
+
+	}
+
+	@Override
+	public void edit(Usuario object) throws DataBaseException {
+
+	}
+
 	public Usuario load(String email) throws DataBaseException, SQLException {
 		
-		String sql = "SELECT * FROM usuario WHERE email = "+email+";";
+		String sql = "SELECT * FROM usuario WHERE email = '"+email+"';";
 		Usuario u = null;
 		
 		ResultSet rs = connection.runQuerySQL(sql);

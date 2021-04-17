@@ -79,7 +79,7 @@ public class JFXTransitionHandler {
 	}
 
 	public void sceneTransition(String fxmlPath, Event event) throws IOException {
-		System.out.println(fxmlPath);
+
 		Parent secondView = FXMLLoader.load(getClass().getResource(fxmlPath));
 
 		Scene newScene = new Scene(secondView);

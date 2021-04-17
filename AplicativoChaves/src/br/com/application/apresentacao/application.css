@@ -40,6 +40,30 @@
 	
 }
 
+.dark-button{
+
+	-fx-background-color: #3C50AA;
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+
+}
+
+.light-button{
+
+	-fx-background-color: #5A78FF;
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+
+}
+
+.red-button{
+
+	-fx-background-color: #B11226;
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+
+}
+
 .jfx-layout-actions{
 	
 	-fx-hgap: 8;

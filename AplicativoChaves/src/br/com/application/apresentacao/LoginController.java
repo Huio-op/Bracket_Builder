@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -141,8 +142,18 @@ public class LoginController implements Initializable {
 
 		if(textEmailLogin.validate() && textPasswordLogin.validate()){
 			try {
+				Usuario user = db.load(textEmailLogin.getText());
+				TelaHomeController.setUser(user);
 				th.sceneTransition("/br/com/application/apresentacao/TelaHome.fxml", event);
 			} catch (IOException e) {
+				e.printStackTrace();
+				JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
+				error.showDialogPane();
+			} catch (SQLException throwables) {
+				throwables.printStackTrace();
+				JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, throwables);
+				error.showDialogPane();
+			} catch (DataBaseException e) {
 				e.printStackTrace();
 				JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
 				error.showDialogPane();

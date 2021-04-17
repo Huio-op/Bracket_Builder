@@ -23,9 +23,10 @@ public class Main extends Application {
 		}
 		
 		try {
-			primaryStage.initStyle(StageStyle.UNDECORATED);
+			//primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.setResizable(false);
 			Parent root = FXMLLoader.load(getClass().getResource("/br/com/application/apresentacao/TelaLogin.fxml"));
-			Scene scene = new Scene(root,650,550);
+			Scene scene = new Scene(root,950,750);
 			scene.getStylesheets().add(getClass().getResource("/br/com/application/apresentacao/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

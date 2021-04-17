@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="650.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.LoginController">
+<AnchorPane fx:id="rootAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="950.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.LoginController">
    <children>
-      <StackPane fx:id="rootStackPane" prefHeight="550.0" prefWidth="650.0">
+      <StackPane fx:id="rootStackPane" prefHeight="750.0" prefWidth="950.0">
          <children>
-            <AnchorPane fx:id="paneAnchor" prefHeight="550.0" prefWidth="650.0">
+            <AnchorPane fx:id="paneAnchor" prefHeight="542.0" prefWidth="646.0">
                <children>
-                  <StackPane fx:id="stackPane" layoutX="125.0" layoutY="121.0" prefHeight="380.0" prefWidth="400.0">
+                  <StackPane fx:id="stackPane" layoutX="275.0" layoutY="273.0" prefHeight="380.0" prefWidth="400.0">
                      <children>
                         <AnchorPane fx:id="paneCreateAccount" maxHeight="380.0" maxWidth="400.0" opacity="0.0" prefHeight="380.0" prefWidth="400.0" style="-fx-background-color: #191D1F;">
                            <children>
@@ -70,12 +70,7 @@
                         </AnchorPane>
                      </children>
                   </StackPane>
-                  <ImageView fitHeight="45.0" fitWidth="32.0" layoutX="617.0" onMouseClicked="#closeWindow" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../Dependencies/imgComponents/icon_crossmark.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="185.0" layoutY="45.0" text="Bracket Builder" textFill="#191d1f">
+                  <Label layoutX="320.0" layoutY="115.0" text="{Bracket Builder}" textFill="#191d1f">
                      <font>
                         <Font name="System Bold" size="39.0" />
                      </font>
