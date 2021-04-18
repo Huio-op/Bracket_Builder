@@ -18,7 +18,7 @@ public class DBUsuarios implements IDB<Usuario> {
 	
 	public DBUsuarios() throws DataBaseException {
 		
-		this.connection = new DBConnection("wnlrmkyd", "RfrS6oCl4yLc2BHElY_UiI9ELE0aCXNl", "wnlrmkyd"
+		this.connection = new DBConnection("wnlrmkyd", "RrqNt3iigJVgBsFIPOMi3KurycXoU7cD", "wnlrmkyd"
 				, "motty.db.elephantsql.com", "5432");
 		
 	}

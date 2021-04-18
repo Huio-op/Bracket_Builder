@@ -143,7 +143,7 @@ public class LoginController implements Initializable {
 		if(textEmailLogin.validate() && textPasswordLogin.validate()){
 			try {
 				Usuario user = db.load(textEmailLogin.getText());
-				TelaHomeController.setUser(user);
+				HomeController.setUser(user);
 				th.sceneTransition("/br/com/application/apresentacao/TelaHome.fxml", event);
 			} catch (IOException e) {
 				e.printStackTrace();

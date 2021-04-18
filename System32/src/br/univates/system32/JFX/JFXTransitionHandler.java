@@ -8,12 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Stack;
 
 
@@ -77,6 +79,36 @@ public class JFXTransitionHandler {
 		timeline.play();
 
 	}
+
+	public void transitionFadeFXML(Pane pane, String fxmlPath, double duration) throws IOException {
+
+		Timeline timeline = new Timeline();
+
+
+			timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
+							new KeyValue(pane.opacityProperty(), 1)),
+					new KeyFrame(Duration.seconds(duration),
+							new KeyValue(pane.opacityProperty(), 0)));
+
+
+		timeline.play();
+
+		Timeline timeline2 = new Timeline();
+
+		AnchorPane anchor = FXMLLoader.load(getClass().getResource(fxmlPath));
+		pane.getChildren().setAll(anchor);
+
+		timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
+						new KeyValue(pane.opacityProperty(), 0)),
+				new KeyFrame(Duration.seconds(duration),
+						new KeyValue(pane.opacityProperty(), 1)));
+		timeline2.getKeyFrames().addAll(new KeyFrame(Duration.seconds(duration), new KeyValue(anchor.opacityProperty(), 0)),
+				new KeyFrame(Duration.seconds(duration + duration),
+						new KeyValue(anchor.opacityProperty(), 1)));
+		timeline2.play();
+
+	}
+
 
 	public void sceneTransition(String fxmlPath, Event event) throws IOException {
 

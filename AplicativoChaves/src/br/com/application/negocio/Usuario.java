@@ -18,9 +18,9 @@ public class Usuario {
 		this.isOrganizador = false;
 	}
 
-	public void turnOrganizador(CPF cpf){
+	public void turnOrganizador(CPF cpf, String nacionalidade){
 
-		Organizador o = new Organizador(cpf, this.email,this.nome,this.senha);
+		Organizador o = new Organizador(cpf, this.email,nacionalidade,this.nome,this.senha);
 
 	}
 

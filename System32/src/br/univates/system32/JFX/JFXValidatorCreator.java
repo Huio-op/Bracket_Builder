@@ -79,7 +79,7 @@ public static void createRequiredFieldValidator(JFXPasswordField textField) {
 	}
 	
 	public static void createCustomFieldValidator(JFXPasswordField textField, List<ValidatorBase> validators ,
-												  boolean requiredField, boolean validateOnFocus) {
+												  boolean requiredField, boolean validateOnFocusLost) {
 		
 		setRequiredField(textField);
 		

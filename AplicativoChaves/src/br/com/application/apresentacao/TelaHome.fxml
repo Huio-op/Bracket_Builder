@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootAnchorPane" prefHeight="750.0" prefWidth="950.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.TelaHomeController">
+<AnchorPane fx:id="rootAnchorPane" prefHeight="750.0" prefWidth="950.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.HomeController">
    <children>
       <StackPane fx:id="rootStackPane" prefHeight="750.0" prefWidth="950.0">
          <children>
@@ -21,7 +21,7 @@
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </Label>
-                              <JFXButton layoutX="746.0" layoutY="154.0" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Se tornar Organizador" />
+                              <JFXButton layoutX="746.0" layoutY="154.0" onAction="#createOrganizadorTransition" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Se tornar Organizador" />
                            </children>
                         </AnchorPane>
                      </children>

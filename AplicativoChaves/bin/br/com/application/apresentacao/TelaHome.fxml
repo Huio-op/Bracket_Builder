@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="paneAnchor" prefHeight="750.0" prefWidth="950.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.TelaHomeController">
+<AnchorPane fx:id="paneAnchor" prefHeight="750.0" prefWidth="950.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.HomeController">
    <children>
       <StackPane prefHeight="750.0" prefWidth="950.0">
          <children>

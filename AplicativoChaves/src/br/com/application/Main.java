@@ -15,7 +15,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		
 		try {
-			DBConnection db = new DBConnection("wnlrmkyd", "RfrS6oCl4yLc2BHElY_UiI9ELE0aCXNl", "wnlrmkyd"
+			DBConnection db = new DBConnection("wnlrmkyd", "RrqNt3iigJVgBsFIPOMi3KurycXoU7cD", "wnlrmkyd"
 					, "motty.db.elephantsql.com", "5432");
 			db.connectionTest();
 		} catch(DataBaseException e){

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TelaHomeController implements Initializable {
+public class HomeController implements Initializable {
 
     public static Usuario user;
 
@@ -28,7 +28,16 @@ public class TelaHomeController implements Initializable {
     private AnchorPane paneAnchor;
 
     @FXML
+    private AnchorPane anchorMainPage;
+
+    @FXML
+    private AnchorPane anchorProfile;
+
+    @FXML
     private Label lblUsrName;
+
+    @FXML
+    private AnchorPane anchorFooter;
 
     private JFXTransitionHandler th = new JFXTransitionHandler();
 
@@ -56,6 +65,18 @@ public class TelaHomeController implements Initializable {
         try {
             th.sceneTransition("/br/com/application/apresentacao/TelaLogin.fxml", event);
             user = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
+            error.showDialogPane();
+        }
+
+    }
+
+    public void createOrganizadorTransition(ActionEvent event){
+
+        try {
+            th.transitionFadeFXML(anchorMainPage, "/br/com/application/apresentacao/TelaCreateOrganizador.fxml", 1);
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
