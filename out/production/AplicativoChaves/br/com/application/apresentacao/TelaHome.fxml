@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootAnchorPane" prefHeight="750.0" prefWidth="950.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.HomeController">
+   <children>
+      <StackPane fx:id="rootStackPane" prefHeight="750.0" prefWidth="950.0">
+         <children>
+            <AnchorPane fx:id="paneAnchor" prefHeight="750.0" prefWidth="950.0">
+               <children>
+                  <AnchorPane fx:id="anchorMainPage" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #292E42;">
+                     <children>
+                        <AnchorPane fx:id="anchorProfile" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: #191D1F;">
+                           <children>
+                              <Label fx:id="lblUsrName" layoutX="13.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="73.0" prefWidth="263.0" styleClass="dark_text" text="Name">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton layoutX="746.0" layoutY="154.0" onAction="#createOrganizadorTransition" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Se tornar Organizador" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="anchorFooter" layoutY="700.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="950.0" style="-fx-background-color: #191D1F;">
+                     <children>
+                        <JFXButton layoutX="745.0" layoutY="9.0" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Nova Bracket" />
+                        <JFXButton layoutX="530.0" layoutY="9.0" prefHeight="31.0" prefWidth="190.0" styleClass="dark-button" text="Ver Brackets Criadas" />
+                        <JFXButton layoutX="14.0" layoutY="9.0" onAction="#doLogOut" prefHeight="31.0" prefWidth="190.0" styleClass="red-button" text="Log Out" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

@@ -19,10 +19,10 @@ public class HomeController implements Initializable {
     public static Usuario user;
 
     @FXML
-    private AnchorPane rootAnchorPane;
+    public static AnchorPane rootAnchorPane;
 
     @FXML
-    private StackPane rootStackPane;
+    public static StackPane rootStackPane;
 
     @FXML
     private AnchorPane paneAnchor;

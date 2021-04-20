@@ -96,17 +96,13 @@ public class JFXTransitionHandler {
 		Timeline timeline2 = new Timeline();
 
 		AnchorPane anchor = FXMLLoader.load(getClass().getResource(fxmlPath));
-		pane.getChildren().setAll(anchor);
 
-		timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
-						new KeyValue(pane.opacityProperty(), 0)),
-				new KeyFrame(Duration.seconds(duration),
-						new KeyValue(pane.opacityProperty(), 1)));
-		timeline2.getKeyFrames().addAll(new KeyFrame(Duration.seconds(duration), new KeyValue(anchor.opacityProperty(), 0)),
-				new KeyFrame(Duration.seconds(duration + duration),
-						new KeyValue(anchor.opacityProperty(), 1)));
+		timeline.getKeyFrames().addAll(new KeyFrame(Duration.seconds(duration), new KeyValue(pane.opacityProperty(), 0)),
+				new KeyFrame(Duration.seconds(duration + duration), new KeyValue(pane.opacityProperty(), 1)));
 		timeline2.play();
 
+
+		pane.getChildren().setAll(anchor);
 	}
 
 

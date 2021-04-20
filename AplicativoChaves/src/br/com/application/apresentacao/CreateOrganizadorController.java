@@ -4,8 +4,11 @@ import br.com.application.apresentacao.validators.CPFValidator;
 import br.com.application.apresentacao.validators.SameCPFValidator;
 import br.com.application.apresentacao.validators.SameEmailValidator;
 import br.univates.system32.CPF;
+import br.univates.system32.JFX.JFXErrorDialog;
+import br.univates.system32.JFX.JFXTransitionHandler;
 import br.univates.system32.JFX.JFXValidatorCreator;
 import br.univates.system32.util.MaskFieldUtil;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -17,8 +20,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Locale;
@@ -30,10 +35,16 @@ public class CreateOrganizadorController implements Initializable {
     private JFXCheckBox checkTerms;
 
     @FXML
+    private AnchorPane anchorBackgroundOrg;
+
+    @FXML
     private JFXTextField textCPF;
 
     @FXML
     private JFXComboBox<String> boxNationality;
+
+
+    private JFXTransitionHandler th = new JFXTransitionHandler();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,6 +76,18 @@ public class CreateOrganizadorController implements Initializable {
 
             boxNationality.setUnFocusColor(Color.RED);
 
+        }
+
+    }
+
+    public void returnPage(ActionEvent event){
+
+        try {
+            th.transitionFadeFXML(anchorBackgroundOrg, "/br/com/application/apresentacao/TelaHomePage.fxml", 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog(HomeController.rootStackPane, HomeController.rootAnchorPane, e);
+            error.showDialogPane();
         }
 
     }

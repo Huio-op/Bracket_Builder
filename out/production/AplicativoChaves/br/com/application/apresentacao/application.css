@@ -1,0 +1,88 @@
+
+
+.jfx-text-field, .jfx-password-field {
+	
+	-fx-text-inner-color: WHITE;
+    -fx-prompt-text-fill: WHITE;
+   
+}
+
+#paneAnchor{
+	
+	-fx-background-color: linear-gradient(to right bottom, #5A78FF, #91A5FF);
+
+	
+}
+
+.dark_text{
+	-fx-text-fill: #5A78FF;
+}
+
+.jfx-combo-box {
+	-fx-text-inner-color:  #3C50AA;
+	-fx-prompt-text-fill: white;
+}
+
+.jfx-combo-box .cell {
+	-fx-background-color: #191D1F;
+	-fx-text-fill:  white;
+}
+
+.combo-box .cell:hover {
+	-fx-background-color: #3C50AA
+}
+
+.dialog-layout{
+	
+	-fx-background-color:  #191D1F;
+	-fx-border-color:  #191D1F;
+	
+}
+
+.control-button{
+	
+	-fx-background-color: #3C50AA;
+	-fx-border-color: #3C50AA;
+	-fx-text-fill: white;
+	
+}
+
+.control-button:hover{
+	
+	-fx-background-color: #5A78FF;
+	-fx-border-color: #5A78FF;
+	-fx-text-fill: white;
+	
+}
+
+.dark-button{
+
+	-fx-background-color: #3C50AA;
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+
+}
+
+.light-button{
+
+	-fx-background-color: #5A78FF;
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+
+}
+
+.red-button{
+
+	-fx-background-color: #B11226;
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+
+}
+
+.jfx-layout-actions{
+	
+	-fx-hgap: 8;
+	
+}
+
+
