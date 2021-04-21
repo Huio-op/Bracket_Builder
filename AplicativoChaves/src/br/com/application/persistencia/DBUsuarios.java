@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import br.com.application.Main;
 import br.com.application.negocio.Usuario;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
@@ -17,9 +18,11 @@ public class DBUsuarios implements IDB<Usuario> {
 	private DBConnection connection;
 	
 	public DBUsuarios() throws DataBaseException {
-		
-		this.connection = new DBConnection("wnlrmkyd", "RrqNt3iigJVgBsFIPOMi3KurycXoU7cD", "wnlrmkyd"
-				, "motty.db.elephantsql.com", "5432");
+
+		this.connection = DBApp.getConnection();
+
+//		this.connection = new DBConnection("wnlrmkyd", "RrqNt3iigJVgBsFIPOMi3KurycXoU7cD", "wnlrmkyd"
+//				, "motty.db.elephantsql.com", "5432");
 		
 	}
 
@@ -27,7 +30,8 @@ public class DBUsuarios implements IDB<Usuario> {
 		
 		if(user != null) {
 			
-			connection.runSQL("INSERT INTO usuario VALUES( '" + user.getEmail() + "', '"+user.getNome()+"', '"+user.getSenha()+"');");
+			connection.runSQL("INSERT INTO usuario VALUES( '" + user.getEmail() + "', '"+user.getNome()+"', " +
+					"'"+user.getSenha()+"', "+user.isOrganizador()+");");
 			
 		}
 		
@@ -39,7 +43,14 @@ public class DBUsuarios implements IDB<Usuario> {
 	}
 
 	@Override
-	public void edit(Usuario object) throws DataBaseException {
+	public void edit(Usuario user) throws DataBaseException {
+
+		if(user != null) {
+
+			connection.runSQL("UPDATE usuario SET nome = '"+user.getNome()+"', senha = '"+user.getSenha()+"', isOrganizador = " +user.isOrganizador()+" "+
+					"WHERE email = '" + user.getEmail() + "';");
+
+		}
 
 	}
 
@@ -55,8 +66,9 @@ public class DBUsuarios implements IDB<Usuario> {
 			String userEmail = rs.getString("email");
 			String nome = rs.getString("nome");
 			String senha = rs.getString("senha");
+			Boolean organizador = rs.getBoolean("isOrganizador");
 			
-			u = new Usuario(userEmail,nome,senha);
+			u = new Usuario(userEmail,nome,senha,organizador);
 			
 		}
 		
@@ -77,8 +89,9 @@ public class DBUsuarios implements IDB<Usuario> {
 				String userEmail = rs.getString("email");
 				String nome = rs.getString("nome");
 				String senha = rs.getString("senha");
-				
-				Usuario u = new Usuario(userEmail,nome,senha);
+				Boolean organizador = rs.getBoolean("isOrganizador");
+
+				Usuario u = new Usuario(userEmail,nome,senha,organizador);
 				array.add(u);
 			}
 		}

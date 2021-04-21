@@ -1,5 +1,6 @@
 package br.com.application.persistencia;
 
+import br.com.application.Main;
 import br.com.application.negocio.Organizador;
 import br.com.application.negocio.Usuario;
 import br.univates.system32.CPF;
@@ -17,8 +18,10 @@ public class DBOrganizador implements IDB<Organizador> {
 
     public DBOrganizador() throws DataBaseException {
 
-        this.connection = new DBConnection("wnlrmkyd", "RrqNt3iigJVgBsFIPOMi3KurycXoU7cD", "wnlrmkyd"
-                , "motty.db.elephantsql.com", "5432");
+        this.connection = DBApp.getConnection();
+
+//        this.connection = new DBConnection("wnlrmkyd", "RrqNt3iigJVgBsFIPOMi3KurycXoU7cD", "wnlrmkyd"
+//                , "motty.db.elephantsql.com", "5432");
 
     }
 

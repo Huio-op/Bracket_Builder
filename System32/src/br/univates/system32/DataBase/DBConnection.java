@@ -98,9 +98,9 @@ public class DBConnection {
 		if(this.connection == null) {
 			this.connect();
 		}
-		
+
 		executeSQL(sql);
-		
+
 	}
 	
 	public ResultSet executeQuerySQL(String sql) throws DataBaseException {
@@ -116,7 +116,7 @@ public class DBConnection {
 			e.printStackTrace();
 			throw new DataBaseException("Falha na execução da Query.");
 		}
-		
+
 		return rs;
 				
 	}
@@ -131,6 +131,8 @@ public class DBConnection {
 		
 		this.rs = executeQuerySQL(sql);
 		return rs;
+
+
 		
 	}
 	

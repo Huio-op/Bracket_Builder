@@ -90,11 +90,8 @@ public class CreateOrganizadorController implements Initializable {
             try {
                 CPF cpf = new CPF();
                 cpf.setCPF(textCPF.getText());
-                String email = HomeController.user.getEmail();
-                String nome = HomeController.user.getNome();
-                String senha = HomeController.user.getSenha();
-
-                Organizador org = new Organizador(cpf,email,boxNationality.getValue(),nome,senha);
+                String nacionalidade = boxNationality.getValue();
+                Organizador org = HomeController.user.turnOrganizador(cpf,nacionalidade);
                 dbo.save(org);
 
                 JFXButton btnSuccess = new JFXButton("Voltar à tela de Principal");

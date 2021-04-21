@@ -9,12 +9,17 @@
    <children>
       <AnchorPane fx:id="anchorProfile" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: #191D1F;">
          <children>
-            <Label fx:id="lblUsrName" layoutX="13.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="73.0" prefWidth="263.0" styleClass="dark_text" stylesheets="@application.css" text="Name">
+            <Label fx:id="lblUsrName" layoutX="48.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="73.0" prefWidth="263.0" styleClass="dark_text" text="Name">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <JFXButton layoutX="746.0" layoutY="154.0" onAction="#createOrganizadorTransition" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Se tornar Organizador" />
+            <JFXButton fx:id="btnCreateOrganizer" layoutX="746.0" layoutY="154.0" onAction="#createOrganizadorTransition" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Se tornar Organizador" />
+            <Label layoutX="14.0" layoutY="16.0" styleClass="dark_text" stylesheets="@application.css" text="&gt;">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
