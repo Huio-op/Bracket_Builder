@@ -27,9 +27,9 @@ public class DBOrganizador implements IDB<Organizador> {
 
         if(object != null) {
 
-            connection.runSQL("INSERT INTO organizador VALUES( '" + object.getCpf() + "', " +
+            connection.runSQL("INSERT INTO organizador VALUES( '" + object.getCpf().getCPFStringNoChars() + "', " +
                     "(SELECT email FROM usuario WHERE email = '"+object.getEmail()+"'), '"+object.getNacionalidade()+"', " +
-                    "'"+object.getEvetnos_realizados()+", '"+object.getNota()+"'');");
+                    ""+object.getEvetnos_realizados()+", "+object.getNota()+");");
 
         }
 

@@ -3,8 +3,12 @@ package br.com.application.apresentacao;
 import br.com.application.apresentacao.validators.CPFValidator;
 import br.com.application.apresentacao.validators.SameCPFValidator;
 import br.com.application.apresentacao.validators.SameEmailValidator;
+import br.com.application.negocio.Organizador;
+import br.com.application.persistencia.DBOrganizador;
 import br.univates.system32.CPF;
+import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
+import br.univates.system32.JFX.JFXInfoDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import br.univates.system32.JFX.JFXValidatorCreator;
 import br.univates.system32.util.MaskFieldUtil;
@@ -20,11 +24,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -45,6 +52,7 @@ public class CreateOrganizadorController implements Initializable {
 
 
     private JFXTransitionHandler th = new JFXTransitionHandler();
+    private DBOrganizador dbo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,13 +72,46 @@ public class CreateOrganizadorController implements Initializable {
 
         CPFValidator();
 
+        try {
+            this.dbo = new DBOrganizador();
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void createOrganizador(ActionEvent event){
 
         if(textCPF.validate() && checkTerms.isSelected() && boxNationality.getValue()!=null){
             boxNationality.setUnFocusColor(Color.rgb(77,77,77));
-            System.out.println("YAY");
+
+            try {
+                CPF cpf = new CPF();
+                cpf.setCPF(textCPF.getText());
+                String email = HomeController.user.getEmail();
+                String nome = HomeController.user.getNome();
+                String senha = HomeController.user.getSenha();
+
+                Organizador org = new Organizador(cpf,email,boxNationality.getValue(),nome,senha);
+                dbo.save(org);
+
+                JFXButton btnSuccess = new JFXButton("Voltar à tela de Principal");
+                btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+
+                    returnPage(event);
+
+                });
+
+                JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(),
+                        anchorBackgroundOrg.getParent().getParent(), "Sucesso!",
+                        "Organizador criado com sucesso!", Arrays.asList(btnSuccess));
+                dialogSuccess.showDialogPane();
+
+            } catch (DataBaseException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
 
         }else if(boxNationality.getValue()==null){
 
@@ -86,7 +127,7 @@ public class CreateOrganizadorController implements Initializable {
             th.transitionFadeFXML(anchorBackgroundOrg, "/br/com/application/apresentacao/TelaHomePage.fxml", 1);
         } catch (IOException e) {
             e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog(HomeController.rootStackPane, HomeController.rootAnchorPane, e);
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(), anchorBackgroundOrg.getParent().getParent(), e);
             error.showDialogPane();
         }
 
@@ -107,7 +148,7 @@ public class CreateOrganizadorController implements Initializable {
 
         SameCPFValidator scValidator = new SameCPFValidator(false);
 
-        scValidator.setMessage("Email não cadastrado!");
+        scValidator.setMessage("CPF já cadastrado!");
 
         JFXValidatorCreator.createCustomFieldValidator(textCPF, Arrays.asList(rxValidator, cpfValidator, scValidator)
                 , true, false);

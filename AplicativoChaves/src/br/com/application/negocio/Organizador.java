@@ -9,7 +9,7 @@ public class Organizador extends Usuario{
 	private int nota;
 	private String nacionalidade;
 	
-	protected Organizador(CPF cpf, String email,String nacionalidade, String nome, String senha) {
+	public Organizador(CPF cpf, String email,String nacionalidade, String nome, String senha) {
 
 		super(email, nome,senha);
 		this.cpf = cpf;
