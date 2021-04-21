@@ -76,6 +76,8 @@ public class CreateOrganizadorController implements Initializable {
             this.dbo = new DBOrganizador();
         } catch (DataBaseException e) {
             e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(), anchorBackgroundOrg.getParent().getParent(), e);
+            error.showDialogPane();
         }
 
     }
