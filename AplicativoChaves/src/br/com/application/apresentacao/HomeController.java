@@ -3,13 +3,16 @@ package br.com.application.apresentacao;
 import br.com.application.negocio.Usuario;
 import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
+import javax.swing.event.ChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,18 +37,43 @@ public class HomeController implements Initializable {
     private AnchorPane anchorProfile;
 
     @FXML
-    private Label lblUsrName;
+    private AnchorPane anchorFooter;
 
     @FXML
-    private AnchorPane anchorFooter;
+    private JFXButton btnNewBracket;
+
+    @FXML
+    private JFXButton btnSeeBrackets;
 
     private JFXTransitionHandler th = new JFXTransitionHandler();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        try {
+            AnchorPane anchor  = FXMLLoader.load(getClass().getResource("/br/com/application/apresentacao/TelaHomePage.fxml"));
+            anchorMainPage.getChildren().setAll(anchor);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
+            error.showDialogPane();
+        }
+
+
       try{
-          this.lblUsrName.setText(user.getFirstName());
+          if(!user.isOrganizador()){
+              btnNewBracket.setOpacity(0);
+              btnNewBracket.setDisable(true);
+              btnSeeBrackets.setOpacity(0);
+              btnSeeBrackets.setDisable(true);
+
+          }else{
+              btnNewBracket.setOpacity(1);
+              btnNewBracket.setDisable(false);
+              btnSeeBrackets.setOpacity(1);
+              btnSeeBrackets.setDisable(false);
+
+          }
       }catch(NullPointerException e){
           e.printStackTrace();
           JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
@@ -82,6 +110,12 @@ public class HomeController implements Initializable {
             JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
             error.showDialogPane();
         }
+
+    }
+
+    public void createBracketTransition(ActionEvent event){
+
+        System.out.println("Criar bracket");
 
     }
 

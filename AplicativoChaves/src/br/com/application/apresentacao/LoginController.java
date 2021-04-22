@@ -204,7 +204,7 @@ public class LoginController implements Initializable {
 						Usuario u = new Usuario(email, nome, senha);
 						db.save(u);
 
-						JFXButton btnSuccess = new JFXButton("Voltar � tela de Login");
+						JFXButton btnSuccess = new JFXButton("Voltar à tela de Login");
 						btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 
 							textEmailCreate.setText("");

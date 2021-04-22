@@ -105,7 +105,6 @@ public class JFXTransitionHandler {
 		pane.getChildren().setAll(anchor);
 	}
 
-
 	public void sceneTransition(String fxmlPath, Event event) throws IOException {
 
 		Parent secondView = FXMLLoader.load(getClass().getResource(fxmlPath));

@@ -21,13 +21,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,10 +106,19 @@ public class CreateOrganizadorController implements Initializable {
 
                 });
 
-                JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(),
-                        anchorBackgroundOrg.getParent().getParent(), "Sucesso!",
+                JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent().getParent(),
+                        anchorBackgroundOrg.getParent().getParent().getParent(), "Sucesso!",
                         "Organizador criado com sucesso!", Arrays.asList(btnSuccess));
                 dialogSuccess.showDialogPane();
+
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaHome.fxml"));
+//                Parent root = (Parent) loader.load();
+//                HomeController homeController = loader.getController();
+//                homeController.refresh();
+//
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(root));
+//                stage.show();
 
             } catch (DataBaseException e) {
                 e.printStackTrace();
@@ -123,7 +137,7 @@ public class CreateOrganizadorController implements Initializable {
     public void returnPage(ActionEvent event){
 
         try {
-            th.transitionFadeFXML(anchorBackgroundOrg, "/br/com/application/apresentacao/TelaHomePage.fxml", 1);
+            th.transitionFadeFXML((Pane)anchorBackgroundOrg.getParent(), "/br/com/application/apresentacao/TelaHomePage.fxml", 1);
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(), anchorBackgroundOrg.getParent().getParent(), e);
