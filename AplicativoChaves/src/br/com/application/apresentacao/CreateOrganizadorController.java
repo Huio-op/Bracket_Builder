@@ -81,7 +81,8 @@ public class CreateOrganizadorController implements Initializable {
             this.dbo = new DBOrganizador();
         } catch (DataBaseException e) {
             e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(), anchorBackgroundOrg.getParent().getParent(), e);
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(),
+                    anchorBackgroundOrg.getParent().getParent(), e);
             error.showDialogPane();
         }
 
@@ -106,8 +107,8 @@ public class CreateOrganizadorController implements Initializable {
 
                 });
 
-                JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent().getParent(),
-                        anchorBackgroundOrg.getParent().getParent().getParent(), "Sucesso!",
+                JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(),
+                        anchorBackgroundOrg.getParent().getParent(), "Sucesso!",
                         "Organizador criado com sucesso!", Arrays.asList(btnSuccess));
                 dialogSuccess.showDialogPane();
 
@@ -137,10 +138,12 @@ public class CreateOrganizadorController implements Initializable {
     public void returnPage(ActionEvent event){
 
         try {
-            th.transitionFadeFXML((Pane)anchorBackgroundOrg.getParent(), "/br/com/application/apresentacao/TelaHomePage.fxml", 1);
+            th.transitionFadeFXML(anchorBackgroundOrg, "/br/com/application/apresentacao/TelaHomePage.fxml",
+                    1);
         } catch (IOException e) {
             e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(), anchorBackgroundOrg.getParent().getParent(), e);
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundOrg.getParent().getParent().getParent(),
+                    anchorBackgroundOrg.getParent().getParent(), e);
             error.showDialogPane();
         }
 

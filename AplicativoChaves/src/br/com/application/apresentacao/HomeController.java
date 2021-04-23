@@ -1,6 +1,8 @@
 package br.com.application.apresentacao;
 
 import br.com.application.negocio.Usuario;
+import br.com.application.persistencia.DBUsuarios;
+import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import com.jfoenix.controls.JFXButton;
@@ -31,7 +33,7 @@ public class HomeController implements Initializable {
     private AnchorPane paneAnchor;
 
     @FXML
-    private AnchorPane anchorMainPage;
+    private AnchorPane anchorMain;
 
     @FXML
     private AnchorPane anchorProfile;
@@ -51,8 +53,8 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            AnchorPane anchor  = FXMLLoader.load(getClass().getResource("/br/com/application/apresentacao/TelaHomePage.fxml"));
-            anchorMainPage.getChildren().setAll(anchor);
+            AnchorPane home  = FXMLLoader.load(getClass().getResource("/br/com/application/apresentacao/TelaHomePage.fxml"));
+            anchorMain.getChildren().setAll(home);
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
@@ -104,7 +106,7 @@ public class HomeController implements Initializable {
     public void createOrganizadorTransition(ActionEvent event){
 
         try {
-            th.transitionFadeFXML(anchorMainPage, "/br/com/application/apresentacao/TelaCreateOrganizador.fxml", 1);
+            th.transitionFadeFXML(anchorMain, "/br/com/application/apresentacao/TelaCreateOrganizador.fxml", 1);
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
@@ -118,6 +120,5 @@ public class HomeController implements Initializable {
         System.out.println("Criar bracket");
 
     }
-
 
 }

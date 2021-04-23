@@ -101,8 +101,8 @@ public class JFXTransitionHandler {
 				new KeyFrame(Duration.seconds(duration + duration), new KeyValue(pane.opacityProperty(), 1)));
 		timeline2.play();
 
-
-		pane.getChildren().setAll(anchor);
+		Pane father = (Pane) pane.getParent();
+		father.getChildren().setAll(anchor);
 	}
 
 	public void sceneTransition(String fxmlPath, Event event) throws IOException {

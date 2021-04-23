@@ -38,7 +38,11 @@ public class DBUsuarios implements IDB<Usuario> {
 	}
 
 	@Override
-	public void delete(Usuario object) throws DataBaseException {
+	public void delete(Usuario user) throws DataBaseException {
+
+		if(user.isOrganizador()){
+
+		}
 
 	}
 
