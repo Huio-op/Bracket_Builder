@@ -52,7 +52,6 @@ public class UserConfigController implements Initializable {
         this.lblName.setText(HomeController.user.getNome());
 
         if(HomeController.user.isOrganizador()){
-
             try {
                 DBOrganizador dbOrganizadorg = new DBOrganizador();
                 Organizador org = dbOrganizadorg.loadFromEmail(HomeController.user.getEmail());
@@ -60,15 +59,15 @@ public class UserConfigController implements Initializable {
             } catch (DataBaseException | SQLException e) {
                 e.printStackTrace();
             }
-
-
+        }else{
+            this.lblOrg.setText("Não cadastrado");
         }
     }
 
     public void returnPage(ActionEvent event){
 
         try {
-            th.transitionFadeFXML((Pane)anchorBackgroundSett.getParent(), "/br/com/application/apresentacao/TelaHomePage.fxml", 1);
+            th.transitionFadeFXML(anchorBackgroundSett, "/br/com/application/apresentacao/TelaHomePage.fxml", 1);
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundSett.getParent().getParent().getParent(), anchorBackgroundSett.getParent().getParent(), e);
