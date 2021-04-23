@@ -39,8 +39,8 @@ public class DBOrganizador implements IDB<Organizador> {
     }
 
     @Override
-    public Organizador load(String key) throws DataBaseException, SQLException {
-        String sql = "SELECT * FROM organizador WHERE cpf = '"+key+"';";
+    public Organizador load(String cpfOrg) throws DataBaseException, SQLException {
+        String sql = "SELECT * FROM organizador WHERE cpf = '"+cpfOrg+"';";
         Organizador o = null;
 
         ResultSet rs = connection.runQuerySQL(sql);
@@ -60,6 +60,39 @@ public class DBOrganizador implements IDB<Organizador> {
                 rs.next();
                 nome = rs.getString("nome");
                 senha = rs.getString("senha");
+            }
+
+            int eventosRealizados = rs.getInt("eventos_realizados");
+            int nota = rs.getInt("nota");
+
+            o = new Organizador(cpf,orgEmail,nacionalidade, nome, senha, eventosRealizados, nota);
+
+        }
+
+        return o;
+    }
+
+    public Organizador loadFromEmail(String email) throws DataBaseException, SQLException {
+        String sql = "SELECT * FROM organizador WHERE email = '"+email+"';";
+        Organizador o = null;
+
+        ResultSet rs = connection.runQuerySQL(sql);
+
+        if(rs.isBeforeFirst()) {
+            rs.next();
+            CPF cpf = new CPF();
+            cpf.setCPF(rs.getString("cpf"));
+            String orgEmail = rs.getString("email");
+            String nacionalidade = rs.getString("nacionalidade");
+
+            String sqlUsu = "SELECT * FROM usuario WHERE email = '"+orgEmail+"';";
+            ResultSet rsUsu = connection.runQuerySQL(sqlUsu);
+            String nome = null;
+            String senha = null;
+            if(rsUsu.isBeforeFirst()){
+                rsUsu.next();
+                nome = rsUsu.getString("nome");
+                senha = rsUsu.getString("senha");
             }
 
             int eventosRealizados = rs.getInt("eventos_realizados");

@@ -18,6 +18,12 @@
 	-fx-text-fill: #5A78FF;
 }
 
+.light_text{
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+	-fx-font-style: bold;
+}
+
 .jfx-combo-box {
 	-fx-text-inner-color:  #3C50AA;
 	-fx-prompt-text-fill: white;
@@ -60,6 +66,15 @@
 	-fx-background-color: #3C50AA;
 	-fx-text-fill: white;
 	-fx-font-size: 15px;
+
+}
+
+.settings-buttons{
+
+	-fx-background-color: #3C50AA;
+	-fx-text-fill: white;
+	-fx-font-size: 15px;
+	-fx-background-image: url('/imgComponents/settings.png');
 
 }
 

@@ -56,5 +56,17 @@ public class HomePageController implements Initializable {
 
     }
 
+    public void settingsTransition(ActionEvent event){
+
+        try {
+            th.transitionFadeFXML(anchorMainPage, "/br/com/application/apresentacao/TelaUserConfig.fxml", 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorMainPage.getParent().getParent().getParent(), anchorMainPage.getParent().getParent(), e);
+            error.showDialogPane();
+        }
+
+    }
+
 
 }
