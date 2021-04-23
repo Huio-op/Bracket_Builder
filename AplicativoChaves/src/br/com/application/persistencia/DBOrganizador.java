@@ -106,7 +106,15 @@ public class DBOrganizador implements IDB<Organizador> {
     }
 
     @Override
-    public void delete(Organizador object) throws DataBaseException {
+    public void delete(Organizador org) throws DataBaseException {
+
+        connection.runSQL("DELETE FROM organizador WHERE email = '" + org.getEmail() + "';");
+
+    }
+
+    public void deleteFromEmail(String email) throws DataBaseException {
+
+        connection.runSQL("DELETE FROM organizador WHERE email = '" + email + "';");
 
     }
 

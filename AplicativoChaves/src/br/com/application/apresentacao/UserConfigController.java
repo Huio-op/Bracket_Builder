@@ -101,7 +101,35 @@ public class UserConfigController implements Initializable {
     public void delete(ActionEvent event){
 
 
+        try {
+            db.delete(HomeController.user);
 
+            JFXButton btnSuccess = new JFXButton("Voltar à tela principal");
+            btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+
+                textNewName.setText("");
+                textNewPass.setText("");
+                textConfirmPass.setText("");
+
+                try {
+                    th.sceneTransition("/br/com/application/apresentacao/TelaLogin.fxml", event);
+                    HomeController.user = null;
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+
+            });
+
+            JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundSett.getParent().getParent().getParent(),
+                    anchorBackgroundSett.getParent().getParent(), "Sucesso!",
+                    "Conta excluida com sucesso!", Arrays.asList(btnSuccess));
+
+            dialogSuccess.showDialogPane();
+
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
 
 
     }

@@ -40,7 +40,15 @@ public class DBUsuarios implements IDB<Usuario> {
 	@Override
 	public void delete(Usuario user) throws DataBaseException {
 
-		if(user.isOrganizador()){
+		if(user != null){
+			if(user.isOrganizador()){
+
+				DBOrganizador dbo = new DBOrganizador();
+				dbo.deleteFromEmail(user.getEmail());
+
+			}
+
+			connection.runSQL("DELETE FROM usuario WHERE email = '" + user.getEmail() + "';");
 
 		}
 
