@@ -2,7 +2,7 @@
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
     <libelement value="jar://C:/JavaFX/JFoenix/jfoenix-9.0.10.jar!/" />
-    <libelement value="jar://$MODULE_DIR$/../../../Classes Conexão BD/postgresql-42.2.19.jar!/" />
+    <libelement value="jar://C:/Users/Classes Conexão BD/postgresql-42.2.19.jar!/" />
     <conelement value="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
@@ -15,9 +15,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="System32" />
+    <orderEntry type="module" module-name="System32" exported="" />
     <orderEntry type="library" name="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER" level="application" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="jfoenix-9.0.10.jar">
         <CLASSES>
           <root url="jar://C:/JavaFX/JFoenix/jfoenix-9.0.10.jar!/" />
@@ -26,17 +26,17 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="postgresql-42.2.19.jar">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../Classes Conexão BD/postgresql-42.2.19.jar!/" />
+          <root url="jar://C:/Users/Classes Conexão BD/postgresql-42.2.19.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="library" name="JavaFX16" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
     <orderEntry type="library" name="System32" level="project" />
     <orderEntry type="library" name="System32-1.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="System32" />
