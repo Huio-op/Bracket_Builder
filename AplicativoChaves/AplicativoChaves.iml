@@ -41,6 +41,6 @@
     <orderEntry type="library" name="System32-1.0-SNAPSHOT" level="project" />
     <orderEntry type="module" module-name="System32" />
     <orderEntry type="module" module-name="System32" />
-    <orderEntry type="library" name="jfoenix-9.0.10" level="project" />
+    <orderEntry type="library" exported="" name="jfoenix" level="project" />
   </component>
 </module>

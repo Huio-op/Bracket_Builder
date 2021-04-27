@@ -32,10 +32,10 @@
                                     </ImageView>
                                  </graphic>
                               </JFXButton>
-                              <JFXTextField fx:id="textEmailCreate" focusColor="#5a78ff" layoutX="95.0" layoutY="81.0" onKeyReleased="#textFieldUserKeyReleased" prefHeight="25.0" prefWidth="210.0" promptText="Digite o seu endereço de e-mail" />
-                              <JFXTextField fx:id="textNomeCreate" focusColor="#5a78ff" layoutX="96.0" layoutY="136.0" onKeyReleased="#textFieldUserKeyReleased" prefHeight="25.0" prefWidth="210.0" promptText="Digite o seu nome" />
-                              <JFXPasswordField fx:id="textPassCreate" focusColor="#5a78ff" layoutX="95.0" layoutY="190.0" prefHeight="25.0" prefWidth="210.0" promptText="Digite a sua senha" />
-                              <JFXPasswordField fx:id="textPassConfirm" focusColor="#5a78ff" layoutX="95.0" layoutY="248.0" prefHeight="25.0" prefWidth="210.0" promptText="Confirme a sua senha" />
+                              <JFXTextField fx:id="textEmailCreate" focusColor="#5a78ff" labelFloat="true" layoutX="95.0" layoutY="81.0" onKeyReleased="#textFieldUserKeyReleased" prefHeight="25.0" prefWidth="210.0" promptText="Digite o seu endereço de e-mail" />
+                              <JFXTextField fx:id="textNomeCreate" focusColor="#5a78ff" labelFloat="true" layoutX="96.0" layoutY="136.0" onKeyReleased="#textFieldUserKeyReleased" prefHeight="25.0" prefWidth="210.0" promptText="Digite o seu nome" />
+                              <JFXPasswordField fx:id="textPassCreate" focusColor="#5a78ff" labelFloat="true" layoutX="95.0" layoutY="190.0" prefHeight="25.0" prefWidth="210.0" promptText="Digite a sua senha" />
+                              <JFXPasswordField fx:id="textPassConfirm" focusColor="#5a78ff" labelFloat="true" layoutX="95.0" layoutY="248.0" prefHeight="25.0" prefWidth="210.0" promptText="Confirme a sua senha" />
                               <JFXButton fx:id="btnCriarConta" layoutX="123.0" layoutY="307.0" onAction="#createAccount" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #5A78FF;" text="Criar Conta" textFill="WHITE">
                                  <font>
                                     <Font size="15.0" />

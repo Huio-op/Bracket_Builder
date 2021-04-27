@@ -42,10 +42,10 @@ public class HomeController implements Initializable {
     private AnchorPane anchorFooter;
 
     @FXML
-    private JFXButton btnNewBracket;
+    private JFXButton btnNewEvent;
 
     @FXML
-    private JFXButton btnSeeBrackets;
+    private JFXButton btnSeeEvents;
 
     private JFXTransitionHandler th = new JFXTransitionHandler();
 
@@ -64,16 +64,16 @@ public class HomeController implements Initializable {
 
       try{
           if(!user.isOrganizador()){
-              btnNewBracket.setOpacity(0);
-              btnNewBracket.setDisable(true);
-              btnSeeBrackets.setOpacity(0);
-              btnSeeBrackets.setDisable(true);
+              btnNewEvent.setOpacity(0);
+              btnNewEvent.setDisable(true);
+              btnSeeEvents.setOpacity(0);
+              btnSeeEvents.setDisable(true);
 
           }else{
-              btnNewBracket.setOpacity(1);
-              btnNewBracket.setDisable(false);
-              btnSeeBrackets.setOpacity(1);
-              btnSeeBrackets.setDisable(false);
+              btnNewEvent.setOpacity(1);
+              btnNewEvent.setDisable(false);
+              btnSeeEvents.setOpacity(1);
+              btnSeeEvents.setDisable(false);
 
           }
       }catch(NullPointerException e){
@@ -117,7 +117,13 @@ public class HomeController implements Initializable {
 
     public void createBracketTransition(ActionEvent event){
 
-        System.out.println("Criar bracket");
+        try {
+            th.transitionFadeFXML(anchorMain, "/br/com/application/apresentacao/TelaCreateEvento.fxml", 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
+            error.showDialogPane();
+        }
 
     }
 

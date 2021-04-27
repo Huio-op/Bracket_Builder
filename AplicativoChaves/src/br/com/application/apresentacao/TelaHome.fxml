@@ -13,8 +13,8 @@
                   <AnchorPane fx:id="anchorMain" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #292E42;" />
                   <AnchorPane fx:id="anchorFooter" layoutY="700.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="950.0" style="-fx-background-color: #191D1F;">
                      <children>
-                        <JFXButton fx:id="btnNewBracket" layoutX="745.0" layoutY="9.0" onAction="#createBracketTransition" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Nova Bracket" />
-                        <JFXButton fx:id="btnSeeBrackets" layoutX="530.0" layoutY="9.0" prefHeight="31.0" prefWidth="190.0" styleClass="dark-button" text="Ver Brackets Criadas" />
+                        <JFXButton fx:id="btnNewEvent" layoutX="745.0" layoutY="9.0" onAction="#createBracketTransition" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Novo Evento" />
+                        <JFXButton fx:id="btnSeeEvents" layoutX="530.0" layoutY="9.0" prefHeight="31.0" prefWidth="190.0" styleClass="dark-button" text="Ver Eventos Criados" />
                         <JFXButton layoutX="14.0" layoutY="9.0" onAction="#doLogOut" prefHeight="31.0" prefWidth="190.0" styleClass="red-button" text="Log Out" />
                      </children>
                   </AnchorPane>
