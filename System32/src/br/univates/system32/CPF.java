@@ -57,6 +57,10 @@ public class CPF implements Serializable{
 		return cpfFull;
 	}
 
+	public String getCPFStringNoChars() {
+		return cpf;
+	}
+
 	public static boolean validaCPF(String cpf) {
 
 		boolean ok = true;

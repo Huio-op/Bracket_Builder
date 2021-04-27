@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorBackgroundOrg" onDragDetected="#createOrganizador" prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateOrganizadorController">
+   <children>
+      <AnchorPane layoutX="295.0" layoutY="155.0" prefHeight="390.0" prefWidth="360.0" style="-fx-background-color: #191D1F;">
+         <children>
+            <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" onAction="#returnPage" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imgComponents/icon_arrow.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXTextField fx:id="textCPF" focusColor="#5a78ff" labelFloat="true" layoutX="85.0" layoutY="108.0" prefHeight="26.0" prefWidth="190.0" promptText="Digite seu CPF (Apenas números)" />
+            <JFXButton fx:id="btnCriarOrganizador" layoutX="102.0" layoutY="314.0" onAction="#createOrganizador" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #5A78FF;" text="Criar Conta" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXCheckBox fx:id="checkTerms" checkedColor="#5a78ff" layoutX="69.0" layoutY="251.0" prefHeight="18.0" prefWidth="155.0" text="Concordo com os Termos de Serviço" textFill="WHITE" />
+            <JFXComboBox fx:id="boxNationality" focusColor="#5a78ff" layoutX="84.0" layoutY="183.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha seu país" style="-jfx-label-float: true;" stylesheets="@application.css" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

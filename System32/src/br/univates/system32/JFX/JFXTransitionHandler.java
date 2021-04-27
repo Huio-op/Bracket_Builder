@@ -3,9 +3,20 @@ package br.univates.system32.JFX;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.sql.Time;
+import java.util.Stack;
 
 
 public class JFXTransitionHandler {
@@ -33,7 +44,7 @@ public class JFXTransitionHandler {
 	 * 
 	 * @param endHeight dita a altura final do painel quando a transição acabar
 	 */
-	public void transitionFadeExpand(Pane pane, int typeFade, double duration, 
+	public static void transitionFadeExpand(Pane pane, int typeFade, double duration,
 			double startingWidth, double startingHeight, double endWidth, double endHeight) {
 
 		Timeline timeline = new Timeline();
@@ -66,6 +77,46 @@ public class JFXTransitionHandler {
 		}
 
 		timeline.play();
+
+	}
+
+	public void transitionFadeFXML(Pane pane, String fxmlPath, double duration) throws IOException {
+
+		Timeline timeline = new Timeline();
+
+
+			timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
+							new KeyValue(pane.opacityProperty(), 1)),
+					new KeyFrame(Duration.seconds(duration),
+							new KeyValue(pane.opacityProperty(), 0)));
+
+
+		timeline.play();
+
+		Timeline timeline2 = new Timeline();
+
+		AnchorPane anchor = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+		timeline.getKeyFrames().addAll(new KeyFrame(Duration.seconds(duration), new KeyValue(pane.opacityProperty(), 0)),
+				new KeyFrame(Duration.seconds(duration + duration), new KeyValue(pane.opacityProperty(), 1)));
+		timeline2.play();
+
+		Pane father = (Pane) pane.getParent();
+		father.getChildren().setAll(anchor);
+	}
+
+	public void sceneTransition(String fxmlPath, Event event) throws IOException {
+
+		Parent secondView = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+		Scene newScene = new Scene(secondView);
+
+		Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		currentStage.setScene(newScene);
+		currentStage.centerOnScreen();
+		currentStage.show();
+
 
 	}
 

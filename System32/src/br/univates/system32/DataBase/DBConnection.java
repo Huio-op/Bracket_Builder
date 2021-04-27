@@ -41,14 +41,15 @@ public class DBConnection {
 	public void connect() throws DataBaseException {
 		
 		try{
-			
+
 			Connection connection = DriverManager.getConnection(url, user, password);
 			this.connection = connection;
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DataBaseException("Falha na conexão com o servidor!");
 		}
-		
+
 	}
 	
 	public void connectionTest() throws DataBaseException {
@@ -97,9 +98,9 @@ public class DBConnection {
 		if(this.connection == null) {
 			this.connect();
 		}
-		
+
 		executeSQL(sql);
-		
+
 	}
 	
 	public ResultSet executeQuerySQL(String sql) throws DataBaseException {
@@ -111,9 +112,11 @@ public class DBConnection {
 			ResultSet rs = stm.executeQuery(sql);
 			this.rs = rs;
 		} catch (SQLException e) {
+
+			e.printStackTrace();
 			throw new DataBaseException("Falha na execução da Query.");
 		}
-		
+
 		return rs;
 				
 	}
@@ -128,6 +131,8 @@ public class DBConnection {
 		
 		this.rs = executeQuerySQL(sql);
 		return rs;
+
+
 		
 	}
 	
