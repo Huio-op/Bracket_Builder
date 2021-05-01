@@ -5,9 +5,11 @@ import br.univates.system32.JFX.JFXTransitionHandler;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -30,6 +32,7 @@ public class HomePageController implements Initializable {
     private JFXButton btnCreateOrganizer;
 
     private JFXTransitionHandler th = new JFXTransitionHandler();
+    private HomeController homeController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,10 +47,24 @@ public class HomePageController implements Initializable {
         }
     }
 
+    public void setHomeController(HomeController homeController){
+
+        this.homeController = homeController;
+
+    }
+
     public void createOrganizadorTransition(ActionEvent event){
 
         try {
-            th.transitionFadeFXML(anchorMainPage, "/br/com/application/apresentacao/TelaCreateOrganizador.fxml", 1);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateOrganizador.fxml"));
+            AnchorPane tOrg = loader.load();
+            CreateOrganizadorController orgController = loader.getController();
+            orgController.setHomeController(this.homeController);
+            Pane father = (Pane) anchorMainPage.getParent();
+            father.getChildren().setAll(tOrg);
+
+
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorMainPage.getParent().getParent().getParent(), anchorMainPage.getParent().getParent(), e);

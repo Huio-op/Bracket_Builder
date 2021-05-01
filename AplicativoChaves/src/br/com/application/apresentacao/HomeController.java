@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import javax.swing.event.ChangeListener;
@@ -53,8 +54,14 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
-            AnchorPane home  = FXMLLoader.load(getClass().getResource("/br/com/application/apresentacao/TelaHomePage.fxml"));
-            anchorMain.getChildren().setAll(home);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaHomePage.fxml"));
+            AnchorPane anchorHomePage = loader.load();
+            HomePageController orgController = loader.getController();
+            orgController.setHomeController(this);
+
+            anchorMain.getChildren().setAll(anchorHomePage);
+
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
@@ -103,11 +110,23 @@ public class HomeController implements Initializable {
 
     }
 
-    public void createOrganizadorTransition(ActionEvent event){
+    public void refreshFooter(){
 
-        try {
-            th.transitionFadeFXML(anchorMain, "/br/com/application/apresentacao/TelaCreateOrganizador.fxml", 1);
-        } catch (IOException e) {
+        try{
+            if(!user.isOrganizador()){
+                btnNewEvent.setOpacity(0);
+                btnNewEvent.setDisable(true);
+                btnSeeEvents.setOpacity(0);
+                btnSeeEvents.setDisable(true);
+
+            }else{
+                btnNewEvent.setOpacity(1);
+                btnNewEvent.setDisable(false);
+                btnSeeEvents.setOpacity(1);
+                btnSeeEvents.setDisable(false);
+
+            }
+        }catch(NullPointerException e){
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
             error.showDialogPane();
