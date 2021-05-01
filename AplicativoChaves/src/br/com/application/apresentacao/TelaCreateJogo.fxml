@@ -19,9 +19,9 @@
       </Label>
       <JFXTextField fx:id="textNome" labelFloat="true" layoutX="94.0" layoutY="101.0" prefHeight="22.0" prefWidth="145.0" promptText="Digite o nome do jogo:" />
       <JFXButton layoutX="14.0" layoutY="307.0" onAction="#close" prefHeight="29.0" prefWidth="100.0" styleClass="red-button" text="Cancelar" />
-      <JFXButton layoutX="83.0" layoutY="135.0" prefHeight="124.0" prefWidth="154.0" styleClass="dark-button">
+      <JFXButton layoutX="94.0" layoutY="145.0" prefHeight="140.0" prefWidth="171.0" styleClass="dark-button">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="116.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imgComponents/icon_plus.png" />
                </image>
