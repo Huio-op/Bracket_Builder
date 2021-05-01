@@ -65,14 +65,24 @@ public class JFXTransitionHandler {
 
 		);
 
+		transitionFade(pane, typeFade, duration);
+
+		timeline.play();
+
+	}
+
+	public static void transitionFade(Pane pane, int typeFade, double duration){
+
+		Timeline timeline = new Timeline();
+
 		if (typeFade == 2) {
-			timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO, 
-					new KeyValue(pane.opacityProperty(), 1)),
-					new KeyFrame(Duration.seconds(duration), 
+			timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO,
+							new KeyValue(pane.opacityProperty(), 1)),
+					new KeyFrame(Duration.seconds(duration),
 							new KeyValue(pane.opacityProperty(), 0)));
 		} else if (typeFade == 1) {
 			timeline.getKeyFrames().addAll(new KeyFrame(Duration.ZERO, new KeyValue(pane.opacityProperty(), 0)),
-					new KeyFrame(Duration.seconds(duration), 
+					new KeyFrame(Duration.seconds(duration),
 							new KeyValue(pane.opacityProperty(), 1)));
 		}
 

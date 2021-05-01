@@ -9,8 +9,10 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -21,6 +23,9 @@ public class CreateEventoController implements Initializable {
 
     @FXML
     private AnchorPane anchorBackgroundEvt;
+
+    @FXML
+    private StackPane stackPane;
 
     @FXML
     private JFXButton btnVoltar;
@@ -44,9 +49,22 @@ public class CreateEventoController implements Initializable {
     private JFXButton btnCreateGame;
 
     JFXTransitionHandler th = new JFXTransitionHandler();
+    CreateJogoController jogoController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateJogo.fxml"));
+            AnchorPane tJogo = loader.load();
+            this.stackPane.getChildren().add(tJogo);
+            this.stackPane.getChildren().get(1).toBack();
+            this.jogoController = loader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         createNomeValidator();
 
@@ -64,6 +82,15 @@ public class CreateEventoController implements Initializable {
                     anchorBackgroundEvt.getParent().getParent(), e);
             error.showDialogPane();
         }
+
+    }
+
+    public void createJogoTransition(ActionEvent event){
+
+        this.stackPane.getChildren();
+        JFXTransitionHandler.transitionFade(jogoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
+        this.stackPane.getChildren().get(0).toFront();
+        jogoController.show((Pane) this.stackPane.getChildren().get(0));
 
     }
 
