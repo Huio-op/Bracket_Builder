@@ -24,7 +24,7 @@ CREATE TABLE jogo(
 
     id_jogo SERIAL,
     nome VARCHAR(45) NOT NULL,
-    image bytea,
+    image bytea NOT NULL,
     CONSTRAINT pk_jogo PRIMARY KEY (id_jogo)
 
 );

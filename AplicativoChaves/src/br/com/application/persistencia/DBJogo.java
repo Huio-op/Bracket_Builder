@@ -7,6 +7,7 @@ import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.DataBase.IDB;
 
 import java.io.FileNotFoundException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +27,12 @@ public class DBJogo implements IDB<Jogo> {
 
         if(jogo != null){
 
-            connection.runSQL("INSERT INTO jogo VALUES( '"+  jogo.getNome() +"',  '"+jogo.getImg()+"')");
+            PreparedStatement ps = connection.getConnection().prepareStatement("INSERT INTO jogo (nome,image) VALUES( ? , ? )");
+            ps.setString(1, jogo.getNome());
+            ps.setBytes(2, jogo.getImg());
+
+            ps.executeUpdate();
+            ps.close();
 
         }
 
@@ -72,14 +78,38 @@ public class DBJogo implements IDB<Jogo> {
 
     @Override
     public ArrayList<Jogo> loadAll() throws DataBaseException, SQLException {
-        return null;
+
+        ArrayList<Jogo> array = new ArrayList<Jogo>();
+
+        String sql = "SELECT * FROM jogo";
+        ResultSet rs = connection.runQuerySQL(sql);
+
+        if(rs.isBeforeFirst()) {
+            while(rs.next()){
+
+                String jogoNome = rs.getString("nome");
+                byte[] img = rs.getBytes("image");
+
+                try {
+                    Jogo jogo = new Jogo(jogoNome,img);
+                    array.add(jogo);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+
+        return array;
+
     }
 
     public boolean checkNome(String nome) throws DataBaseException, SQLException {
 
         Boolean alreadyExists = false;
 
-        String sql = "SELECT * FROM jogo WHERE email = '"+nome+"';";
+        String sql = "SELECT * FROM jogo WHERE nome = '"+nome+"';";
         ResultSet rs = connection.runQuerySQL(sql);
 
         if(rs.isBeforeFirst()) {

@@ -38,7 +38,7 @@
                         <JFXTextArea fx:id="textDesc" layoutX="96.0" layoutY="239.0" prefHeight="116.0" prefWidth="465.0" promptText="Descricao do evento:" styleClass="light_text" />
                         <DatePicker layoutX="233.0" layoutY="484.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha a data:" styleClass="date-picker" />
                         <JFXComboBox fx:id="comboJogo" labelFloat="true" layoutX="379.0" layoutY="149.0" prefHeight="22.0" prefWidth="153.0" promptText="Selecione o jogo:" />
-                        <JFXButton fx:id="btnCreateGame" layoutX="537.0" layoutY="145.0" onAction="#createJogoTransition" prefHeight="29.0" prefWidth="28.0" styleClass="dark-button" text="+" />
+                        <JFXButton fx:id="btnCreateGame" layoutX="537.0" layoutY="145.0" onAction="#createJogoTransition" prefHeight="31.0" prefWidth="33.0" styleClass="dark-button" text="+" />
                      </children>
                   </AnchorPane>
                </children>

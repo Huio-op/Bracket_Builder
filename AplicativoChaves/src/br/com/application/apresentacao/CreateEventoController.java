@@ -1,5 +1,8 @@
 package br.com.application.apresentacao;
 
+import br.com.application.negocio.Jogo;
+import br.com.application.persistencia.DBJogo;
+import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import br.univates.system32.JFX.JFXValidatorCreator;
@@ -17,6 +20,8 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CreateEventoController implements Initializable {
@@ -43,13 +48,14 @@ public class CreateEventoController implements Initializable {
     private JFXTextArea textDesc;
 
     @FXML
-    private JFXComboBox<?> comboJogo;
+    private JFXComboBox<String> comboJogo;
 
     @FXML
     private JFXButton btnCreateGame;
 
     JFXTransitionHandler th = new JFXTransitionHandler();
     CreateJogoController jogoController;
+    DBJogo dbJogo = new DBJogo();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,16 +66,46 @@ public class CreateEventoController implements Initializable {
             this.stackPane.getChildren().add(tJogo);
             this.stackPane.getChildren().get(1).toBack();
             this.jogoController = loader.getController();
+            this.jogoController.setEventoController(this);
 
         } catch (IOException e) {
             e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
+                    anchorBackgroundEvt.getParent(), e);
+            error.showDialogPane();
         }
 
+        refreshComboJogo();
 
         createNomeValidator();
 
     }
 
+    public void refreshComboJogo(){
+
+        this.comboJogo.getItems().removeAll();
+
+        try {
+            ArrayList<Jogo> array = dbJogo.loadAll();
+            if(!array.isEmpty()){
+                for (Jogo jogo: array) {
+                    this.comboJogo.getItems().add(jogo.getNome());
+                }
+            }
+
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent(),
+                    anchorBackgroundEvt.getParent(), e);
+            error.showDialogPane();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent(),
+                    anchorBackgroundEvt.getParent(), e);
+            error.showDialogPane();
+        }
+
+    }
 
     public void returnPage(ActionEvent event){
 

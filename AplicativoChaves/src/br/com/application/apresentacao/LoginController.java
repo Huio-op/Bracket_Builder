@@ -216,8 +216,8 @@ public class LoginController implements Initializable {
 
 						});
 
-						JFXInfoDialog dialogSuccess = new JFXInfoDialog(rootStackPane, paneAnchor, "Sucesso!",
-								"Conta criada com sucesso!", Arrays.asList(btnSuccess));
+						JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) paneAnchor.getParent(), paneAnchor, "Sucesso!",
+								"Jogo cadastrado com sucesso!", Arrays.asList(btnSuccess));
 						dialogSuccess.showDialogPane();
 
 					} catch (DataBaseException e) {
