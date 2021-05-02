@@ -116,6 +116,8 @@ public class CreateJogoController implements Initializable {
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (DataBaseException e) {

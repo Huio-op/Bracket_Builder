@@ -1,6 +1,8 @@
 package br.com.application.apresentacao;
 
+import br.com.application.negocio.Organizador;
 import br.com.application.negocio.Usuario;
+import br.com.application.persistencia.DBOrganizador;
 import br.com.application.persistencia.DBUsuarios;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
@@ -18,11 +20,10 @@ import javafx.scene.layout.StackPane;
 import javax.swing.event.ChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
-
-    public static Usuario user;
 
     @FXML
     private AnchorPane rootAnchorPane;
@@ -49,6 +50,8 @@ public class HomeController implements Initializable {
     private JFXButton btnSeeEvents;
 
     private JFXTransitionHandler th = new JFXTransitionHandler();
+    public static Usuario user;
+    public static Organizador organizador;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,12 +84,17 @@ public class HomeController implements Initializable {
               btnNewEvent.setDisable(false);
               btnSeeEvents.setOpacity(1);
               btnSeeEvents.setDisable(false);
-
+              DBOrganizador dbOrg = new DBOrganizador();
+              setOrganizador(dbOrg.loadFromEmail(user.getEmail()));
           }
       }catch(NullPointerException e){
           e.printStackTrace();
           JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
           error.showDialogPane();
+      } catch (SQLException throwables) {
+          throwables.printStackTrace();
+      } catch (DataBaseException e) {
+          e.printStackTrace();
       }
 
     }
@@ -94,6 +102,12 @@ public class HomeController implements Initializable {
     public static void setUser(Usuario userToLogIn){
 
         user = userToLogIn;
+
+    }
+
+    public static void setOrganizador(Organizador user_org){
+
+        organizador = user_org;
 
     }
 

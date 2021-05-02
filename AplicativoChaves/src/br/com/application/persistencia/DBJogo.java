@@ -39,22 +39,23 @@ public class DBJogo implements IDB<Jogo> {
     }
 
     @Override
-    public Jogo load(String nome) throws DataBaseException, SQLException {
+    public Jogo load(String idJogo) throws DataBaseException, SQLException {
 
 
 
-        String sql = "SELECT * FROM jogo WHERE nome = '"+nome+"';";
+        String sql = "SELECT * FROM jogo WHERE id_jogo = "+Integer.parseInt(idJogo)+";";
         Jogo jogo = null;
 
         ResultSet rs = connection.runQuerySQL(sql);
 
         if(rs.isBeforeFirst()) {
             rs.next();
+            int id = rs.getInt("id_jogo");
             String jogoNome = rs.getString("nome");
-            byte[] img = rs.getBytes("img");
+            byte[] img = rs.getBytes("image");
 
             try {
-                jogo = new Jogo(jogoNome,img);
+                jogo = new Jogo( id,jogoNome,img);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -87,11 +88,12 @@ public class DBJogo implements IDB<Jogo> {
         if(rs.isBeforeFirst()) {
             while(rs.next()){
 
+                int id = rs.getInt("id_jogo");
                 String jogoNome = rs.getString("nome");
                 byte[] img = rs.getBytes("image");
 
                 try {
-                    Jogo jogo = new Jogo(jogoNome,img);
+                    Jogo jogo = new Jogo(id,jogoNome,img);
                     array.add(jogo);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

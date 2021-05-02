@@ -1,6 +1,8 @@
 package br.com.application.apresentacao;
 
+import br.com.application.negocio.Evento;
 import br.com.application.negocio.Jogo;
+import br.com.application.persistencia.DBEvento;
 import br.com.application.persistencia.DBJogo;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
@@ -66,17 +68,18 @@ public class CreateEventoController implements Initializable {
     private JFXButton btnCreateGame;
 
     @FXML
-    private JFXTextField textPremio;
-
-    @FXML
     private DatePicker datePicker;
 
     @FXML
     private Label lblDate;
 
+    @FXML
+    private AnchorPane anchorCurrency;
+
     JFXTransitionHandler th = new JFXTransitionHandler();
     CreateJogoController jogoController;
     DBJogo dbJogo = new DBJogo();
+    CurrencyField currencyField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,6 +100,12 @@ public class CreateEventoController implements Initializable {
         }
 
 
+        this.currencyField = new CurrencyField(new Locale("pt","BR"));
+        anchorCurrency.getChildren().add(currencyField);
+        currencyField.setPromptText(":Digite o valor do prêmio");
+        currencyField.setLabelFloat(true);
+        currencyField.setPrefWidth(190);
+        currencyField.setPrefHeight(25);
 
         refreshComboJogo();
 
@@ -114,18 +123,18 @@ public class CreateEventoController implements Initializable {
             ArrayList<Jogo> array = dbJogo.loadAll();
             if(!array.isEmpty()){
                 for (Jogo jogo: array) {
-                    this.comboJogo.getItems().add(jogo.getNome());
+                    this.comboJogo.getItems().add(jogo.getIdJogo() +"-"+ jogo.getNome());
                 }
             }
 
         } catch (DataBaseException e) {
             e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent(),
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
                     anchorBackgroundEvt.getParent(), e);
             error.showDialogPane();
         } catch (SQLException e) {
             e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent(),
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
                     anchorBackgroundEvt.getParent(), e);
             error.showDialogPane();
         }
@@ -139,8 +148,8 @@ public class CreateEventoController implements Initializable {
                     1);
         } catch (IOException e) {
             e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent().getParent(),
-                    anchorBackgroundEvt.getParent().getParent(), e);
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
+                    anchorBackgroundEvt.getParent(), e);
             error.showDialogPane();
         }
 
@@ -161,15 +170,37 @@ public class CreateEventoController implements Initializable {
 
             this.lblDate.setText("Escolha uma data!");
 
-            if(textNome.validate() && comboJogo.validate() && textPremio.validate()){
-
-
-
-            }
-
         }else{
 
             this.lblDate.setText("");
+
+            if(textNome.validate() && comboJogo.validate() && currencyField.validate()){
+
+                try {
+
+                    Jogo jogo = dbJogo.load(comboJogo.getValue().split("-")[0]);
+
+                    Evento evento = new Evento(textNome.getText(), jogo, HomeController.organizador.getCpf(), textDesc.getText(),
+                            currencyField.getAmount(), datePicker.getValue());
+                    DBEvento dbEvento = new DBEvento();
+
+                    dbEvento.save(evento);
+
+                    System.out.println("Salvou");
+
+
+                } catch (DataBaseException e) {
+                    e.printStackTrace();
+                    JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
+                            anchorBackgroundEvt.getParent(), e);
+                    error.showDialogPane();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
+                            anchorBackgroundEvt.getParent(), throwables);
+                    error.showDialogPane();
+                }
+            }
 
         }
 
@@ -191,34 +222,7 @@ public class CreateEventoController implements Initializable {
 
     private void createPremioValidator(){
 
-        JFXValidatorCreator.createRequiredFieldValidator(textPremio);
-
-        textPremio.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-
-                if(textPremio != null && !textPremio.getText().equals("")) {
-
-                    String plainText = textPremio.getText().replaceAll("[^0-9]", "");
-
-                    while(plainText.length() < 3) {
-                        plainText = "0" + plainText;
-                    }
-
-                    StringBuilder builder = new StringBuilder(plainText);
-                    builder.insert(plainText.length() - 2, ".");
-
-                    NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
-                    SimpleDoubleProperty amount = new SimpleDoubleProperty(textPremio, "amount", 0.00);
-
-                    Double newV = Double.parseDouble(builder.toString());
-                    amount.set(newV);
-                    textPremio.setText(nf.format(newV));
-                }
-
-
-            }
-        });
+        JFXValidatorCreator.createRequiredFieldValidator(this.currencyField);
 
     }
 

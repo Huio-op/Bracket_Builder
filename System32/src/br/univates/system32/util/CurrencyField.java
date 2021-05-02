@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
  * @author Gustavo
  * @version 1.0
  */
-public class CurrencyField extends TextField {
+public class CurrencyField extends JFXTextField {
 
     private NumberFormat format;
     private SimpleDoubleProperty amount;

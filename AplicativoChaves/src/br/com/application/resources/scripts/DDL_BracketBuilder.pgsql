@@ -34,7 +34,6 @@ CREATE TABLE evento(
     id_evento SERIAL,
     nome VARCHAR(45) NOT NULL,
     jogo INT NOT NULL,
-    localizacao VARCHAR(45) NOT NULL,
     cpf_organizador VARCHAR(14) NOT NULL,
     detalhes VARCHAR(500),
     premio DECIMAL(11,2) NOT NULL DEFAULT 0.00,

@@ -8,25 +8,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="anchorRoot" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="350.0" prefWidth="335.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateJogoController">
    <children>
-      <JFXButton layoutX="221.0" layoutY="307.0" prefHeight="29.0" prefWidth="100.0" styleClass="light-button" text="Confirmar" />
+      <JFXButton layoutX="221.0" layoutY="307.0" onAction="#createJogo" prefHeight="29.0" prefWidth="100.0" styleClass="light-button" text="Confirmar" />
       <Label layoutX="94.0" layoutY="37.0" styleClass="dark_text" text="Adicionar um Jogo:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="textNome" labelFloat="true" layoutX="94.0" layoutY="101.0" prefHeight="22.0" prefWidth="145.0" promptText="Digite o nome do jogo:" />
+      <JFXTextField fx:id="textNome" labelFloat="true" layoutX="95.0" layoutY="70.0" prefHeight="22.0" prefWidth="145.0" promptText="Digite o nome do jogo:" />
       <JFXButton layoutX="14.0" layoutY="307.0" onAction="#close" prefHeight="29.0" prefWidth="100.0" styleClass="red-button" text="Cancelar" />
-      <JFXButton layoutX="83.0" layoutY="135.0" prefHeight="124.0" prefWidth="154.0" styleClass="dark-button">
+      <JFXButton fx:id="btnImage" layoutX="94.0" layoutY="146.0" onAction="#imageChooser" prefHeight="140.0" prefWidth="145.0" styleClass="dark-button">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgPlus" fitHeight="116.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imgComponents/icon_plus.png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
+      <Label layoutX="97.0" layoutY="122.0" prefHeight="17.0" prefWidth="145.0" styleClass="light_text" text="Escolha uma imagem:" />
    </children>
 </AnchorPane>
