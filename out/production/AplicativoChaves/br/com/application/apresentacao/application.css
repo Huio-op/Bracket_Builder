@@ -20,7 +20,6 @@
 .light_text{
 	-fx-text-fill: white;
 	-fx-font-size: 15px;
-	-fx-font-style: bold;
 }
 
 .jfx-combo-box {

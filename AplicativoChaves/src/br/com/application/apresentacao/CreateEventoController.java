@@ -6,6 +6,7 @@ import br.com.application.persistencia.DBEvento;
 import br.com.application.persistencia.DBJogo;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
+import br.univates.system32.JFX.JFXInfoDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import br.univates.system32.JFX.JFXValidatorCreator;
 import br.univates.system32.util.CurrencyField;
@@ -23,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
@@ -38,6 +40,7 @@ import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -112,6 +115,7 @@ public class CreateEventoController implements Initializable {
         createNomeValidator();
         createPremioValidator();
         createJogoValidator();
+        createDescricaoValidator();
 
     }
 
@@ -138,7 +142,6 @@ public class CreateEventoController implements Initializable {
                     anchorBackgroundEvt.getParent(), e);
             error.showDialogPane();
         }
-
     }
 
     public void returnPage(ActionEvent event){
@@ -178,7 +181,9 @@ public class CreateEventoController implements Initializable {
 
                 try {
 
-                    Jogo jogo = dbJogo.load(comboJogo.getValue().split("-")[0]);
+                    int idJogo = Integer.parseInt(comboJogo.getValue().split("-")[0]);
+
+                    Jogo jogo = dbJogo.load(String.valueOf(idJogo));
 
                     Evento evento = new Evento(textNome.getText(), jogo, HomeController.organizador.getCpf(), textDesc.getText(),
                             currencyField.getAmount(), datePicker.getValue());
@@ -186,7 +191,23 @@ public class CreateEventoController implements Initializable {
 
                     dbEvento.save(evento);
 
-                    System.out.println("Salvou");
+                    JFXButton btnSuccess = new JFXButton("Voltar à Home Page.");
+                    btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+
+                        textNome.setText("");
+                        comboJogo.setValue("");
+                        textDesc.setText("");
+                        currencyField.setText("");
+                        datePicker.setValue(null);
+
+                        returnPage(event);
+
+                    });
+
+                    JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
+                            anchorBackgroundEvt.getParent(), "Sucesso!",
+                            "Evento cadastrado com sucesso!", Arrays.asList(btnSuccess));
+                    dialogSuccess.showDialogPane();
 
 
                 } catch (DataBaseException e) {
@@ -217,6 +238,21 @@ public class CreateEventoController implements Initializable {
         RequiredFieldValidator rfValidator = new RequiredFieldValidator();
         rfValidator.setMessage("Este campo é obrigatório!");
         comboJogo.getValidators().add(rfValidator);
+
+    }
+
+    private void createDescricaoValidator(){
+
+        textDesc.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                if (textDesc.getText().length() >498) {
+                    String s = textDesc.getText().substring(0, 498);
+                    textDesc.setText(s);
+                }
+
+            }
+        });
 
     }
 

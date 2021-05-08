@@ -160,4 +160,16 @@ public class HomeController implements Initializable {
 
     }
 
+    public void seeEventTransition(ActionEvent event){
+
+        try {
+            th.transitionFadeFXML(anchorMain, "/br/com/application/apresentacao/TelaVerEventos.fxml", 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog(rootStackPane, paneAnchor, e);
+            error.showDialogPane();
+        }
+
+    }
+
 }

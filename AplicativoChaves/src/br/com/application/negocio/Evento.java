@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 public class Evento {
 
+    private int id;
     private String nome;
     private Jogo jogo;
     private CPF cpfOrg;
@@ -23,6 +24,22 @@ public class Evento {
         this.data = data;
 
     }
+
+    public Evento(int id, String nome, Jogo jogo, CPF cpf, String detalhes, Double premio, LocalDate data){
+
+        this.id = id;
+        this.nome = nome;
+        this.jogo = jogo;
+        this.cpfOrg = cpf;
+        this.detalhes = detalhes;
+        this.premio = premio;
+        this.data = data;
+
+    }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getNome() { return nome; }
 

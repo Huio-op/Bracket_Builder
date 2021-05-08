@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="150.0" prefWidth="935.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.EventoMiniatureController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="900.0" style="-fx-background-color: #191D1F;">
+         <children>
+            <Label fx:id="lblNome" layoutX="15.0" layoutY="14.0" styleClass="light_text" text="Nome" />
+            <Label fx:id="lblJogo" layoutX="14.0" layoutY="40.0" styleClass="light_text" text="Jogo:" />
+            <Label fx:id="lblData" layoutX="14.0" layoutY="65.0" styleClass="light_text" text="Data:" />
+            <JFXTextArea fx:id="textDescricao" editable="false" layoutX="252.0" layoutY="19.0" prefHeight="64.0" prefWidth="410.0" styleClass="light_text" text="Descrição:" />
+            <HBox layoutX="686.0" layoutY="26.0" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <JFXButton styleClass="dark-button">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgComponents/play_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnEdit" styleClass="light-button">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgComponents/edit_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnDelete" onAction="#delete" styleClass="red-button">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgComponents/delete_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <Label text="Label" />
+   </children>
+</AnchorPane>
