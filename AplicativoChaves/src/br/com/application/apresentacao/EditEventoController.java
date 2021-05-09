@@ -15,111 +15,67 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.util.converter.CurrencyStringConverter;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class CreateEventoController implements Initializable {
+public class EditEventoController implements Initializable {
 
     @FXML
-    private AnchorPane anchorBackgroundEvt;
+    private AnchorPane anchorBackgroundEditEvt;
 
     @FXML
     private StackPane stackPane;
 
     @FXML
-    private JFXButton btnVoltar;
-
-    @FXML
     private JFXTextField textNome;
-
-    @FXML
-    private JFXButton btnCreateEvento;
-
-    @FXML
-    private JFXTextArea textDesc;
 
     @FXML
     private JFXComboBox<String> comboJogo;
 
     @FXML
-    private JFXButton btnCreateGame;
+    private JFXTextArea textDesc;
+
+    @FXML
+    private AnchorPane anchorPremio;
 
     @FXML
     private DatePicker datePicker;
 
     @FXML
-    private Label lblDate;
+    private JFXButton btnSave;
 
     @FXML
-    private AnchorPane anchorCurrency;
+    private Label lblDate;
 
+    private CurrencyField currencyField;
+
+    private Evento evento;
+    private DBJogo dbJogo = new DBJogo();
     JFXTransitionHandler th = new JFXTransitionHandler();
-    CreateJogoController jogoController;
-    DBJogo dbJogo = new DBJogo();
-    CurrencyField currencyField;
+    private Pane paneToBlur;
+    private Pane otherPaneToBlur;
+    private VerEventosController verEventosController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateJogo.fxml"));
-            AnchorPane tJogo = loader.load();
-            this.stackPane.getChildren().add(tJogo);
-            this.stackPane.getChildren().get(1).toBack();
-            this.jogoController = loader.getController();
-            this.jogoController.setEventoController(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
-                    anchorBackgroundEvt.getParent(), e);
-            error.showDialogPane();
-        }
-
-
-        this.currencyField = new CurrencyField(new Locale("pt","BR"));
-        anchorCurrency.getChildren().add(currencyField);
-        currencyField.setPromptText(":Digite o valor do prêmio");
-        currencyField.setLabelFloat(true);
-        currencyField.setPrefWidth(190);
-        currencyField.setPrefHeight(25);
-
-        refreshComboJogo();
-
-        createNomeValidator();
-        createPremioValidator();
-        createJogoValidator();
-        createDescricaoValidator();
-
-    }
-
-    public void refreshComboJogo(){
 
         this.comboJogo.getItems().removeAll();
 
@@ -131,42 +87,43 @@ public class CreateEventoController implements Initializable {
                 }
             }
 
-        } catch (DataBaseException e) {
+        }catch (DataBaseException e) {
             e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
-                    anchorBackgroundEvt.getParent(), e);
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEditEvt.getParent().getParent(),
+                    anchorBackgroundEditEvt.getParent(), e);
             error.showDialogPane();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
-                    anchorBackgroundEvt.getParent(), e);
-            error.showDialogPane();
-        }
-    }
-
-    public void returnPage(ActionEvent event){
-
-        try {
-            th.transitionFadeFXML(anchorBackgroundEvt, "/br/com/application/apresentacao/TelaHome.fxml",
-                    1);
-        } catch (IOException e) {
-            e.printStackTrace();
-            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
-                    anchorBackgroundEvt.getParent(), e);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEditEvt.getParent().getParent(),
+                    anchorBackgroundEditEvt.getParent(), throwables);
             error.showDialogPane();
         }
 
+        this.currencyField = new CurrencyField(new Locale("pt","BR"));
+        anchorPremio.getChildren().add(currencyField);
+        currencyField.setPrefWidth(190);
+        currencyField.setPrefHeight(25);
+
+        createNomeValidator();
+        createJogoValidator();
+        createDescricaoValidator();
+        createPremioValidator();
+
     }
 
-    public void createJogoTransition(ActionEvent event){
+    public void setEvento(Evento evento){
 
-        JFXTransitionHandler.transitionFade(jogoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
-        this.stackPane.getChildren().get(0).toFront();
-        jogoController.show((Pane) this.stackPane.getChildren().get(0));
+        this.evento = evento;
+        this.textNome.setText(this.evento.getNome());
+        String evtJogo = this.evento.getJogo().getIdJogo() + "-" + this.evento.getJogo().getNome();
+        this.comboJogo.setValue(evtJogo);
+        this.textDesc.setText(this.evento.getDescricao());
+        this.currencyField.setText(this.evento.getPremio().toString());
+        this.datePicker.setValue(this.evento.getData());
 
     }
 
-    public void createEvento(ActionEvent event) {
+    public void save(ActionEvent event){
 
         if(this.datePicker.getValue() == null){
 
@@ -184,13 +141,13 @@ public class CreateEventoController implements Initializable {
 
                     Jogo jogo = dbJogo.load(String.valueOf(idJogo));
 
-                    Evento evento = new Evento(textNome.getText(), jogo, HomeController.organizador.getCpf(), textDesc.getText(),
+                    Evento evento = new Evento(this.evento.getId(), textNome.getText(), jogo, HomeController.organizador.getCpf(), textDesc.getText(),
                             currencyField.getAmount(), datePicker.getValue());
                     DBEvento dbEvento = new DBEvento();
 
-                    dbEvento.save(evento);
+                    dbEvento.edit(evento);
 
-                    JFXButton btnSuccess = new JFXButton("Voltar à Home Page.");
+                    JFXButton btnSuccess = new JFXButton("Fechar.");
                     btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 
                         textNome.setText("");
@@ -199,30 +156,68 @@ public class CreateEventoController implements Initializable {
                         currencyField.setText("");
                         datePicker.setValue(null);
 
-                        returnPage(event);
+                        verEventosController.renderEventos();
+                        close(event);
 
                     });
 
-                    JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
-                            anchorBackgroundEvt.getParent(), "Sucesso!",
-                            "Evento cadastrado com sucesso!", Arrays.asList(btnSuccess));
+                    JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) anchorBackgroundEditEvt.getParent(),
+                            anchorBackgroundEditEvt, "Sucesso!",
+                            "Evento editado com sucesso!", Arrays.asList(btnSuccess));
                     dialogSuccess.showDialogPane();
 
 
                 } catch (DataBaseException e) {
                     e.printStackTrace();
-                    JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
-                            anchorBackgroundEvt.getParent(), e);
+                    JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEditEvt.getParent(),
+                            anchorBackgroundEditEvt, e);
                     error.showDialogPane();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
-                    JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEvt.getParent().getParent(),
-                            anchorBackgroundEvt.getParent(), throwables);
+                    JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundEditEvt.getParent(),
+                            anchorBackgroundEditEvt, throwables);
                     error.showDialogPane();
                 }
             }
 
         }
+
+    }
+
+    public AnchorPane getAnchorRoot(){
+
+        return this.anchorBackgroundEditEvt;
+
+    }
+
+    public void setVerEventosController(VerEventosController verEventosController){
+
+        this.verEventosController = verEventosController;
+
+    }
+
+    public void show(Pane paneToBlur, Pane otherPaneToBlur, Evento evento){
+
+        this.setEvento(evento);
+
+        this.paneToBlur = paneToBlur;
+        this.otherPaneToBlur = otherPaneToBlur;
+
+        BoxBlur blur = new BoxBlur(3, 3, 3);
+
+        paneToBlur.setEffect(blur);
+        otherPaneToBlur.setEffect(blur);
+        anchorBackgroundEditEvt.setEffect(null);
+
+
+    }
+
+    public void close(ActionEvent event){
+
+        JFXTransitionHandler.transitionFade(anchorBackgroundEditEvt, JFXTransitionHandler.FADEOUT, 1);
+        paneToBlur.setEffect(null);
+        otherPaneToBlur.setEffect(null);
+        this.anchorBackgroundEditEvt.toBack();
 
     }
 
@@ -260,6 +255,5 @@ public class CreateEventoController implements Initializable {
         JFXValidatorCreator.createRequiredFieldValidator(this.currencyField);
 
     }
-
 
 }

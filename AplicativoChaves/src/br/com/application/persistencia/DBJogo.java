@@ -4,6 +4,7 @@ import br.com.application.negocio.Jogo;
 import br.com.application.negocio.Usuario;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.DataBase.Filter;
 import br.univates.system32.DataBase.IDB;
 
 import java.io.FileNotFoundException;
@@ -105,6 +106,11 @@ public class DBJogo implements IDB<Jogo> {
 
         return array;
 
+    }
+
+    @Override
+    public ArrayList<Jogo> loadFiltered(Filter filter) {
+        return null;
     }
 
     public boolean checkNome(String nome) throws DataBaseException, SQLException {

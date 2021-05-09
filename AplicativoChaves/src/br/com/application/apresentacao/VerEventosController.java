@@ -2,6 +2,7 @@ package br.com.application.apresentacao;
 
 import br.com.application.negocio.Evento;
 import br.com.application.persistencia.DBEvento;
+import br.com.application.persistencia.filters.EventoFilterOwner;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -26,17 +28,41 @@ public class VerEventosController implements Initializable {
     private AnchorPane annchorBackgroundSeeEvt;
 
     @FXML
+    private StackPane stackPane;
+
+    @FXML
+    private AnchorPane anchorHeader;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private AnchorPane anchorScroll;
+
+    @FXML
     private VBox vBox;
 
     JFXTransitionHandler th = new JFXTransitionHandler();
     DBEvento dbEvento;
     EventoMiniatureController eventoMiniatureController;
+    EditEventoController editEventoController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         dbEvento = new DBEvento();
         renderEventos();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaEditEvento.fxml"));
+            AnchorPane tJogo = loader.load();
+            this.stackPane.getChildren().add(tJogo);
+            this.stackPane.getChildren().get(2).toBack();
+            this.editEventoController = loader.getController();
+            this.editEventoController.setVerEventosController(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -59,9 +85,9 @@ public class VerEventosController implements Initializable {
         this.vBox.getChildren().clear();
 
         try {
-            ArrayList<Evento> allEventos = dbEvento.loadAll();
+            ArrayList<Evento> allEventos = dbEvento.loadFiltered(new EventoFilterOwner(HomeController.organizador));
 
-            if(allEventos!=null){
+            if(!allEventos.isEmpty()){
 
                 for (Evento evento: allEventos) {
 
@@ -81,6 +107,15 @@ public class VerEventosController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void editEventoTransition(Evento evento){
+
+        this.stackPane.getChildren();
+        JFXTransitionHandler.transitionFade(editEventoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
+        this.stackPane.getChildren().get(0).toFront();
+        editEventoController.show((Pane) this.anchorHeader, (Pane) this.anchorScroll, evento);
+
     }
 
     public void deleteAndRefresh(Evento evento){

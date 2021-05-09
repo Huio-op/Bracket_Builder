@@ -77,18 +77,6 @@ public class CreateJogoController implements Initializable {
 
     }
 
-    public void show(Pane paneToBlur){
-
-        this.paneToBlur = paneToBlur;
-
-        BoxBlur blur = new BoxBlur(3, 3, 3);
-
-        paneToBlur.setEffect(blur);
-        anchorRoot.setEffect(null);
-
-
-    }
-
     public void createJogo(ActionEvent event){
 
         if(textNome.validate() && this.image != null){
@@ -129,6 +117,18 @@ public class CreateJogoController implements Initializable {
 
 
         }
+
+    }
+
+    public void show(Pane paneToBlur){
+
+        this.paneToBlur = paneToBlur;
+
+        BoxBlur blur = new BoxBlur(3, 3, 3);
+
+        paneToBlur.setEffect(blur);
+        anchorRoot.setEffect(null);
+
 
     }
 

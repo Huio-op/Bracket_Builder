@@ -5,12 +5,9 @@ import br.com.application.negocio.Jogo;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -36,8 +33,6 @@ public class EventoMiniatureController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-
     }
 
     public void setEvento(Evento evento){
@@ -46,7 +41,7 @@ public class EventoMiniatureController implements Initializable {
         this.lblNome.setText(evento.getNome());
         this.lblJogo.setText("Jogo: "+ evento.getJogo().getNome());
         this.lblData.setText("Data: "+ evento.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        this.textDescricao.setText(evento.getDetalhes());
+        this.textDescricao.setText(evento.getDescricao());
     }
 
     public void setVerEventosController(VerEventosController verEventosController){
@@ -63,6 +58,7 @@ public class EventoMiniatureController implements Initializable {
 
     public void edit(ActionEvent event){
 
+        verEventosController.editEventoTransition(this.evento);
 
     }
 

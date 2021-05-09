@@ -27,7 +27,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnEdit" styleClass="light-button">
+                  <JFXButton fx:id="btnEdit" onAction="#edit" styleClass="light-button">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

@@ -10,6 +10,7 @@ import br.com.application.Main;
 import br.com.application.negocio.Usuario;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.DataBase.Filter;
 import br.univates.system32.DataBase.IDB;
 import br.univates.system32.PasswordEncoder;
 
@@ -59,7 +60,8 @@ public class DBUsuarios implements IDB<Usuario> {
 
 		if(user != null) {
 
-			connection.runSQL("UPDATE usuario SET nome = '"+user.getNome()+"', senha = '"+user.getSenha()+"', isOrganizador = " +user.isOrganizador()+" "+
+			connection.runSQL("UPDATE usuario SET nome = '"+user.getNome()+"', senha = '"+user.getSenha()+"', " +
+					"isOrganizador = " +user.isOrganizador()+" "+
 					"WHERE email = '" + user.getEmail() + "';");
 
 		}
@@ -111,8 +113,13 @@ public class DBUsuarios implements IDB<Usuario> {
 		return array;
 		
 	}
-	
-	
+
+	@Override
+	public ArrayList<Usuario> loadFiltered(Filter filter) {
+		return null;
+	}
+
+
 	/*
 	 * Método que retorna apenas uma coluna do Usuário, sendo ela definida pelo campo fieldToFilter em forma de String
 	 * 

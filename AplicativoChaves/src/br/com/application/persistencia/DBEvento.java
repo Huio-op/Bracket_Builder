@@ -2,9 +2,11 @@ package br.com.application.persistencia;
 
 import br.com.application.negocio.Evento;
 import br.com.application.negocio.Jogo;
+import br.com.application.persistencia.filters.EventoFilterOwner;
 import br.univates.system32.CPF;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.DataBase.Filter;
 import br.univates.system32.DataBase.IDB;
 
 import java.sql.ResultSet;
@@ -36,7 +38,7 @@ public class DBEvento implements IDB<Evento> {
                     " VALUES( '" + evento.getNome() + "', " +
                     "(SELECT id_jogo FROM jogo WHERE id_jogo = "+evento.getJogo().getIdJogo()+"), " +
                     "(SELECT cpf FROM organizador WHERE cpf = '"+evento.getCpfOrg().getCPFStringNoChars()+"'), " +
-                    "'"+evento.getDetalhes()+"', "+evento.getPremio()+", '"+date+"');");
+                    "'"+evento.getDescricao()+"', "+evento.getPremio()+", '"+date+"');");
 
         }
 
@@ -90,7 +92,19 @@ public class DBEvento implements IDB<Evento> {
     }
 
     @Override
-    public void edit(Evento object) throws DataBaseException {
+    public void edit(Evento evento) throws DataBaseException {
+
+        if(evento != null){
+
+            String date = evento.getData().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+            connection.runSQL("UPDATE evento SET nome = '"+ evento.getNome() +"', " +
+                    "jogo = (SELECT id_jogo FROM jogo WHERE id_jogo = "+evento.getJogo().getIdJogo()+")," +
+                    "cpf_organizador = (SELECT cpf FROM organizador WHERE cpf = '"+evento.getCpfOrg().getCPFStringNoChars()+"'), " +
+                    "detalhes = '"+evento.getDescricao()+"', premio = "+evento.getPremio()+", data = '"+date+"' " +
+                    "WHERE id_evento = " + evento.getId() + ";");
+
+        }
 
     }
 
@@ -127,6 +141,24 @@ public class DBEvento implements IDB<Evento> {
         }
 
         return array;
+
+    }
+
+    @Override
+    public ArrayList<Evento> loadFiltered(Filter filter) throws SQLException, DataBaseException {
+
+        ArrayList<Evento> arrayFiltered = new ArrayList<Evento>();
+        ArrayList<Evento> array = this.loadAll();
+
+        for (Evento evento: array) {
+
+            if(filter.isApproved(evento)){
+                arrayFiltered.add(evento);
+            }
+
+        }
+
+        return arrayFiltered;
 
     }
 }

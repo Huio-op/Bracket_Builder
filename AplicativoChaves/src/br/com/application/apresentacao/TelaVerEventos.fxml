@@ -11,9 +11,9 @@
 
 <AnchorPane fx:id="annchorBackgroundSeeEvt" prefHeight="750.0" prefWidth="950.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.VerEventosController">
    <children>
-      <StackPane fx:id="stackPane" alignment="TOP_CENTER" prefHeight="750.0" prefWidth="950.0">
+      <StackPane fx:id="stackPane" prefHeight="750.0" prefWidth="950.0">
          <children>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="950.0" style="-fx-background-color: #191D1F;">
+            <AnchorPane fx:id="anchorHeader" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="950.0" style="-fx-background-color: #191D1F;" StackPane.alignment="TOP_CENTER">
                <children>
                   <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" onAction="#returnPage" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
                      <font>
@@ -28,9 +28,9 @@
                      </graphic>
                   </JFXButton>
                </children></AnchorPane>
-            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" StackPane.alignment="BOTTOM_CENTER">
+            <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" StackPane.alignment="BOTTOM_CENTER">
                <content>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="935.0">
+                  <AnchorPane fx:id="anchorScroll" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="935.0">
                      <children>
                         <VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="935.0" />
                      </children>

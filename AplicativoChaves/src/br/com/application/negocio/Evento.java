@@ -10,7 +10,7 @@ public class Evento {
     private String nome;
     private Jogo jogo;
     private CPF cpfOrg;
-    private String detalhes;
+    private String descricao;
     private Double premio;
     private LocalDate data;
 
@@ -19,7 +19,7 @@ public class Evento {
         this.nome = nome;
         this.jogo = jogo;
         this.cpfOrg = cpf;
-        this.detalhes = detalhes;
+        this.descricao = detalhes;
         this.premio = premio;
         this.data = data;
 
@@ -31,7 +31,7 @@ public class Evento {
         this.nome = nome;
         this.jogo = jogo;
         this.cpfOrg = cpf;
-        this.detalhes = detalhes;
+        this.descricao = detalhes;
         this.premio = premio;
         this.data = data;
 
@@ -47,7 +47,7 @@ public class Evento {
 
     public CPF getCpfOrg() { return cpfOrg; }
 
-    public String getDetalhes() { return detalhes; }
+    public String getDescricao() { return descricao; }
 
     public Double getPremio() { return premio; }
 

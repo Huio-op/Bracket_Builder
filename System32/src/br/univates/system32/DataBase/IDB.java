@@ -10,5 +10,6 @@ public interface IDB<T> {
     public  void delete(T object) throws DataBaseException;
     public void edit(T object) throws  DataBaseException;
     public ArrayList<T>  loadAll() throws DataBaseException, SQLException;
+    public ArrayList<T> loadFiltered(Filter filter) throws SQLException, DataBaseException;
 
 }

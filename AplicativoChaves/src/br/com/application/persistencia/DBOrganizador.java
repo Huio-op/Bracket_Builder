@@ -6,6 +6,7 @@ import br.com.application.negocio.Usuario;
 import br.univates.system32.CPF;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.DataBase.Filter;
 import br.univates.system32.DataBase.IDB;
 
 import java.sql.ResultSet;
@@ -125,6 +126,11 @@ public class DBOrganizador implements IDB<Organizador> {
 
     @Override
     public ArrayList<Organizador> loadAll() throws DataBaseException, SQLException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Organizador> loadFiltered(Filter filter) {
         return null;
     }
 
