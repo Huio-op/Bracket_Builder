@@ -118,7 +118,7 @@ public class EditEventoController implements Initializable {
         String evtJogo = this.evento.getJogo().getIdJogo() + "-" + this.evento.getJogo().getNome();
         this.comboJogo.setValue(evtJogo);
         this.textDesc.setText(this.evento.getDescricao());
-        this.currencyField.setText(this.evento.getPremio().toString());
+        this.currencyField.setAmount(this.evento.getPremio());
         this.datePicker.setValue(this.evento.getData());
 
     }

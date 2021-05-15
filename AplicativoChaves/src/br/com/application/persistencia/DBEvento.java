@@ -151,11 +151,9 @@ public class DBEvento implements IDB<Evento> {
         ArrayList<Evento> array = this.loadAll();
 
         for (Evento evento: array) {
-
             if(filter.isApproved(evento)){
                 arrayFiltered.add(evento);
             }
-
         }
 
         return arrayFiltered;
