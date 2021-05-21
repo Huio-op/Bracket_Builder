@@ -73,6 +73,8 @@ public class EditEventoController implements Initializable {
     private Pane paneToBlur;
     private Pane otherPaneToBlur;
     private VerEventosController verEventosController;
+    private StackPane stackPaneFather;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -196,12 +198,13 @@ public class EditEventoController implements Initializable {
 
     }
 
-    public void show(Pane paneToBlur, Pane otherPaneToBlur, Evento evento){
+    public void show(Pane paneToBlur, Pane otherPaneToBlur,StackPane stackPane, Evento evento){
 
         this.setEvento(evento);
 
         this.paneToBlur = paneToBlur;
         this.otherPaneToBlur = otherPaneToBlur;
+        this.stackPaneFather = stackPane;
 
         BoxBlur blur = new BoxBlur(3, 3, 3);
 
@@ -217,7 +220,7 @@ public class EditEventoController implements Initializable {
         JFXTransitionHandler.transitionFade(anchorBackgroundEditEvt, JFXTransitionHandler.FADEOUT, 1);
         paneToBlur.setEffect(null);
         otherPaneToBlur.setEffect(null);
-        this.anchorBackgroundEditEvt.toBack();
+        this.stackPaneFather.getChildren().set(3,this.anchorBackgroundEditEvt);
 
     }
 

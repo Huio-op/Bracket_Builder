@@ -46,6 +46,10 @@ public class VerEventosController implements Initializable {
     DBEvento dbEvento;
     EventoMiniatureController eventoMiniatureController;
     EditEventoController editEventoController;
+    StartEventoController startEventoController;
+    AnchorPane tJogo;
+    AnchorPane tStart;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,16 +58,32 @@ public class VerEventosController implements Initializable {
         renderEventos();
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaEditEvento.fxml"));
-            AnchorPane tJogo = loader.load();
+            FXMLLoader loaderEdit = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaEditEvento.fxml"));
+            this.tJogo = loaderEdit.load();
             this.stackPane.getChildren().add(tJogo);
-            this.stackPane.getChildren().get(2).toBack();
-            this.editEventoController = loader.getController();
+            this.stackPane.getChildren().set(2,tJogo);
+            this.editEventoController = loaderEdit.getController();
             this.editEventoController.setVerEventosController(this);
+
+            FXMLLoader loaderStart = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaStartEvento.fxml"));
+            this.tStart = loaderStart.load();
+            this.stackPane.getChildren().add(tStart);
+            this.stackPane.getChildren().set(3,tStart);
+            this.startEventoController = loaderStart.getController();
+            this.startEventoController.setVerEventosController(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        pullToFront(this.anchorHeader);
+        pullToFront(this.scrollPane);
+
+    }
+
+    public void pullToFront(Object object){
+        int index = this.stackPane.getChildren().indexOf(object);
+        this.stackPane.getChildren().get(index).toFront();
     }
 
     public void returnPage(){
@@ -113,8 +133,17 @@ public class VerEventosController implements Initializable {
 
         this.stackPane.getChildren();
         JFXTransitionHandler.transitionFade(editEventoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
-        this.stackPane.getChildren().get(0).toFront();
-        editEventoController.show((Pane) this.anchorHeader, (Pane) this.anchorScroll, evento);
+        pullToFront(this.tJogo);
+        editEventoController.show((Pane) this.anchorHeader, (Pane) this.anchorScroll,this.stackPane, evento);
+
+    }
+
+    public void startEventoTransition(Evento evento){
+
+        this.stackPane.getChildren();
+        JFXTransitionHandler.transitionFade(startEventoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
+        pullToFront(this.tStart);
+        startEventoController.show((Pane) this.anchorHeader, (Pane) this.anchorScroll,this.stackPane, evento);
 
     }
 

@@ -52,7 +52,7 @@ public class EventoMiniatureController implements Initializable {
 
     public void createBracket(ActionEvent event){
 
-
+        verEventosController.startEventoTransition(this.evento);
 
     }
 

@@ -83,16 +83,9 @@ public class CreateEventoController implements Initializable {
     @FXML
     private AnchorPane anchorCurrency;
 
-    @FXML
-    private JFXTextField textNumPart;
-
-    @FXML
-    private JFXComboBox<String> comboTipoTorneio;
-
     JFXTransitionHandler th = new JFXTransitionHandler();
     CreateJogoController jogoController;
     DBJogo dbJogo = new DBJogo();
-    DBTipoTorneio dbTipos = new DBTipoTorneio();
     CurrencyField currencyField;
 
     @Override
@@ -121,13 +114,11 @@ public class CreateEventoController implements Initializable {
         currencyField.setPrefHeight(25);
 
         refreshComboJogo();
-        refreshComboTypes();
 
         createNomeValidator();
         createPremioValidator();
         createJogoValidator();
         createDescricaoValidator();
-        createNumPartValidator();
 
     }
 
@@ -154,29 +145,6 @@ public class CreateEventoController implements Initializable {
                     anchorBackgroundEvt.getParent(), e);
             error.showDialogPane();
         }
-    }
-
-    public void refreshComboTypes(){
-
-        this.comboTipoTorneio.getItems().removeAll();
-
-        try {
-            ArrayList<TipoTorneio> arrayType  = dbTipos.loadAll();
-
-            if(!arrayType.isEmpty()){
-                for(TipoTorneio tipoTorneio : arrayType){
-                    comboTipoTorneio.getItems().add(tipoTorneio.getId() + " - " + tipoTorneio.getNome());
-                }
-            }
-
-        } catch (DataBaseException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-
-
     }
 
     public void returnPage(ActionEvent event){
@@ -224,12 +192,6 @@ public class CreateEventoController implements Initializable {
                     DBEvento dbEvento = new DBEvento();
                     dbEvento.save(evento);
 
-                    int idTipoTorneio = Integer.parseInt(comboTipoTorneio.getValue().split("-")[0]);
-                    ChaveTorneio chaveTorneio = new ChaveTorneio(idTipoTorneio, Integer.parseInt(textNumPart.getText()),
-                            dbEvento.load(String.valueOf(evento.getId())).getId());
-                    DBChaveTorneio dbChaveTorneio = new DBChaveTorneio();
-                    dbChaveTorneio.save(chaveTorneio);
-
                     JFXButton btnSuccess = new JFXButton("Voltar à Home Page.");
                     btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 
@@ -238,8 +200,6 @@ public class CreateEventoController implements Initializable {
                         textDesc.setText("");
                         currencyField.setText("");
                         datePicker.setValue(null);
-                        textNumPart.setText("");
-                        comboJogo.setValue("");
 
                         returnPage(event);
 
@@ -300,24 +260,6 @@ public class CreateEventoController implements Initializable {
     private void createPremioValidator(){
 
         JFXValidatorCreator.createRequiredFieldValidator(this.currencyField);
-
-    }
-
-    private void createNumPartValidator(){
-
-        textNumPart.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (textNumPart.getText().length() > 2 ) {
-                    String s = textNumPart.getText().substring(0, 2);
-                    textNumPart.setText(s);
-                }
-                if (!newValue.matches("\\d*")) {
-                    textNumPart.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-
-            }
-        });
 
     }
 

@@ -32,16 +32,14 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXTextField fx:id="textNome" labelFloat="true" layoutX="96.0" layoutY="100.0" prefHeight="25.0" prefWidth="190.0" promptText="Digite o nome do Evento:" />
+                        <JFXTextField fx:id="textNome" labelFloat="true" layoutX="96.0" layoutY="137.0" prefHeight="25.0" prefWidth="190.0" promptText="Digite o nome do Evento:" />
                         <JFXButton fx:id="btnCreateEvento" layoutX="277.0" layoutY="552.0" onAction="#createEvento" styleClass="light-button" text="Criar Evento" />
-                        <JFXTextArea fx:id="textDesc" layoutX="95.0" layoutY="160.0" prefHeight="171.0" prefWidth="465.0" promptText="Descricao do evento:" />
-                        <DatePicker fx:id="datePicker" layoutX="379.0" layoutY="380.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha a data:" styleClass="date-picker" />
-                        <JFXComboBox fx:id="comboJogo" labelFloat="true" layoutX="378.0" layoutY="100.0" prefHeight="22.0" prefWidth="153.0" promptText="Selecione o jogo:" />
-                        <JFXButton fx:id="btnCreateGame" layoutX="536.0" layoutY="100.0" onAction="#createJogoTransition" prefHeight="31.0" prefWidth="33.0" styleClass="dark-button" text="+" />
+                        <JFXTextArea fx:id="textDesc" layoutX="95.0" layoutY="222.0" prefHeight="171.0" prefWidth="465.0" promptText="Descricao do evento:" />
+                        <DatePicker fx:id="datePicker" layoutX="379.0" layoutY="461.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha a data:" styleClass="date-picker" />
+                        <JFXComboBox fx:id="comboJogo" labelFloat="true" layoutX="378.0" layoutY="137.0" prefHeight="22.0" prefWidth="153.0" promptText="Selecione o jogo:" />
+                        <JFXButton fx:id="btnCreateGame" layoutX="536.0" layoutY="134.0" onAction="#createJogoTransition" prefHeight="31.0" prefWidth="33.0" styleClass="dark-button" text="+" />
                         <Label fx:id="lblDate" layoutX="379.0" layoutY="411.0" prefHeight="17.0" prefWidth="190.0" styleClass="light_text" />
-                        <AnchorPane fx:id="anchorCurrency" layoutX="96.0" layoutY="380.0" prefHeight="31.0" prefWidth="190.0" />
-                        <JFXTextField fx:id="textNumPart" layoutX="95.0" layoutY="480.0" prefHeight="25.0" prefWidth="190.0" promptText="Digite o número de participantes:" />
-                        <JFXComboBox fx:id="comboTipoTorneio" layoutX="379.0" layoutY="480.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha o tipo de eliminação:" />
+                        <AnchorPane fx:id="anchorCurrency" layoutX="96.0" layoutY="459.0" prefHeight="31.0" prefWidth="190.0" />
                      </children>
                   </AnchorPane>
                </children>
