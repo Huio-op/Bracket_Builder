@@ -18,7 +18,7 @@
             <JFXTextArea fx:id="textDescricao" editable="false" layoutX="252.0" layoutY="19.0" prefHeight="64.0" prefWidth="410.0" styleClass="light_text" text="Descrição:" />
             <HBox layoutX="686.0" layoutY="26.0" prefHeight="50.0" prefWidth="200.0">
                <children>
-                  <JFXButton styleClass="dark-button">
+                  <JFXButton onAction="#createBracket" styleClass="dark-button">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
