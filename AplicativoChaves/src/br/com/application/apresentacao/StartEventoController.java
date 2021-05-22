@@ -1,5 +1,6 @@
 package br.com.application.apresentacao;
 
+import br.com.application.apresentacao.validators.EvenParticipantsValidator;
 import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Evento;
 import br.com.application.negocio.TipoTorneio;
@@ -57,7 +58,11 @@ public class StartEventoController implements Initializable {
 
     public void startBracketCreation(ActionEvent event){
 
+        if(textNumPart.validate() && comboTipoTorneio.getValue() != null){
 
+            verEventosController.createBracketTransition(this.evento);
+
+        }
 
     }
 
@@ -128,6 +133,10 @@ public class StartEventoController implements Initializable {
     }
 
     private void createNumPartValidator(){
+
+        EvenParticipantsValidator evenParticipantsValidator = new EvenParticipantsValidator();
+        evenParticipantsValidator.setMessage("Digite um número par!");
+        textNumPart.getValidators().add(evenParticipantsValidator);
 
         textNumPart.textProperty().addListener(new ChangeListener<String>() {
             @Override

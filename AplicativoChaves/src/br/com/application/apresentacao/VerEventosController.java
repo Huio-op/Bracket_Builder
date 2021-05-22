@@ -47,9 +47,10 @@ public class VerEventosController implements Initializable {
     EventoMiniatureController eventoMiniatureController;
     EditEventoController editEventoController;
     StartEventoController startEventoController;
+    CreateBracketController createBracketController;
     AnchorPane tJogo;
     AnchorPane tStart;
-
+    AnchorPane tBracket;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -144,6 +145,26 @@ public class VerEventosController implements Initializable {
         JFXTransitionHandler.transitionFade(startEventoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
         pullToFront(this.tStart);
         startEventoController.show((Pane) this.anchorHeader, (Pane) this.anchorScroll,this.stackPane, evento);
+
+    }
+
+    public void createBracketTransition(Evento evento){
+
+        if(this.tBracket == null) {
+
+            try {
+                FXMLLoader loaderEdit = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateBracket.fxml"));
+                this.tBracket = loaderEdit.load();
+                this.stackPane.getChildren().add(tBracket);
+                this.stackPane.getChildren().set(3, tBracket);
+                this.createBracketController = loaderEdit.getController();
+                this.createBracketController.setVerEventosController(this);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        pullToFront(this.tStart);
 
     }
 
