@@ -13,6 +13,7 @@ public class ChaveTorneio {
         this.tipoTorneio = tipoTorneio;
         this.quantidadeParticipantes = quantidadeParticipantes;
         this.idEvento = idEvento;
+        this.concluido = false;
 
     }
 

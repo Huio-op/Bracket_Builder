@@ -59,9 +59,20 @@ public class StartEventoController implements Initializable {
     public void startBracketCreation(ActionEvent event){
 
         if(textNumPart.validate() && comboTipoTorneio.getValue() != null){
+            try {
+                int qtdePart = Integer.parseInt(this.textNumPart.getText());
+                int tipo = Integer.parseInt(this.comboTipoTorneio.getValue().split("-")[0]);
+                ChaveTorneio chave = new ChaveTorneio(tipo, qtdePart, this.evento.getId());
 
-            verEventosController.createBracketTransition(this.evento);
+                DBChaveTorneio dbChaveTorneio = new DBChaveTorneio();
+                dbChaveTorneio.save(chave);
 
+                verEventosController.createBracketTransition(chave, this.evento);
+            } catch (DataBaseException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }

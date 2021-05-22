@@ -1,5 +1,6 @@
 package br.com.application.persistencia;
 
+import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Evento;
 import br.com.application.negocio.Jogo;
 import br.com.application.persistencia.filters.EventoFilterOwner;
@@ -159,4 +160,38 @@ public class DBEvento implements IDB<Evento> {
         return arrayFiltered;
 
     }
+
+    public boolean hasBracket(Evento evento) throws SQLException, DataBaseException {
+
+        if(evento != null){
+            ResultSet rs = connection.runQuerySQL("SELECT * FROM chave_torneio WHERE id_evento = " + evento.getId() + ";");
+            if(rs.isBeforeFirst()){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public ChaveTorneio getBracket(Evento evento) throws SQLException, DataBaseException {
+
+        ChaveTorneio chaveTorneio = null;
+
+        if(evento != null){
+            ResultSet rs = connection.runQuerySQL("SELECT * FROM chave_torneio WHERE id_evento = " + evento.getId() + ";");
+            if(rs.isBeforeFirst()){
+                rs.next();
+                int idChave = rs.getInt("id_chave");
+                int idTipo = rs.getInt("tipo");
+                int qtdeParticipantes = rs.getInt("qtde_participantes");
+                int idEvento = rs.getInt("id_evento");
+                boolean concluido = rs.getBoolean("concluido");
+
+                chaveTorneio = new ChaveTorneio( idChave,idTipo,qtdeParticipantes,idEvento,concluido );
+            }
+
+        }
+        return chaveTorneio;
+    }
+
 }
