@@ -67,16 +67,26 @@ public class VerEventosController implements Initializable {
             this.editEventoController = loaderEdit.getController();
             this.editEventoController.setVerEventosController(this);
 
-            FXMLLoader loaderStart = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaStartEvento.fxml"));
+            FXMLLoader loaderStart = new FXMLLoader(getClass().getResource("/src/br/com/application/apresentacao/TelaStartEvento.fxml"));
             this.tStart = loaderStart.load();
             this.stackPane.getChildren().add(tStart);
             this.stackPane.getChildren().set(3,tStart);
             this.startEventoController = loaderStart.getController();
             this.startEventoController.setVerEventosController(this);
 
+
+            FXMLLoader loaderCreateBracket = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateBracket.fxml"));
+            this.tBracket = loaderCreateBracket.load();
+            this.stackPane.getChildren().add(tBracket);
+            this.stackPane.getChildren().set(4, tBracket);
+            this.createBracketController = loaderCreateBracket.getController();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
         pullToFront(this.anchorHeader);
         pullToFront(this.scrollPane);
@@ -160,23 +170,9 @@ public class VerEventosController implements Initializable {
 
     public void createBracketTransition(ChaveTorneio chaveTorneio, Evento evento){
 
-        if(this.tBracket == null) {
-
-            try {
-                FXMLLoader loaderEdit = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateBracket.fxml"));
-                this.tBracket = loaderEdit.load();
-                this.stackPane.getChildren().add(tBracket);
-                this.stackPane.getChildren().set(3, tBracket);
-                this.createBracketController = loaderEdit.getController();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         this.createBracketController.setVerEventosController(this);
         this.createBracketController.setChaveTorneio(chaveTorneio);
-        pullToFront(this.tStart);
+        pullToFront(this.tBracket);
 
     }
 
