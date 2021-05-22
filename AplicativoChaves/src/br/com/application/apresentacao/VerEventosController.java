@@ -166,7 +166,7 @@ public class VerEventosController implements Initializable {
                 FXMLLoader loaderEdit = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateBracket.fxml"));
                 this.tBracket = loaderEdit.load();
                 this.stackPane.getChildren().add(tBracket);
-                this.stackPane.getChildren().set(3, tBracket);
+                this.stackPane.getChildren().set(4, tBracket);
                 this.createBracketController = loaderEdit.getController();
 
             } catch (IOException e) {
@@ -176,7 +176,7 @@ public class VerEventosController implements Initializable {
 
         this.createBracketController.setVerEventosController(this);
         this.createBracketController.setChaveTorneio(chaveTorneio);
-        pullToFront(this.tStart);
+        pullToFront(this.tBracket);
 
     }
 
