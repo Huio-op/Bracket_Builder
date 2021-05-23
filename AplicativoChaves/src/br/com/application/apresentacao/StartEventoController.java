@@ -33,7 +33,7 @@ public class StartEventoController implements Initializable {
     private AnchorPane anchorBack;
 
     @FXML
-    private JFXTextField textNumPart;
+    private JFXComboBox<String> comboNumPart;
 
     @FXML
     private JFXComboBox<String> comboTipoTorneio;
@@ -49,18 +49,17 @@ public class StartEventoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        fillNumPart();
         refreshComboTypes();
-
-        createNumPartValidator();
+//        createNumPartValidator();
 
     }
 
     public void startBracketCreation(ActionEvent event){
 
-        if(textNumPart.validate() && comboTipoTorneio.getValue() != null){
+        if(comboNumPart != null && comboTipoTorneio != null){
             try {
-                int qtdePart = Integer.parseInt(this.textNumPart.getText());
+                int qtdePart = Integer.parseInt(this.comboNumPart.getValue());
                 int tipo = Integer.parseInt(this.comboTipoTorneio.getValue().split("-")[0]);
                 ChaveTorneio chave = new ChaveTorneio(tipo, qtdePart, this.evento.getId());
 
@@ -74,6 +73,23 @@ public class StartEventoController implements Initializable {
                 throwables.printStackTrace();
             }
         }
+
+//        if(textNumPart.validate() && comboTipoTorneio.getValue() != null){
+//            try {
+//                int qtdePart = Integer.parseInt(this.textNumPart.getText());
+//                int tipo = Integer.parseInt(this.comboTipoTorneio.getValue().split("-")[0]);
+//                ChaveTorneio chave = new ChaveTorneio(tipo, qtdePart, this.evento.getId());
+//
+//                DBChaveTorneio dbChaveTorneio = new DBChaveTorneio();
+//                dbChaveTorneio.save(chave);
+//
+//                verEventosController.createBracketTransition(chave, this.evento);
+//            } catch (DataBaseException e) {
+//                e.printStackTrace();
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//        }
 
     }
 
@@ -95,6 +111,12 @@ public class StartEventoController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void fillNumPart(){
+        this.comboNumPart.getItems().add("2");
+        this.comboNumPart.getItems().add("4");
+        this.comboNumPart.getItems().add("8");
     }
 
     public AnchorPane getAnchorRoot(){
@@ -143,26 +165,26 @@ public class StartEventoController implements Initializable {
         return this.evento;
     }
 
-    private void createNumPartValidator(){
-
-        EvenParticipantsValidator evenParticipantsValidator = new EvenParticipantsValidator();
-        evenParticipantsValidator.setMessage("Digite um número par!");
-        textNumPart.getValidators().add(evenParticipantsValidator);
-
-        textNumPart.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (textNumPart.getText().length() > 2 ) {
-                    String s = textNumPart.getText().substring(0, 2);
-                    textNumPart.setText(s);
-                }
-                if (!newValue.matches("\\d*")) {
-                    textNumPart.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-
-            }
-        });
-
-    }
+//    private void createNumPartValidator(){
+//
+//        EvenParticipantsValidator evenParticipantsValidator = new EvenParticipantsValidator();
+//        evenParticipantsValidator.setMessage("Digite um número par!");
+//        textNumPart.getValidators().add(evenParticipantsValidator);
+//
+//        textNumPart.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+//                if (textNumPart.getText().length() > 2 ) {
+//                    String s = textNumPart.getText().substring(0, 2);
+//                    textNumPart.setText(s);
+//                }
+//                if (!newValue.matches("\\d*")) {
+//                    textNumPart.setText(newValue.replaceAll("[^\\d]", ""));
+//                }
+//
+//            }
+//        });
+//
+//    }
 
 }

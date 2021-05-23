@@ -74,8 +74,6 @@ CREATE TABLE participante(
     posicao INT NOT NULL,
     pontos INT NOT NULL DEFAULT 0,
     id_chave INT NOT NULL,
-    nacionalidade VARCHAR(45),
-    informacao VARCHAR(200),
     CONSTRAINT pk_participante PRIMARY KEY (id_participante),
     CONSTRAINT fk_chave_torneio_participante FOREIGN KEY(id_chave) REFERENCES chave_torneio(id_chave)
 

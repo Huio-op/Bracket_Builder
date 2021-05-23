@@ -176,6 +176,7 @@ public class VerEventosController implements Initializable {
 
         this.createBracketController.setVerEventosController(this);
         this.createBracketController.setChaveTorneio(chaveTorneio);
+        this.createBracketController.setEvento(evento);
         pullToFront(this.tBracket);
 
     }

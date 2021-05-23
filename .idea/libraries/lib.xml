@@ -5,6 +5,7 @@
       <root url="jar://$PROJECT_DIR$/../JDBC/postgresql-42.2.19.jar!/" />
       <root url="file://$PROJECT_DIR$/../../../JavaFX/javafx-sdk-16/lib" />
       <root url="jar://$PROJECT_DIR$/../Documents/postgresql-42.2.19.jar!/" />
+      <root url="file://$PROJECT_DIR$/node_modules/jquery-bracket/lib" />
     </CLASSES>
     <JAVADOC />
     <NATIVE>

@@ -1,10 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="950.0" style="-fx-background-color: #292E42;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateBracketController">
+<AnchorPane fx:id="anchorBackground" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="950.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateBracketController">
    <children>
-      <AnchorPane prefHeight="140.0" prefWidth="950.0" style="-fx-background-color: #191D1F;" />
-      <AnchorPane layoutY="140.0" prefHeight="610.0" prefWidth="950.0" />
+      <StackPane fx:id="stackPane" prefHeight="750.0" prefWidth="950.0">
+         <children>
+            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" StackPane.alignment="BOTTOM_CENTER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="548.0" prefWidth="948.0" style="-fx-background-color: #292E42;">
+                     <children>
+                        <HBox fx:id="hBox" prefHeight="550.0" prefWidth="950.0">
+                           <children>
+                              <VBox fx:id="vBox" prefHeight="580.0" prefWidth="210.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+            <AnchorPane fx:id="webView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: #191D1F;" StackPane.alignment="TOP_CENTER">
+               <children>
+                  <Label layoutX="14.0" layoutY="50.0" styleClass="dark_text" text="&gt;">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblNomeEvento" layoutX="48.0" layoutY="58.0" styleClass="dark_text" text="NomeEvento">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" onAction="#returnPage" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgComponents/icon_arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnCriarParticipante" layoutX="770.0" layoutY="155.0" styleClass="light-button" text="Adicionar Participante" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
