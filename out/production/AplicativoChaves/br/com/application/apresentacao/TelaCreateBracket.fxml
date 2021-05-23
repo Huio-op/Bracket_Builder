@@ -8,27 +8,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorBackground" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="950.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateBracketController">
    <children>
       <StackPane fx:id="stackPane" prefHeight="750.0" prefWidth="950.0">
          <children>
-            <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" StackPane.alignment="BOTTOM_CENTER">
+            <ScrollPane fx:id="scrollBracket" hbarPolicy="ALWAYS" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" vbarPolicy="ALWAYS" StackPane.alignment="BOTTOM_CENTER">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="548.0" prefWidth="948.0" style="-fx-background-color: #292E42;">
+                <AnchorPane fx:id="anchorBracket" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="548.0" prefWidth="948.0" style="-fx-background-color: #292E42;">
                      <children>
-                        <HBox fx:id="hBox" prefHeight="550.0" prefWidth="950.0">
-                           <children>
-                              <VBox fx:id="vBox" prefHeight="580.0" prefWidth="210.0" />
-                           </children>
-                        </HBox>
+                        <HBox fx:id="hBox" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="948.0" />
                      </children>
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <AnchorPane fx:id="webView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: #191D1F;" StackPane.alignment="TOP_CENTER">
+            <AnchorPane fx:id="anchorHeader" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="950.0" style="-fx-background-color: #191D1F;" StackPane.alignment="TOP_CENTER">
                <children>
                   <Label layoutX="14.0" layoutY="50.0" styleClass="dark_text" text="&gt;">
                      <font>
@@ -52,7 +47,6 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnCriarParticipante" layoutX="770.0" layoutY="155.0" styleClass="light-button" text="Adicionar Participante" />
                </children>
             </AnchorPane>
          </children>
