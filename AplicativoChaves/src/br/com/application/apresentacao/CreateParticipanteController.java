@@ -1,6 +1,9 @@
 package br.com.application.apresentacao;
 
 import br.com.application.negocio.Evento;
+import br.com.application.negocio.Participante;
+import br.com.application.persistencia.DBParticipante;
+import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import br.univates.system32.JFX.JFXValidatorCreator;
 import com.jfoenix.controls.JFXTextField;
@@ -13,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CreateParticipanteController implements Initializable {
@@ -27,6 +31,8 @@ public class CreateParticipanteController implements Initializable {
     private Pane paneToBlur;
     private Pane otherPaneToBlur;
     private StackPane stack;
+    private DBParticipante dbParticipante = new DBParticipante();
+    private ParticipanteMiniatureController miniature;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,13 +49,33 @@ public class CreateParticipanteController implements Initializable {
 
     public void createParticipante(ActionEvent event){
 
+        if(textNome.validate()){
+
+
+            try {
+                Participante p = new Participante(textNome.getText(), 0,0,createBracketController.getChaveTorneio().getId());
+                dbParticipante.save(p);
+
+                this.miniature.setParticipante(p);
+
+                close(event);
+
+            } catch (DataBaseException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
     }
 
-    public void show(Pane paneToBlur, Pane otherPaneToBlur, StackPane stackPane){
+    public void show(Pane paneToBlur, Pane otherPaneToBlur, StackPane stackPane, ParticipanteMiniatureController miniature){
 
         this.paneToBlur = paneToBlur;
         this.otherPaneToBlur = otherPaneToBlur;
         this.stack = stackPane;
+        this.miniature = miniature;
 
         BoxBlur blur = new BoxBlur(3, 3, 3);
 

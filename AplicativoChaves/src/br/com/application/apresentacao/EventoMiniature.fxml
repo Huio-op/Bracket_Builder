@@ -7,15 +7,28 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="150.0" prefWidth="935.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.EventoMiniatureController">
    <children>
       <AnchorPane layoutX="14.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="900.0" style="-fx-background-color: #191D1F;">
          <children>
-            <Label fx:id="lblNome" layoutX="15.0" layoutY="14.0" styleClass="light_text" text="Nome" />
-            <Label fx:id="lblJogo" layoutX="14.0" layoutY="40.0" styleClass="light_text" text="Jogo:" />
-            <Label fx:id="lblData" layoutX="14.0" layoutY="65.0" styleClass="light_text" text="Data:" />
-            <JFXTextArea fx:id="textDescricao" editable="false" layoutX="252.0" layoutY="19.0" prefHeight="64.0" prefWidth="410.0" styleClass="light_text" text="Descrição:" />
+            <Label fx:id="lblNome" layoutX="15.0" layoutY="14.0" styleClass="light_text" text="Nome">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="lblJogo" layoutX="14.0" layoutY="40.0" styleClass="light_text" text="Jogo:">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <Label fx:id="lblData" layoutX="14.0" layoutY="65.0" styleClass="light_text" text="Data:">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <JFXTextArea fx:id="textDescricao" editable="false" layoutX="252.0" layoutY="19.0" prefHeight="64.0" prefWidth="410.0" styleClass="light_text" text="Descrição:">
+               <font>
+                  <Font size="15.0" />
+               </font></JFXTextArea>
             <HBox layoutX="686.0" layoutY="26.0" prefHeight="50.0" prefWidth="200.0">
                <children>
                   <JFXButton onAction="#createBracket" styleClass="dark-button">

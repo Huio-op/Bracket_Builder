@@ -123,11 +123,11 @@ public class CreateBracketController implements Initializable {
 
     }
 
-    public void createParticipanteTransition(int inteiro){
+    public void createParticipanteTransition(ParticipanteMiniatureController miniature){
 
         JFXTransitionHandler.transitionFade(createParticipanteController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
         pullToFront(this.tPart);
-        createParticipanteController.show((Pane) this.anchorHeader, (Pane) this.anchorBracket,this.stackPane);
+        createParticipanteController.show((Pane) this.anchorHeader, (Pane) this.anchorBracket,this.stackPane, miniature);
 
     }
 
@@ -140,5 +140,8 @@ public class CreateBracketController implements Initializable {
         this.evento = evento;
         this.lblNomeEvento.setText(evento.getNome());
     }
+
+    public ChaveTorneio getChaveTorneio(){ return this.chaveTorneio; }
+
 
 }

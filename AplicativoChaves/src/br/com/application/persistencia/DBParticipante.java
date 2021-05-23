@@ -32,7 +32,7 @@ public class DBParticipante implements IDB<Participante> {
 
             connection.runSQL("INSERT INTO participante (nome, posicao, pontos, id_chave)" +
                     " VALUES( '" + participante.getNome() + "', " +participante.getPosicao() +", "+participante.getPontos()+
-                    "(SELECT id_chave FROM chave_torneio WHERE id_chave = '"+participante.getIdChave()+");");
+                    ",(SELECT id_chave FROM chave_torneio WHERE id_chave = "+participante.getIdChave()+"));");
 
         }
 
