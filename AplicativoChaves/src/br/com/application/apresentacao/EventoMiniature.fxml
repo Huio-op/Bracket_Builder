@@ -13,15 +13,15 @@
    <children>
       <AnchorPane layoutX="14.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="900.0" style="-fx-background-color: #191D1F;">
          <children>
-            <Label fx:id="lblNome" layoutX="15.0" layoutY="14.0" styleClass="light_text" text="Nome">
+            <Label fx:id="lblNome" layoutX="15.0" layoutY="14.0" maxWidth="-Infinity" prefHeight="21.0" prefWidth="222.0" styleClass="light_text" text="Nome">
                <font>
                   <Font size="15.0" />
                </font></Label>
-            <Label fx:id="lblJogo" layoutX="14.0" layoutY="40.0" styleClass="light_text" text="Jogo:">
+            <Label fx:id="lblJogo" layoutX="14.0" layoutY="40.0" maxWidth="-Infinity" prefHeight="21.0" prefWidth="222.0" styleClass="light_text" text="Jogo:">
                <font>
                   <Font size="15.0" />
                </font></Label>
-            <Label fx:id="lblData" layoutX="14.0" layoutY="65.0" styleClass="light_text" text="Data:">
+            <Label fx:id="lblData" layoutX="14.0" layoutY="65.0" maxWidth="-Infinity" prefHeight="21.0" prefWidth="222.0" styleClass="light_text" text="Data:">
                <font>
                   <Font size="15.0" />
                </font></Label>

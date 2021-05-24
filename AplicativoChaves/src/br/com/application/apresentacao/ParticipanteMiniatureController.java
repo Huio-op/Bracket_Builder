@@ -48,6 +48,7 @@ public class ParticipanteMiniatureController implements Initializable {
 
         this.participante = participante;
         this.lblNome.setText(participante.getNome());
+        this.lblNome.setWrapText(true);
         this.lblPontos.setText(String.valueOf(participante.getPontos()));
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorPart)).toFront();
 

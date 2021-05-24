@@ -8,6 +8,7 @@ import br.com.application.persistencia.filters.ParticipanteFilterBracket;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -45,6 +47,15 @@ public class CreateBracketController implements Initializable {
 
     @FXML
     private AnchorPane anchorHeader;
+
+    @FXML
+    private JFXTextArea textDescricao;
+
+    @FXML
+    private Label lblPremio;
+
+    @FXML
+    private Label lblData;
 
 //    @FXML
 //    private VBox vBox;
@@ -120,7 +131,6 @@ public class CreateBracketController implements Initializable {
             vBox.setMaxWidth(Region.USE_PREF_SIZE);
             vBox.setMaxHeight(Region.USE_PREF_SIZE);
             vBox.setFillWidth(true);
-
             if(i == 0){
                 quantidadeColunaAtual = chaveTorneio.getQuantidadeParticipantes()/2;
             }else if(contador == 2){
@@ -199,6 +209,9 @@ public class CreateBracketController implements Initializable {
     public void setEvento(Evento evento){
         this.evento = evento;
         this.lblNomeEvento.setText(evento.getNome());
+        this.textDescricao.setText(evento.getDescricao());
+        this.lblPremio.setText("R$" + evento.getPremio().toString());
+        this.lblData.setText(evento.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
     public ChaveTorneio getChaveTorneio(){ return this.chaveTorneio; }

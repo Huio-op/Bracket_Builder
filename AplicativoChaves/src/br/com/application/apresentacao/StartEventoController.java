@@ -117,6 +117,7 @@ public class StartEventoController implements Initializable {
         this.comboNumPart.getItems().add("2");
         this.comboNumPart.getItems().add("4");
         this.comboNumPart.getItems().add("8");
+        this.comboNumPart.getItems().add("16");
     }
 
     public AnchorPane getAnchorRoot(){

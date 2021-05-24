@@ -15,7 +15,7 @@
             <AnchorPane fx:id="anchorBlank" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;" />
             <AnchorPane fx:id="anchorPart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;">
                <children>
-                  <Label fx:id="lblNome" layoutX="23.0" layoutY="22.0" styleClass="dark_text" text="Label">
+                  <Label fx:id="lblNome" layoutX="23.0" layoutY="22.0" maxWidth="-Infinity" prefHeight="27.0" prefWidth="115.0" styleClass="dark_text" text="Label" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
