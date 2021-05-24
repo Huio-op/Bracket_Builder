@@ -14,11 +14,11 @@
    <children>
       <StackPane fx:id="stackPane" prefHeight="750.0" prefWidth="950.0">
          <children>
-            <ScrollPane fx:id="scrollBracket" hbarPolicy="ALWAYS" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" vbarPolicy="ALWAYS" StackPane.alignment="BOTTOM_CENTER">
+            <ScrollPane fx:id="scrollBracket" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="950.0" StackPane.alignment="BOTTOM_CENTER">
               <content>
-                <AnchorPane fx:id="anchorBracket" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="548.0" prefWidth="948.0" style="-fx-background-color: #292E42;">
+                <AnchorPane fx:id="anchorBracket" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="548.0" prefWidth="948.0" style="-fx-background-color: #292E42;">
                      <children>
-                        <HBox fx:id="hBox" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="948.0" />
+                        <HBox fx:id="hBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="948.0" />
                      </children>
                   </AnchorPane>
               </content>

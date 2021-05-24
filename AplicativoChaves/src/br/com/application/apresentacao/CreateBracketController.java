@@ -2,6 +2,9 @@ package br.com.application.apresentacao;
 
 import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Evento;
+import br.com.application.negocio.Participante;
+import br.com.application.persistencia.DBParticipante;
+import br.com.application.persistencia.filters.ParticipanteFilterBracket;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
@@ -17,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CreateBracketController implements Initializable {
@@ -52,6 +56,7 @@ public class CreateBracketController implements Initializable {
     private ParticipanteMiniatureController partController;
     private AnchorPane tPart;
     private CreateParticipanteController createParticipanteController;
+    private DBParticipante dbParticipante = new DBParticipante();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,6 +99,19 @@ public class CreateBracketController implements Initializable {
 
         this.chaveTorneio = chaveTorneio;
         double qtdeCols = ((Math.log(chaveTorneio.getQuantidadeParticipantes())/Math.log(2))*2)+1;
+        int miniatureId = 1;
+        int quantidadeColunaAtual = 0;
+        int contador = 0;
+
+        ArrayList<Participante> arrayPart = null;
+        try {
+            arrayPart = dbParticipante.loadFiltered(new ParticipanteFilterBracket(chaveTorneio));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+
         for (int i = 0; i < qtdeCols; i++){
 
             VBox vBox = new VBox();
@@ -101,21 +119,63 @@ public class CreateBracketController implements Initializable {
             vBox.setPrefHeight(580);
             vBox.setMaxWidth(Region.USE_PREF_SIZE);
             vBox.setMaxHeight(Region.USE_PREF_SIZE);
+            vBox.setFillWidth(true);
 
-            if(i == 0 || i == qtdeCols-1){
-                for(int j = 0; j < chaveTorneio.getQuantidadeParticipantes()/2 ; j++){
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/ParticipanteMiniature.fxml"));
-                        AnchorPane pMiniature = loader.load();
+            if(i == 0){
+                quantidadeColunaAtual = chaveTorneio.getQuantidadeParticipantes()/2;
+            }else if(contador == 2){
+                quantidadeColunaAtual = quantidadeColunaAtual*2;
+            }else if(quantidadeColunaAtual != 1){
+                quantidadeColunaAtual = quantidadeColunaAtual/2;
+            }else{
+                quantidadeColunaAtual = quantidadeColunaAtual;
+                contador++;
+            }
 
-                        this.partController = loader.getController();
-                        partController.setBracketController(this);
-                        vBox.getChildren().add(pMiniature);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            for(int j = 0; j < quantidadeColunaAtual ; j++){
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/ParticipanteMiniature.fxml"));
+                    AnchorPane pMiniature = loader.load();
+
+                    this.partController = loader.getController();
+                    partController.setId(miniatureId);
+                    for(Participante participante : arrayPart){
+                        if(miniatureId == participante.getPosicao()){
+                            partController.setParticipante(participante);
+                        }
                     }
+                    if((i != 0 && i == qtdeCols-1) && partController.getParticipante() == null){
+                        partController.setButton();
+                    }else if((i == 0 && i != qtdeCols-1) && partController.getParticipante() == null){
+                        partController.setButton();
+                    }else if(partController.getParticipante() == null){
+                        partController.setBlank();
+                    }
+                    miniatureId++;
+                    partController.setBracketController(this);
+
+                    vBox.getChildren().add(pMiniature);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+
+
+//                for(int j = 0; j < chaveTorneio.getQuantidadeParticipantes()/2 ; j++){
+//                    try {
+//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/ParticipanteMiniature.fxml"));
+//                        AnchorPane pMiniature = loader.load();
+//
+//                        this.partController = loader.getController();
+//                        partController.setId(miniatureId);
+//                        miniatureId++;
+//                        partController.setBracketController(this);
+//                        vBox.getChildren().add(pMiniature);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
 
             this.hBox.getChildren().add(vBox);
 

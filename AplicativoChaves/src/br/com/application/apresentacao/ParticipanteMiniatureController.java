@@ -21,7 +21,13 @@ public class ParticipanteMiniatureController implements Initializable {
     private JFXButton btnCriarParticipante;
 
     @FXML
+    private AnchorPane anchorBlank;
+
+    @FXML
     private AnchorPane anchorPart;
+
+    @FXML
+    private AnchorPane anchorButton;
 
     @FXML
     private Label lblNome;
@@ -31,6 +37,7 @@ public class ParticipanteMiniatureController implements Initializable {
 
     CreateBracketController bracketController;
     private Participante participante;
+    private int id;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,8 +49,28 @@ public class ParticipanteMiniatureController implements Initializable {
         this.participante = participante;
         this.lblNome.setText(participante.getNome());
         this.lblPontos.setText(String.valueOf(participante.getPontos()));
-        this.stackPart.getChildren().get(0).toFront();
+        this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorPart)).toFront();
 
+    }
+
+    public Participante getParticipante(){ return this.participante; }
+
+    public void setBlank(){
+        this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorBlank)).toFront();
+    }
+
+    public void setButton(){
+        this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorButton)).toFront();
+    }
+
+    public void setId(int id){
+
+        this.id = id;
+
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public void createParticipanteTransition(){

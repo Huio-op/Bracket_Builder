@@ -53,11 +53,11 @@ public class CreateParticipanteController implements Initializable {
 
 
             try {
-                Participante p = new Participante(textNome.getText(), 0,0,createBracketController.getChaveTorneio().getId());
+                Participante p = new Participante(textNome.getText(), miniature.getId(),0,createBracketController.getChaveTorneio().getId());
                 dbParticipante.save(p);
 
                 this.miniature.setParticipante(p);
-
+                this.textNome.setText("");
                 close(event);
 
             } catch (DataBaseException e) {

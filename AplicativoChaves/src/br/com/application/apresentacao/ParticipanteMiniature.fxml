@@ -12,6 +12,7 @@
    <children>
       <StackPane fx:id="stackPart" prefHeight="100.0" prefWidth="200.0">
          <children>
+            <AnchorPane fx:id="anchorBlank" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;" />
             <AnchorPane fx:id="anchorPart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;">
                <children>
                   <Label fx:id="lblNome" layoutX="23.0" layoutY="22.0" styleClass="dark_text" text="Label">
@@ -39,7 +40,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;">
+            <AnchorPane fx:id="anchorButton" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;">
                <children>
                   <JFXButton fx:id="btnCriarParticipante" layoutX="12.0" layoutY="20.0" onAction="#createParticipanteTransition" styleClass="light-button" text="Adicionar Participante" />
                </children>

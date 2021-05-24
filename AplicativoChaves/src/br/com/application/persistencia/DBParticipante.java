@@ -96,16 +96,16 @@ public class DBParticipante implements IDB<Participante> {
         ResultSet rs = connection.runQuerySQL(sql);
 
         if(rs.isBeforeFirst()) {
-            rs.next();
-            int id = rs.getInt("id_participante");
-            String nome = rs.getString("nome");
-            int posicao = rs.getInt("posicao");
-            int pontos = rs.getInt("pontos");
-            int idChave = rs.getInt("id_chave");
+            while(rs.next()){
+                int id = rs.getInt("id_participante");
+                String nome = rs.getString("nome");
+                int posicao = rs.getInt("posicao");
+                int pontos = rs.getInt("pontos");
+                int idChave = rs.getInt("id_chave");
 
-            participante = new Participante( id,nome,posicao,pontos,idChave);
-            array.add(participante);
-
+                participante = new Participante( id,nome,posicao,pontos,idChave);
+                array.add(participante);
+            }
         }
 
         return array;
@@ -115,6 +115,15 @@ public class DBParticipante implements IDB<Participante> {
 
     @Override
     public ArrayList<Participante> loadFiltered(Filter filter) throws SQLException, DataBaseException {
-        return null;
+        ArrayList<Participante> arrayFiltered = new ArrayList<Participante>();
+        ArrayList<Participante> array = this.loadAll();
+
+        for (Participante participante: array) {
+            if(filter.isApproved(participante)){
+                arrayFiltered.add(participante);
+            }
+        }
+
+        return arrayFiltered;
     }
 }
