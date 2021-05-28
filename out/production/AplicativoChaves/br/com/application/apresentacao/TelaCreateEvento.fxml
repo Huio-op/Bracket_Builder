@@ -18,7 +18,7 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <AnchorPane layoutX="148.0" layoutY="68.0" prefHeight="615.0" prefWidth="655.0" style="-fx-background-color: #191D1F;">
+                  <AnchorPane layoutX="148.0" layoutY="68.0" prefHeight="615.0" prefWidth="655.0" style="-fx-background-color: #191D1F; -fx-border-color: #5A78FF; -fx-border-radius: 10px;">
                      <children>
                         <JFXTextArea fx:id="textDesc" layoutX="95.0" layoutY="222.0" prefHeight="171.0" prefWidth="465.0" promptText="Descricao do evento:" />
                         <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" onAction="#returnPage" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
