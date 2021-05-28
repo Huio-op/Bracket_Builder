@@ -30,7 +30,7 @@
                </children></AnchorPane>
             <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" StackPane.alignment="BOTTOM_CENTER">
                <content>
-                  <AnchorPane fx:id="anchorScroll" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="935.0">
+                  <AnchorPane fx:id="anchorScroll" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="935.0" style="-fx-background-color: #292E42;">
                      <children>
                         <VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="935.0" />
                      </children>
