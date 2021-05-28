@@ -124,9 +124,9 @@ public class CreateEventoController implements Initializable {
 
     public void refreshComboJogo(){
 
-        this.comboJogo.getItems().removeAll();
+        this.comboJogo.getItems().removeAll(comboJogo.getItems());
 
-        try {
+        try{
             ArrayList<Jogo> array = dbJogo.loadAll();
             if(!array.isEmpty()){
                 for (Jogo jogo: array) {
