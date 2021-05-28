@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -27,6 +28,9 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
+                  <JFXButton layoutX="796.0" layoutY="105.0" onAction="#applyFilter" prefHeight="31.0" prefWidth="140.0" styleClass="light-button" text="Aplicar Filtros" />
+                  <JFXComboBox fx:id="comboJogoFilter" layoutX="626.0" layoutY="105.0" prefHeight="31.0" prefWidth="140.0" promptText="Filtrar por Jogo:" />
+                  <JFXButton layoutX="14.0" layoutY="105.0" onAction="#renderEventos" prefHeight="31.0" prefWidth="140.0" styleClass="red-button" text="Limpar Filtros" />
                </children></AnchorPane>
             <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="950.0" StackPane.alignment="BOTTOM_CENTER">
                <content>
