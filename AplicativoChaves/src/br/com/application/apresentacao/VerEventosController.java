@@ -3,10 +3,15 @@ package br.com.application.apresentacao;
 import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Evento;
 import br.com.application.persistencia.DBEvento;
+import br.com.application.persistencia.DBJogo;
+import br.com.application.persistencia.filters.EventoFilterJogo;
 import br.com.application.persistencia.filters.EventoFilterOwner;
 import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.DataBase.Filter;
 import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +48,9 @@ public class VerEventosController implements Initializable {
     @FXML
     private VBox vBox;
 
+    @FXML
+    private JFXComboBox<String> comboJogoFilter;
+
     JFXTransitionHandler th = new JFXTransitionHandler();
     DBEvento dbEvento;
     EventoMiniatureController eventoMiniatureController;
@@ -74,7 +82,17 @@ public class VerEventosController implements Initializable {
             this.startEventoController = loaderStart.getController();
             this.startEventoController.setVerEventosController(this);
 
+            DBJogo dbJogo = new DBJogo();
+            ArrayList<String> arrayJogos = dbJogo.loadAllNameAndId();
+            for(String jogo : arrayJogos){
+                comboJogoFilter.getItems().add(jogo);
+            }
+
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (DataBaseException e) {
             e.printStackTrace();
         }
 
@@ -100,6 +118,48 @@ public class VerEventosController implements Initializable {
             error.showDialogPane();
         }
 
+    }
+
+    public void applyFilter(ActionEvent event){
+
+        ArrayList<Filter> filterArray = new ArrayList<Filter>();
+        filterArray.add(new EventoFilterOwner(HomeController.organizador));
+        String idJogo = comboJogoFilter.getValue();
+        if(idJogo != null){
+            idJogo = idJogo.split("-")[0];
+            filterArray.add(new EventoFilterJogo(idJogo));
+        }
+
+        renderEventosFiltered(filterArray);
+
+    }
+
+    public void renderEventosFiltered(ArrayList<Filter> filterArray){
+
+        this.vBox.getChildren().clear();
+
+        try {
+            ArrayList<Evento> allFilteredEventos = dbEvento.loadMultiFiltered(filterArray);
+            if(!allFilteredEventos.isEmpty()){
+
+                for (Evento evento: allFilteredEventos) {
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/EventoMiniature.fxml"));
+                    AnchorPane tMiniature = loader.load();
+                    this.eventoMiniatureController = loader.getController();
+                    this.eventoMiniatureController.setEvento(evento);
+                    this.eventoMiniatureController.setVerEventosController(this);
+                    this.vBox.getChildren().add(tMiniature);
+
+                }
+            }
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void renderEventos(){

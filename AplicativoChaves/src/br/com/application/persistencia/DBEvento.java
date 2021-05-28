@@ -183,6 +183,25 @@ public class DBEvento implements IDB<Evento> {
 
     }
 
+    public ArrayList<Evento> loadMultiFiltered(ArrayList<Filter> filterArray) throws SQLException, DataBaseException {
+
+        ArrayList<Evento> arrayFiltered = null;
+        ArrayList<Evento> array = this.loadAll();
+
+        for(Filter filter : filterArray){
+            arrayFiltered = new ArrayList<Evento>();
+            for (Evento evento: array) {
+                if(filter.isApproved(evento)){
+                    arrayFiltered.add(evento);
+                }
+            }
+            array = arrayFiltered;
+        }
+
+        return arrayFiltered;
+
+    }
+
     public boolean hasBracket(Evento evento) throws SQLException, DataBaseException {
 
         if(evento != null){
