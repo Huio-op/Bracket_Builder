@@ -2,11 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorBack" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="510.0" style="-fx-background-color: #5A78FF;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.ReportsController">
@@ -25,20 +25,23 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton layoutX="50.0" layoutY="68.0" onAction="#geEventoListing" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Eventos" />
-            <JFXButton layoutX="266.0" layoutY="68.0" onAction="#getParticipanteListing" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Participantes" />
-            <JFXComboBox fx:id="comboEvento" layoutX="50.0" layoutY="192.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um evento para filtrar:" />
-            <JFXTextField fx:id="textFiltroNome" layoutX="155.0" layoutY="244.0" prefHeight="25.0" prefWidth="190.0" promptText="Filtre por nome:" />
-            <JFXButton layoutX="45.0" layoutY="298.0" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Relatório de Eventos" />
-            <JFXButton layoutX="266.0" layoutY="298.0" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Relatório de Participantes" />
+            <JFXButton layoutX="50.0" layoutY="114.0" onAction="#geEventoListing" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Eventos" />
+            <JFXButton layoutX="266.0" layoutY="114.0" onAction="#getParticipanteListing" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Participantes" />
+            <JFXComboBox fx:id="comboEvento" layoutX="286.0" layoutY="188.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um evento para filtrar:" />
+            <JFXButton layoutX="32.0" layoutY="298.0" onAction="#geEventoReport" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Relatório de Eventos" />
+            <JFXButton layoutX="286.0" layoutY="298.0" onAction="#getParticipanteReport" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Relatório de Participantes" />
             <Label layoutX="140.0" layoutY="14.0" styleClass="dark_text" text="Gerar Relatórios e Listagens">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="comboOrganizador" layoutX="50.0" layoutY="135.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um organizador:" />
-            <JFXComboBox fx:id="comboTipoTorneio" layoutX="266.0" layoutY="192.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um tipo de torneio:" />
-            <JFXComboBox fx:id="comboJogo" layoutX="266.0" layoutY="135.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um jogo para filtrar:" />
+            <JFXComboBox fx:id="comboOrganizador" layoutX="32.0" layoutY="188.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um organizador:" />
+            <JFXComboBox fx:id="comboTipoTorneio" layoutX="286.0" layoutY="241.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um tipo de torneio:" />
+            <JFXComboBox fx:id="comboJogo" layoutX="32.0" layoutY="241.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um jogo para filtrar:" />
+            <Line endX="249.0" layoutX="251.0" layoutY="166.0" startX="-251.0" stroke="#5a78ff" />
+            <Line endX="-0.5" endY="137.0" layoutX="251.0" layoutY="213.0" startX="-1.0" startY="-46.5" stroke="#5a78ff" />
+            <Label layoutX="71.0" layoutY="54.0" styleClass="light_text" text="As listagens mostram todos os eventos e participantes cadastrados." />
+            <Label layoutX="82.0" layoutY="78.0" styleClass="light_text" text="Os relatórios podem ser filtrados através dos inputs oferecidos." />
          </children>
       </AnchorPane>
    </children>

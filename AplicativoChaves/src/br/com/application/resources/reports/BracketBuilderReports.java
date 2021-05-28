@@ -9,28 +9,36 @@ import java.util.HashMap;
 public class BracketBuilderReports {
 
     public static enum ReportType{
-        EVENTO_REPORT("/br/com/application/resources/reports/Listagem_Eventos.jrxml", null),
-        PARTICIPANTE_REPORT("/br/com/application/resources/reports/Listagem_Participantes.jrxml", null);
+        EVENTO_LISTING("/br/com/application/resources/reports/Listagem_Eventos.jrxml"),
+        PARTICIPANTE_LISTING("/br/com/application/resources/reports/Listagem_Participantes.jrxml"),
+        EVENTO_REPORT("/br/com/application/resources/reports/Relatorio_Eventos.jrxml"),
+        PARTICIPANTE_REPORT("/br/com/application/resources/reports/Relatorio_Participantes.jrxml");
 
         public String path;
-        public HashMap hash;
 
-        ReportType(String path, HashMap hash) {
+        ReportType(String path) {
             this.path = path;
-            this.hash = hash;
         }
 
         public String getPath(){
             return this.path;
         }
-        public HashMap getHash() { return this.hash; }
 
     }
 
     public static void generateReport(ReportType type){
 
         ReportGenerator generator = new ReportGenerator(DBApp.getConnection());
-        generator.generateReport(new Report(type.getPath(), type.getHash()));
+        generator.generateReport(new Report(type.getPath(), null));
+
+    }
+
+    public static void generateReport(ReportType type, HashMap hashMap){
+
+
+        ReportGenerator generator = new ReportGenerator(DBApp.getConnection());
+
+        generator.generateReport(new Report(type.getPath(), hashMap));
 
     }
 

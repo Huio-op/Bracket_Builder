@@ -1,6 +1,5 @@
 package br.com.application.apresentacao;
 
-import br.com.application.negocio.Evento;
 import br.com.application.negocio.TipoTorneio;
 import br.com.application.persistencia.DBEvento;
 import br.com.application.persistencia.DBJogo;
@@ -23,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ReportsController implements Initializable {
@@ -35,9 +35,6 @@ public class ReportsController implements Initializable {
 
     @FXML
     private JFXComboBox<String> comboEvento;
-
-    @FXML
-    private JFXTextField textFiltroNome;
 
     @FXML
     private JFXComboBox<String> comboOrganizador;
@@ -70,7 +67,7 @@ public class ReportsController implements Initializable {
             }
 
             DBOrganizador dbOrganizador = new DBOrganizador();
-            ArrayList<String> arrayOrganizador = dbOrganizador.loadAllName();
+            ArrayList<String> arrayOrganizador = dbOrganizador.loadAllEmail();
             for (String selecao: arrayOrganizador) {
                 comboOrganizador.getItems().add(selecao);
             }
@@ -91,13 +88,47 @@ public class ReportsController implements Initializable {
 
     public void geEventoListing(ActionEvent event){
 
-        BracketBuilderReports.generateReport(BracketBuilderReports.ReportType.EVENTO_REPORT);
+        BracketBuilderReports.generateReport(BracketBuilderReports.ReportType.EVENTO_LISTING);
 
     }
 
     public void getParticipanteListing(ActionEvent event){
 
-        BracketBuilderReports.generateReport(BracketBuilderReports.ReportType.PARTICIPANTE_REPORT);
+        BracketBuilderReports.generateReport(BracketBuilderReports.ReportType.PARTICIPANTE_LISTING);
+
+    }
+
+    public void geEventoReport(ActionEvent event){
+
+        HashMap map = new HashMap();
+
+        map.put("emailOrg", comboOrganizador.getValue());
+        if(comboJogo.getValue() != null){
+            map.put("idJogo", Integer.parseInt(comboJogo.getValue().split("-")[0]));
+        }else{
+            map.put("idJogo", null);
+        }
+
+        BracketBuilderReports.generateReport(BracketBuilderReports.ReportType.EVENTO_REPORT, map);
+
+    }
+
+    public void getParticipanteReport(ActionEvent event){
+
+        HashMap map = new HashMap();
+
+        if(comboEvento.getValue() != null){
+            map.put("idEvento", Integer.parseInt(comboEvento.getValue().split("-")[0]));
+        }else{
+            map.put("idEvento", null);
+        }
+        if(comboTipoTorneio.getValue() != null){
+            map.put("idTipo", Integer.parseInt(comboTipoTorneio.getValue().split("-")[0]));
+        }else{
+            map.put("idTipo", null);
+        }
+
+        BracketBuilderReports.generateReport(BracketBuilderReports.ReportType.PARTICIPANTE_REPORT, map);
 
     }
 
@@ -115,6 +146,10 @@ public class ReportsController implements Initializable {
 
     public void close(ActionEvent event){
 
+        comboTipoTorneio.setValue(null);
+        comboJogo.setValue(null);
+        comboEvento.setValue(null);
+        comboOrganizador.setValue(null);
         JFXTransitionHandler.transitionFade(anchorBack, JFXTransitionHandler.FADEOUT, 1);
         paneToBlur.setEffect(null);
         this.stackPaneFather.getChildren().get(this.stackPaneFather.getChildren().indexOf(anchorBack)).toBack();

@@ -177,6 +177,22 @@ public class DBOrganizador implements IDB<Organizador> {
         return array;
     }
 
+    public ArrayList<String> loadAllEmail() throws DataBaseException, SQLException {
+        String sql = "SELECT o.email FROM organizador o;";
+        ArrayList<String> array = new ArrayList<String>();
+
+        ResultSet rs = connection.runQuerySQL(sql);
+
+        if(rs.isBeforeFirst()) {
+            while(rs.next()){
+                String orgEmail = rs.getString("email");
+                array.add(orgEmail);
+            }
+        }
+
+        return array;
+    }
+
     @Override
     public ArrayList<Organizador> loadFiltered(Filter filter) {
         return null;
