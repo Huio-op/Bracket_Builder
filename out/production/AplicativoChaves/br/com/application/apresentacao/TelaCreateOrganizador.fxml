@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="anchorBackgroundOrg" onDragDetected="#createOrganizador" prefHeight="700.0" prefWidth="950.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateOrganizadorController">
    <children>
-      <AnchorPane layoutX="295.0" layoutY="155.0" prefHeight="390.0" prefWidth="360.0" style="-fx-background-color: #191D1F;">
+      <AnchorPane layoutX="295.0" layoutY="155.0" prefHeight="390.0" prefWidth="360.0" style="-fx-background-color: #191D1F; -fx-background-radius: 10px; -fx-border-color: #5A78FF; -fx-border-radius: 10px;">
          <children>
             <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" onAction="#returnPage" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
                <font>
