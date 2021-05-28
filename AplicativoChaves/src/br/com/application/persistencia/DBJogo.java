@@ -108,6 +108,27 @@ public class DBJogo implements IDB<Jogo> {
 
     }
 
+    public ArrayList<String> loadAllNameAndId() throws DataBaseException, SQLException {
+
+        ArrayList<String> array = new ArrayList<String>();
+
+        String sql = "SELECT j.id_jogo, j.nome FROM jogo j";
+        ResultSet rs = connection.runQuerySQL(sql);
+
+        if(rs.isBeforeFirst()) {
+            while(rs.next()){
+
+                int id = rs.getInt("id_jogo");
+                String jogoNome = rs.getString("nome");
+
+                array.add(id + "- " + jogoNome);
+            }
+        }
+
+        return array;
+
+    }
+
     @Override
     public ArrayList<Jogo> loadFiltered(Filter filter) {
         return null;

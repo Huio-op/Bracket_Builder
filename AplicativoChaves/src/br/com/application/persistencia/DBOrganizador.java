@@ -126,7 +126,55 @@ public class DBOrganizador implements IDB<Organizador> {
 
     @Override
     public ArrayList<Organizador> loadAll() throws DataBaseException, SQLException {
-        return null;
+        String sql = "SELECT * FROM organizador;";
+        Organizador o = null;
+        ArrayList<Organizador> array = new ArrayList<Organizador>();
+
+        ResultSet rs = connection.runQuerySQL(sql);
+
+        if(rs.isBeforeFirst()) {
+            rs.next();
+            CPF cpf = new CPF();
+            cpf.setCPF(rs.getString("cpf"));
+            String orgEmail = rs.getString("email");
+            String nacionalidade = rs.getString("nacionalidade");
+
+            String sqlUsu = "SELECT * FROM usuario WHERE email = '"+orgEmail+"';";
+            ResultSet rsUsu = connection.runQuerySQL(sqlUsu);
+            String nome = null;
+            String senha = null;
+            if(rsUsu.isBeforeFirst()){
+                rs.next();
+                nome = rs.getString("nome");
+                senha = rs.getString("senha");
+            }
+
+            int eventosRealizados = rs.getInt("eventos_realizados");
+            int nota = rs.getInt("nota");
+
+            o = new Organizador(cpf,orgEmail,nacionalidade, nome, senha, eventosRealizados, nota);
+            array.add(o);
+        }
+
+        return array;
+    }
+
+    public ArrayList<String> loadAllName() throws DataBaseException, SQLException {
+        String sql = "SELECT o.email, u.nome FROM organizador o, usuario u WHERE o.email = u.email ORDER BY u.nome;";
+        ArrayList<String> array = new ArrayList<String>();
+
+        ResultSet rs = connection.runQuerySQL(sql);
+
+        if(rs.isBeforeFirst()) {
+            while(rs.next()){
+                String orgEmail = rs.getString("email");
+                String nome = rs.getString("nome");
+
+                array.add(nome);
+            }
+        }
+
+        return array;
     }
 
     @Override

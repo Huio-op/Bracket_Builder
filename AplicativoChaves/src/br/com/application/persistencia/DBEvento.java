@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class DBEvento implements IDB<Evento> {
 
@@ -138,6 +139,27 @@ public class DBEvento implements IDB<Evento> {
 
                 Evento evento = new Evento( id,nomeEvento,jogo,cpfOrg,detalhes,premio,dataForm);
                 array.add(evento);
+            }
+        }
+
+        return array;
+
+    }
+
+    public ArrayList<String> loadAllNameAndId() throws DataBaseException, SQLException {
+
+        ArrayList<String> array = new ArrayList<String>();
+
+        String sql = "SELECT e.id_evento, e.nome FROM evento e ORDER BY e.id_evento;";
+        ResultSet rs = connection.runQuerySQL(sql);
+
+        if(rs.isBeforeFirst()){
+            while(rs.next()){
+
+                int id = rs.getInt("id_evento");
+                String nomeEvento = rs.getString("nome");
+
+                array.add(id + "- "+ nomeEvento);
             }
         }
 

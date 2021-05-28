@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorBack" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="260.0" prefWidth="300.0" style="-fx-background-color: #191D1F;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.ReportsController">
+<AnchorPane fx:id="anchorBack" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="510.0" style="-fx-background-color: #5A78FF;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.ReportsController">
    <children>
-      <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" onAction="#close" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imgComponents/icon_arrow.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
-      <JFXButton layoutX="55.0" layoutY="68.0" onAction="#geEventoReport" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Eventos" />
-      <JFXButton layoutX="55.0" layoutY="115.0" onAction="#getParticipanteReport" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Participantes" />
+      <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="350.0" prefWidth="500.0" style="-fx-background-color: #191D1F;">
+         <children>
+            <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="12.0" onAction="#close" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imgComponents/icon_arrow.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="50.0" layoutY="68.0" onAction="#geEventoListing" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Eventos" />
+            <JFXButton layoutX="266.0" layoutY="68.0" onAction="#getParticipanteListing" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Listagem de Participantes" />
+            <JFXComboBox fx:id="comboEvento" layoutX="50.0" layoutY="192.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um evento para filtrar:" />
+            <JFXTextField fx:id="textFiltroNome" layoutX="155.0" layoutY="244.0" prefHeight="25.0" prefWidth="190.0" promptText="Filtre por nome:" />
+            <JFXButton layoutX="45.0" layoutY="298.0" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Relatório de Eventos" />
+            <JFXButton layoutX="266.0" layoutY="298.0" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Relatório de Participantes" />
+            <Label layoutX="140.0" layoutY="14.0" styleClass="dark_text" text="Gerar Relatórios e Listagens">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="comboOrganizador" layoutX="50.0" layoutY="135.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um organizador:" />
+            <JFXComboBox fx:id="comboTipoTorneio" layoutX="266.0" layoutY="192.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um tipo de torneio:" />
+            <JFXComboBox fx:id="comboJogo" layoutX="266.0" layoutY="135.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha um jogo para filtrar:" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

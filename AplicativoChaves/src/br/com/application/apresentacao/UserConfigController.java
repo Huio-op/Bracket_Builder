@@ -84,6 +84,7 @@ public class UserConfigController implements Initializable {
         try {
             FXMLLoader loaderEdit = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaReports.fxml"));
             this.tReports = loaderEdit.load();
+            this.tReports.setOpacity(0);
             this.stackPane.getChildren().add(tReports);
             this.stackPane.getChildren().set(1,tReports);
             this.reportsController = loaderEdit.getController();

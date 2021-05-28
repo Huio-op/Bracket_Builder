@@ -30,7 +30,7 @@ public class BracketBuilderReports {
     public static void generateReport(ReportType type){
 
         ReportGenerator generator = new ReportGenerator(DBApp.getConnection());
-        generator.generateReport(new Report(type.getPath()));
+        generator.generateReport(new Report(type.getPath(), type.getHash()));
 
     }
 
