@@ -66,7 +66,8 @@ public class StartEventoController implements Initializable {
                 DBChaveTorneio dbChaveTorneio = new DBChaveTorneio();
                 dbChaveTorneio.save(chave);
 
-                verEventosController.createBracketTransition(chave, this.evento);
+                verEventosController.renderEventos();
+                this.close(event);
             } catch (DataBaseException e) {
                 e.printStackTrace();
             } catch (SQLException throwables) {
