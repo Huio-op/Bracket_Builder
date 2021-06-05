@@ -16,7 +16,7 @@ CREATE TABLE organizador(
     eventos_realizados INT NOT NULL DEFAULT 0,
     nota INT NOT NULL DEFAULT 0,
     CONSTRAINT pk_organizador PRIMARY KEY (cpf),
-    CONSTRAINT fk_email_organizador FOREIGN KEY(email) REFERENCES usuario(email)
+    CONSTRAINT fk_email_organizador FOREIGN KEY(email) REFERENCES usuario(email) ON DELETE CASCADE
 
 );
 
@@ -37,17 +37,17 @@ CREATE TABLE evento(
     cpf_organizador VARCHAR(14) NOT NULL,
     detalhes VARCHAR(500),
     premio DECIMAL(11,2) NOT NULL DEFAULT 0.00,
-    data TIMESTAMP NOT NULL,
+    data DATE NOT NULL,
     CONSTRAINT pk_evento PRIMARY KEY (id_evento),
-    CONSTRAINT fk_organizador_evento FOREIGN KEY(cpf_organizador) REFERENCES organizador(cpf),
-    CONSTRAINT fk_jogo_evento FOREIGN KEY(jogo) REFERENCES jogo(id_jogo)
+    CONSTRAINT fk_organizador_evento FOREIGN KEY(cpf_organizador) REFERENCES organizador(cpf) ON DELETE CASCADE,
+    CONSTRAINT fk_jogo_evento FOREIGN KEY(jogo) REFERENCES jogo(id_jogo) ON DELETE CASCADE
 
 );
 
 CREATE TABLE tipos_torneio(
     id_tipos_torneio INT NOT NULL,
     nome VARCHAR(40) NOT NULL,
-    CONSTRAINT pk_tipos_torneio PRIMARY KEY(id_tipos_torneio),
+    CONSTRAINT pk_tipos_torneio PRIMARY KEY(id_tipos_torneio) ,
     CONSTRAINT unq_nome_tipos_torneio UNIQUE(nome)
 );
 
@@ -60,10 +60,10 @@ CREATE TABLE chave_torneio(
     tipo INT NOT NULL,
     qtde_participantes INT NOT NULL,
     id_evento INT NOT NULL,
-    concluido BOOLEAN NOT NULL DEFAULT FALSE,
+    comecou BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT pk_chave_torneio PRIMARY KEY (id_chave),
-    CONSTRAINT fk_evento_chave_torneio FOREIGN KEY(id_evento) REFERENCES evento(id_evento),
-    CONSTRAINT fk_tipo_chave_torneio FOREIGN KEY(tipo) REFERENCES tipos_torneio(id_tipos_torneio)
+    CONSTRAINT fk_evento_chave_torneio FOREIGN KEY(id_evento) REFERENCES evento(id_evento) ON DELETE CASCADE,
+    CONSTRAINT fk_tipo_chave_torneio FOREIGN KEY(tipo) REFERENCES tipos_torneio(id_tipos_torneio) ON DELETE CASCADE
 
 );
 
@@ -75,7 +75,6 @@ CREATE TABLE participante(
     pontos INT NOT NULL DEFAULT 0,
     id_chave INT NOT NULL,
     CONSTRAINT pk_participante PRIMARY KEY (id_participante),
-    CONSTRAINT fk_chave_torneio_participante FOREIGN KEY(id_chave) REFERENCES chave_torneio(id_chave)
+    CONSTRAINT fk_chave_torneio_participante FOREIGN KEY(id_chave) REFERENCES chave_torneio(id_chave) ON DELETE CASCADE
 
 );
-
