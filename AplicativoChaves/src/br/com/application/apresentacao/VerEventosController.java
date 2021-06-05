@@ -2,8 +2,10 @@ package br.com.application.apresentacao;
 
 import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Evento;
+import br.com.application.persistencia.DBChaveTorneio;
 import br.com.application.persistencia.DBEvento;
 import br.com.application.persistencia.DBJogo;
+import br.com.application.persistencia.filters.ChaveFilterEvento;
 import br.com.application.persistencia.filters.EventoFilterJogo;
 import br.com.application.persistencia.filters.EventoFilterOwner;
 import br.univates.system32.DataBase.DataBaseException;
@@ -52,11 +54,12 @@ public class VerEventosController implements Initializable {
     private JFXComboBox<String> comboJogoFilter;
 
     JFXTransitionHandler th = new JFXTransitionHandler();
-    DBEvento dbEvento;
-    EventoMiniatureController eventoMiniatureController;
-    EditEventoController editEventoController;
-    StartEventoController startEventoController;
-    CreateBracketController createBracketController;
+    private DBEvento dbEvento;
+    private final DBChaveTorneio dbChaveTorneio = new DBChaveTorneio();
+    private EventoMiniatureController eventoMiniatureController;
+    private EditEventoController editEventoController;
+    private StartEventoController startEventoController;
+    private CreateBracketController createBracketController;
     AnchorPane tJogo;
     AnchorPane tStart;
     AnchorPane tBracket;
@@ -203,13 +206,19 @@ public class VerEventosController implements Initializable {
     public void startEventoTransition(Evento evento){
 
         try {
-            if(dbEvento.hasBracket(evento)){
-                createBracketTransition(dbEvento.getBracket(evento), evento);
-            }else{
+            ArrayList<ChaveTorneio> arrayChaveFromEvento = dbChaveTorneio.loadFiltered(new ChaveFilterEvento(evento.getId()));
+            if (arrayChaveFromEvento.isEmpty()){
                 this.stackPane.getChildren();
                 JFXTransitionHandler.transitionFade(startEventoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
                 pullToFront(this.tStart);
                 startEventoController.show((Pane) this.anchorHeader, (Pane) this.anchorScroll,this.stackPane, evento);
+            }else if (!arrayChaveFromEvento.get(0).isComecou()){
+                this.stackPane.getChildren();
+                JFXTransitionHandler.transitionFade(startEventoController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
+                pullToFront(this.tStart);
+                startEventoController.showStarted((Pane) this.anchorHeader, (Pane) this.anchorScroll,this.stackPane, evento, arrayChaveFromEvento.get(0));
+            }else{
+                createBracketTransition(dbEvento.getBracket(evento), evento);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

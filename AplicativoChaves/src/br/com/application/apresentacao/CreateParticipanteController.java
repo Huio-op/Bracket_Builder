@@ -28,6 +28,7 @@ public class CreateParticipanteController implements Initializable {
     private JFXTextField textNome;
 
     private CreateBracketController createBracketController;
+    private StartEventoController startEventoController;
     private Pane paneToBlur;
     private Pane otherPaneToBlur;
     private StackPane stack;
@@ -41,8 +42,12 @@ public class CreateParticipanteController implements Initializable {
 
     }
 
-    public void setCreateBacketController(CreateBracketController createBracketController){
+    public void setCreateBacketController(CreateBracketController createBracketController) {
         this.createBracketController = createBracketController;
+    }
+
+    public void setStartEventoController(StartEventoController startEventoController) {
+        this.startEventoController = startEventoController;
     }
 
     public AnchorPane getAnchorRoot(){ return this.anchorRoot; }
@@ -53,12 +58,12 @@ public class CreateParticipanteController implements Initializable {
 
 
             try {
-                Participante p = new Participante(textNome.getText(), miniature.getId(),0,createBracketController.getChaveTorneio().getId());
+                Participante p = new Participante(textNome.getText(), miniature.getId(),0,startEventoController.getChaveTorneio().getId());
                 dbParticipante.save(p);
 
                 this.miniature.setParticipante(p);
                 this.textNome.setText("");
-                close(event);
+                closeCreatePart(event);
 
             } catch (DataBaseException e) {
                 e.printStackTrace();
@@ -82,16 +87,18 @@ public class CreateParticipanteController implements Initializable {
         paneToBlur.setEffect(blur);
         otherPaneToBlur.setEffect(blur);
         anchorRoot.setEffect(null);
+        anchorRoot.setOpacity(1);
 
 
     }
 
-    public void close(ActionEvent event){
+    public void closeCreatePart(ActionEvent event){
 
         JFXTransitionHandler.transitionFade(anchorRoot, JFXTransitionHandler.FADEOUT, 1);
         paneToBlur.setEffect(null);
         otherPaneToBlur.setEffect(null);
-        stack.getChildren().set(2,this.anchorRoot);
+        stack.getChildren().get(stack.getChildren().indexOf(anchorRoot)).toBack();
+        anchorRoot.setOpacity(0);
 
     }
 

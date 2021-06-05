@@ -1,27 +1,29 @@
 package br.com.application.apresentacao;
 
-import br.com.application.apresentacao.validators.EvenParticipantsValidator;
 import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Evento;
+import br.com.application.negocio.Participante;
 import br.com.application.negocio.TipoTorneio;
 import br.com.application.persistencia.DBChaveTorneio;
 import br.com.application.persistencia.DBEvento;
+import br.com.application.persistencia.DBParticipante;
 import br.com.application.persistencia.DBTipoTorneio;
+import br.com.application.persistencia.filters.ChaveFilterEvento;
+import br.com.application.persistencia.filters.ParticipanteFilterBracket;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,21 +35,56 @@ public class StartEventoController implements Initializable {
     private AnchorPane anchorBack;
 
     @FXML
+    private StackPane stackPane;
+
+    @FXML
+    private AnchorPane anchorParticipants;
+
+    @FXML
+    private AnchorPane anchorBracket;
+
+    @FXML
     private JFXComboBox<String> comboNumPart;
 
     @FXML
     private JFXComboBox<String> comboTipoTorneio;
 
-    private DBTipoTorneio dbTipos = new DBTipoTorneio();
-    private DBEvento dbEvento = new DBEvento();
+    @FXML
+    private VBox boxParticipantes;
+
+    private final DBTipoTorneio dbTipos = new DBTipoTorneio();
+    private final DBChaveTorneio dbChaveTorneio = new DBChaveTorneio();
+    private final DBEvento dbEvento = new DBEvento();
+    private final DBParticipante dbParticipante = new DBParticipante();
+    private final JFXTransitionHandler th = new JFXTransitionHandler();
     private Evento evento;
-    VerEventosController verEventosController;
+    private VerEventosController verEventosController;
+    private AnchorPane tPart;
+    private CreateParticipanteController createParticipanteController;
+    private ParticipanteMiniatureController participanteMiniatureController;
     private Pane paneToBlur;
     private Pane otherPaneToBlur;
-    private StackPane stackPane;
+    private StackPane parentStackPane;
+    private ChaveTorneio chaveTorneio;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+
+            FXMLLoader loaderStart = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateParticipante.fxml"));
+            this.tPart = loaderStart.load();
+            this.stackPane.getChildren().add(tPart);
+            this.stackPane.getChildren().set(2,tPart);
+            this.createParticipanteController = loaderStart.getController();
+            this.createParticipanteController.setStartEventoController(this);
+            this.tPart.setOpacity(0);
+
+            pullToFront(anchorBracket);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         fillNumPart();
         refreshComboTypes();
@@ -57,23 +94,36 @@ public class StartEventoController implements Initializable {
 
     public void startBracketCreation(ActionEvent event){
 
-        if(comboNumPart != null && comboTipoTorneio != null){
-            try {
+        try {
+            if(comboNumPart.getValue() != null && comboTipoTorneio.getValue() != null){
                 int qtdePart = Integer.parseInt(this.comboNumPart.getValue());
                 int tipo = Integer.parseInt(this.comboTipoTorneio.getValue().split("-")[0]);
-                ChaveTorneio chave = new ChaveTorneio(tipo, qtdePart, this.evento.getId());
 
-                DBChaveTorneio dbChaveTorneio = new DBChaveTorneio();
-                dbChaveTorneio.save(chave);
+                if(this.chaveTorneio == null){
+                    ChaveTorneio chave = new ChaveTorneio(tipo, qtdePart, this.evento.getId());
+                    dbChaveTorneio.save(chave);
 
-                verEventosController.renderEventos();
-                this.close(event);
-            } catch (DataBaseException e) {
-                e.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                    this.chaveTorneio = dbChaveTorneio.loadFiltered(new ChaveFilterEvento(this.evento.getId())).get(0);
+
+                }else{
+                    this.chaveTorneio = dbChaveTorneio.loadFiltered(new ChaveFilterEvento(this.evento.getId())).get(0);
+                    dbChaveTorneio.edit(this.chaveTorneio);
+                }
+
+                transitionCreateParticipants(this.chaveTorneio.getQuantidadeParticipantes());
+
+//                verEventosController.renderEventos();
+//                this.close(event);
             }
+
+//                verEventosController.renderEventos();
+//                this.close(event);
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
 
 //        if(textNumPart.validate() && comboTipoTorneio.getValue() != null){
 //            try {
@@ -91,7 +141,98 @@ public class StartEventoController implements Initializable {
 //                throwables.printStackTrace();
 //            }
 //        }
+    }
 
+    public void createBracket(ActionEvent event) {
+
+        try {
+            if(dbChaveTorneio.isFilled(chaveTorneio)) {
+                this.chaveTorneio.setComecou(true);
+                dbChaveTorneio.edit(chaveTorneio);
+                close(event);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public ChaveTorneio getChaveTorneio() {
+        return this.chaveTorneio;
+    }
+
+    public void transitionCreateParticipants(int numeroParticipantes) {
+        try {
+
+            ArrayList<ChaveTorneio> arrayChave = dbChaveTorneio.loadFiltered(new ChaveFilterEvento(this.evento.getId()));
+
+            if (arrayChave.isEmpty()){
+                this.chaveTorneio = arrayChave.get(0);
+            }
+
+            ArrayList<Participante> arrayPart = dbParticipante.loadFiltered(new ParticipanteFilterBracket(this.chaveTorneio));
+            for(int i = 0; i < numeroParticipantes; i++) {
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/ParticipanteMiniature.fxml"));
+                    AnchorPane pMiniature = loader.load();
+                    this.participanteMiniatureController = loader.getController();
+                    participanteMiniatureController.setStartEventoController(this);
+                    boxParticipantes.getChildren().add(pMiniature);
+
+                    if(!arrayPart.isEmpty() && i < arrayPart.size()) {
+                        participanteMiniatureController.setParticipante(arrayPart.get(i));
+                    }
+
+            }
+
+            th.transitionFadeExpand(anchorBracket, JFXTransitionHandler.FADEOUT,
+                    0.5, anchorBracket.getPrefWidth(), anchorBracket.getPrefHeight(),
+                    anchorParticipants.getPrefWidth(), anchorParticipants.getPrefHeight());
+
+            anchorParticipants.toFront();
+
+            th.transitionFadeExpand(anchorParticipants, JFXTransitionHandler.FADEIN,
+                    0.5, anchorBracket.getPrefWidth(), anchorBracket.getPrefHeight(),
+                    anchorParticipants.getPrefWidth(), anchorParticipants.getPrefHeight());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void transitionCreateBracket(ActionEvent event) {
+
+        this.boxParticipantes.getChildren().clear();
+
+        th.transitionFadeExpand(anchorParticipants, JFXTransitionHandler.FADEOUT,
+                0.5, anchorParticipants.getPrefWidth(), anchorParticipants.getPrefHeight(),
+                anchorBracket.getPrefWidth(), anchorBracket.getPrefHeight());
+
+        anchorBracket.toFront();
+
+        th.transitionFadeExpand(anchorBracket, JFXTransitionHandler.FADEIN,
+                0.5, anchorParticipants.getPrefWidth(), anchorParticipants.getPrefHeight(),
+                anchorBracket.getPrefWidth(), anchorBracket.getPrefHeight());
+
+    }
+
+    public void createParticipanteChaveTransition(ParticipanteMiniatureController miniature){
+
+        JFXTransitionHandler.transitionFade(createParticipanteController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
+        pullToFront(this.tPart);
+        createParticipanteController.show((Pane) this.anchorParticipants, (Pane) this.anchorBracket, this.stackPane, miniature);
+
+    }
+
+    public void pullToFront(Object object){
+        int index = this.stackPane.getChildren().indexOf(object);
+        this.stackPane.getChildren().get(index).toFront();
     }
 
     public void refreshComboTypes(){
@@ -139,7 +280,7 @@ public class StartEventoController implements Initializable {
 
         this.paneToBlur = paneToBlur;
         this.otherPaneToBlur = otherPaneToBlur;
-        this.stackPane = stackPane;
+        this.parentStackPane = stackPane;
 
         BoxBlur blur = new BoxBlur(3, 3, 3);
 
@@ -147,6 +288,15 @@ public class StartEventoController implements Initializable {
         otherPaneToBlur.setEffect(blur);
         anchorBack.setEffect(null);
 
+    }
+
+    public void showStarted(Pane paneToBlur, Pane otherPaneToBlur, StackPane stackPane, Evento evento, ChaveTorneio chave) {
+
+        show(paneToBlur, otherPaneToBlur, stackPane, evento);
+
+        this.chaveTorneio = chave;
+
+        transitionCreateParticipants(chave.getQuantidadeParticipantes());
 
     }
 
@@ -155,7 +305,7 @@ public class StartEventoController implements Initializable {
         JFXTransitionHandler.transitionFade(anchorBack, JFXTransitionHandler.FADEOUT, 1);
         paneToBlur.setEffect(null);
         otherPaneToBlur.setEffect(null);
-        stackPane.getChildren().set(3,this.anchorBack);
+        parentStackPane.getChildren().set(3,this.anchorBack);
 
     }
 

@@ -226,7 +226,7 @@ public class DBEvento implements IDB<Evento> {
                 int idTipo = rs.getInt("tipo");
                 int qtdeParticipantes = rs.getInt("qtde_participantes");
                 int idEvento = rs.getInt("id_evento");
-                boolean concluido = rs.getBoolean("concluido");
+                boolean concluido = rs.getBoolean("comecou");
 
                 chaveTorneio = new ChaveTorneio( idChave,idTipo,qtdeParticipantes,idEvento,concluido );
             }

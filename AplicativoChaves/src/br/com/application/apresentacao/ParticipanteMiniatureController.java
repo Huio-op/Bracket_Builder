@@ -35,7 +35,8 @@ public class ParticipanteMiniatureController implements Initializable {
     @FXML
     private Label lblPontos;
 
-    CreateBracketController bracketController;
+    public CreateBracketController bracketController;
+    public StartEventoController startEventoController;
     private Participante participante;
     private int id;
 
@@ -75,8 +76,10 @@ public class ParticipanteMiniatureController implements Initializable {
     }
 
     public void createParticipanteTransition(){
-        this.bracketController.createParticipanteTransition(this);
+        this.startEventoController.createParticipanteChaveTransition(this);
     }
+
+    public void setStartEventoController(StartEventoController startEventoController) { this.startEventoController = startEventoController; }
 
     public void setBracketController(CreateBracketController bracketController){ this.bracketController = bracketController; }
 

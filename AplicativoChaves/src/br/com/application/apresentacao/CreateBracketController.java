@@ -72,19 +72,6 @@ public class CreateBracketController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        try {
-
-            FXMLLoader loaderStart = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaCreateParticipante.fxml"));
-            this.tPart = loaderStart.load();
-            this.stackPane.getChildren().add(tPart);
-            this.stackPane.getChildren().set(2,tPart);
-            this.createParticipanteController = loaderStart.getController();
-            this.createParticipanteController.setCreateBacketController(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         pullToFront(anchorHeader);
         pullToFront(scrollBracket);
 
@@ -170,7 +157,6 @@ public class CreateBracketController implements Initializable {
                 }
             }
 
-
 //                for(int j = 0; j < chaveTorneio.getQuantidadeParticipantes()/2 ; j++){
 //                    try {
 //                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/ParticipanteMiniature.fxml"));
@@ -190,14 +176,6 @@ public class CreateBracketController implements Initializable {
             this.hBox.getChildren().add(vBox);
 
         }
-
-    }
-
-    public void createParticipanteTransition(ParticipanteMiniatureController miniature){
-
-        JFXTransitionHandler.transitionFade(createParticipanteController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
-        pullToFront(this.tPart);
-        createParticipanteController.show((Pane) this.anchorHeader, (Pane) this.anchorBracket,this.stackPane, miniature);
 
     }
 
