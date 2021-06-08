@@ -1,15 +1,27 @@
 package br.com.application.apresentacao;
 
+import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Participante;
+import br.com.application.persistencia.DBParticipante;
+import br.com.application.persistencia.filters.ParticipanteFilterBracket;
+import br.univates.system32.DataBase.DataBaseException;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ParticipanteMiniatureController implements Initializable {
@@ -35,6 +47,13 @@ public class ParticipanteMiniatureController implements Initializable {
     @FXML
     private Label lblPontos;
 
+    @FXML
+    private AnchorPane anchorCombo;
+
+    @FXML
+    private JFXComboBox<Participante> comboPart;
+
+    private final  DBParticipante dbParticipante = new DBParticipante();
     public CreateBracketController bracketController;
     public StartEventoController startEventoController;
     private Participante participante;
@@ -42,6 +61,26 @@ public class ParticipanteMiniatureController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Callback<ListView<Participante>, ListCell<Participante>> factory = lv -> new ListCell<Participante>() {
+
+            @Override
+            protected void updateItem(Participante part, boolean empty) {
+                super.updateItem(part, empty);
+                setText(empty ? "" : part.getNome());
+            }
+
+        };
+
+        this.comboPart.setCellFactory(factory);
+        this.comboPart.setButtonCell(factory.call(null));
+        this.comboPart.valueProperty().addListener(new ChangeListener<Participante>() {
+            @Override
+            public void changed(ObservableValue<? extends Participante> observableValue, Participante oldPart, Participante newPart) {
+                setParticipante(newPart);
+
+            }
+        });
 
     }
 
@@ -57,15 +96,24 @@ public class ParticipanteMiniatureController implements Initializable {
 
     public Participante getParticipante(){ return this.participante; }
 
-    public void setBlank(){
+    public void setBlank() {
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorBlank)).toFront();
     }
 
-    public void setButton(){
+    public void setButton() {
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorButton)).toFront();
     }
 
-    public void setId(int id){
+    public void setComboBox() {
+        this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorCombo)).toFront();
+    }
+
+    public void fillComboBox(ArrayList<Participante> arrayParticipante) {
+            this.comboPart.getItems().addAll(arrayParticipante);
+
+    }
+
+    public void setId(int id) {
 
         this.id = id;
 

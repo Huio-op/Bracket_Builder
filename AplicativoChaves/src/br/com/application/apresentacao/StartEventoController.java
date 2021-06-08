@@ -179,6 +179,7 @@ public class StartEventoController implements Initializable {
                     AnchorPane pMiniature = loader.load();
                     this.participanteMiniatureController = loader.getController();
                     participanteMiniatureController.setStartEventoController(this);
+                    participanteMiniatureController.setButton();
                     boxParticipantes.getChildren().add(pMiniature);
 
                     if(!arrayPart.isEmpty() && i < arrayPart.size()) {

@@ -107,11 +107,8 @@ public class DBParticipante implements IDB<Participante> {
                 array.add(participante);
             }
         }
-
         return array;
-
     }
-
 
     @Override
     public ArrayList<Participante> loadFiltered(Filter filter) throws SQLException, DataBaseException {

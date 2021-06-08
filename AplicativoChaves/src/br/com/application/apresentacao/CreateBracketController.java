@@ -113,7 +113,7 @@ public class CreateBracketController implements Initializable {
         for (int i = 0; i < qtdeCols; i++){
 
             VBox vBox = new VBox();
-            vBox.setPrefWidth(210);
+            vBox.setPrefWidth(260);
             vBox.setPrefHeight(580);
             vBox.setMaxWidth(Region.USE_PREF_SIZE);
             vBox.setMaxHeight(Region.USE_PREF_SIZE);
@@ -142,9 +142,11 @@ public class CreateBracketController implements Initializable {
                         }
                     }
                     if((i != 0 && i == qtdeCols-1) && partController.getParticipante() == null){
-                        partController.setButton();
+                        partController.setComboBox();
+                        partController.fillComboBox(arrayPart);
                     }else if((i == 0 && i != qtdeCols-1) && partController.getParticipante() == null){
-                        partController.setButton();
+                        partController.setComboBox();
+                        partController.fillComboBox(arrayPart);
                     }else if(partController.getParticipante() == null){
                         partController.setBlank();
                     }
