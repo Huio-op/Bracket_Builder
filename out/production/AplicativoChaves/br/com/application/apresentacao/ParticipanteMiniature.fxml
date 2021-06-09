@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.ParticipanteMiniatureController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: #292E42;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.ParticipanteMiniatureController">
    <children>
-      <StackPane fx:id="stackPart" prefHeight="100.0" prefWidth="200.0">
+      <StackPane fx:id="stackPart" prefHeight="100.0" prefWidth="250.0">
          <children>
-            <AnchorPane fx:id="anchorBlank" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;" />
-            <AnchorPane fx:id="anchorPart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;">
+            <AnchorPane fx:id="anchorBlank" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;" />
+            <AnchorPane fx:id="anchorButton" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;">
+               <children>
+                  <JFXButton fx:id="btnCriarParticipante" layoutX="20.0" layoutY="20.0" onAction="#createParticipanteTransition" prefHeight="31.0" prefWidth="190.0" styleClass="light-button" text="Adicionar Participante" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorPart" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;">
                <children>
                   <Label fx:id="lblNome" layoutX="23.0" layoutY="22.0" maxWidth="-Infinity" prefHeight="27.0" prefWidth="115.0" styleClass="dark_text" text="Label" wrapText="true">
                      <font>
@@ -25,7 +30,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="145.0" prefHeight="70.0" prefWidth="45.0">
+                  <VBox layoutX="185.0" prefHeight="70.0" prefWidth="45.0">
                      <children>
                         <AnchorPane prefHeight="70.0" prefWidth="45.0" style="-fx-background-color: #5A78FF;">
                            <children>
@@ -40,9 +45,9 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorButton" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="190.0" style="-fx-background-color: #191D1F;">
+            <AnchorPane fx:id="anchorCombo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;">
                <children>
-                  <JFXButton fx:id="btnCriarParticipante" layoutX="12.0" layoutY="20.0" onAction="#createParticipanteTransition" styleClass="light-button" text="Adicionar Participante" />
+                  <JFXComboBox fx:id="comboPart" layoutX="20.0" layoutY="23.0" prefHeight="25.0" prefWidth="190.0" />
                </children>
             </AnchorPane>
          </children>

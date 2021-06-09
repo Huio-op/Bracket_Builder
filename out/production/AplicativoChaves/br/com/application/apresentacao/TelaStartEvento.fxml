@@ -13,20 +13,20 @@
    <children>
       <StackPane fx:id="stackPane" prefHeight="400.0" prefWidth="395.0">
          <children>
-            <AnchorPane fx:id="anchorParticipants" maxHeight="-Infinity" maxWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="280.0" style="-fx-background-color: #191D1F; -fx-border-color: #5A78FF; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+            <AnchorPane fx:id="anchorParticipants" maxHeight="-Infinity" maxWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #191D1F; -fx-border-color: #5A78FF; -fx-background-radius: 10px; -fx-border-radius: 10px;">
                <children>
-                  <Label layoutX="64.0" layoutY="25.0" text="Cadastrar Participantes" textFill="WHITE">
+                  <Label layoutX="74.0" layoutY="25.0" text="Cadastrar Participantes" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
                   <JFXButton layoutX="16.0" layoutY="356.0" onAction="#transitionCreateBracket" prefHeight="31.0" prefWidth="96.0" styleClass="red-button" text="Voltar" />
-                  <JFXButton layoutX="168.0" layoutY="356.0" onAction="#createBracket" prefHeight="31.0" prefWidth="96.0" styleClass="light-button" text="Criar Chave" />
-                  <ScrollPane hbarPolicy="NEVER" layoutX="33.0" layoutY="60.0" prefHeight="275.0" prefWidth="215.0" vbarPolicy="ALWAYS">
+                  <JFXButton layoutX="190.0" layoutY="356.0" onAction="#createBracket" prefHeight="31.0" prefWidth="96.0" styleClass="light-button" text="Criar Chave" />
+                  <ScrollPane hbarPolicy="NEVER" layoutX="18.0" layoutY="63.0" prefHeight="275.0" prefWidth="260.0" vbarPolicy="ALWAYS">
                      <content>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="278.0" prefWidth="213.0" style="-fx-background-color: #191D1F;">
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="278.0" prefWidth="258.0" style="-fx-background-color: #191D1F;">
                            <children>
-                              <VBox fx:id="boxParticipantes" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="278.0" prefWidth="213.0" />
+                              <VBox fx:id="boxParticipantes" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="278.0" prefWidth="258.0" />
                            </children>
                         </AnchorPane>
                      </content>

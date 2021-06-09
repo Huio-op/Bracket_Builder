@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorRoot" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="393.0" style="-fx-background-color: #191D1F;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateParticipanteController">
+<AnchorPane fx:id="anchorRoot" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="395.0" style="-fx-background-color: #191D1F; -fx-border-color: #5A78FF; -fx-background-radius: 10px; -fx-border-radius: 10px;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.CreateParticipanteController">
    <children>
-      <JFXButton layoutX="302.0" layoutY="155.0" onAction="#createParticipante" prefHeight="31.0" prefWidth="77.0" styleClass="light-button" text="Criar" />
+      <JFXButton layoutX="304.0" layoutY="155.0" onAction="#createParticipante" prefHeight="31.0" prefWidth="77.0" styleClass="light-button" text="Criar" />
       <JFXButton layoutX="14.0" layoutY="155.0" onAction="#closeCreatePart" styleClass="red-button" text="Cancelar" />
-      <JFXTextField fx:id="textNome" layoutX="97.0" layoutY="96.0" prefHeight="25.0" prefWidth="200.0" promptText="Digite o nome do participante:" />
-      <Label layoutX="71.0" layoutY="34.0" styleClass="dark_text" text="Adicionar Participante">
+      <JFXTextField fx:id="textNome" layoutX="98.0" layoutY="94.0" prefHeight="25.0" prefWidth="200.0" promptText="Digite o nome do participante:" />
+      <Label layoutX="72.0" layoutY="37.0" styleClass="dark_text" text="Adicionar Participante">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
