@@ -53,6 +53,15 @@ public class ParticipanteMiniatureController implements Initializable {
     @FXML
     private JFXComboBox<Participante> comboPart;
 
+    @FXML
+    private AnchorPane anchorPartConf;
+
+    @FXML
+    private Label lblNomeConf;
+
+    @FXML
+    private Label lblPontosConf;
+
     private final  DBParticipante dbParticipante = new DBParticipante();
     public CreateBracketController bracketController;
     public StartEventoController startEventoController;
@@ -77,8 +86,7 @@ public class ParticipanteMiniatureController implements Initializable {
         this.comboPart.valueProperty().addListener(new ChangeListener<Participante>() {
             @Override
             public void changed(ObservableValue<? extends Participante> observableValue, Participante oldPart, Participante newPart) {
-                setParticipante(newPart);
-
+                setPartConfig(newPart);
             }
         });
 
@@ -106,6 +114,14 @@ public class ParticipanteMiniatureController implements Initializable {
 
     public void setComboBox() {
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorCombo)).toFront();
+    }
+
+    public void setPartConfig(Participante participante) {
+        this.participante = participante;
+        this.lblNomeConf.setText(participante.getNome());
+        this.lblNomeConf.setWrapText(true);
+        this.lblPontosConf.setText(String.valueOf(participante.getPontos()));
+        this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorPartConf)).toFront();
     }
 
     public void fillComboBox(ArrayList<Participante> arrayParticipante) {

@@ -69,6 +69,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
+                  <JFXButton fx:id="btnSave" layoutX="844.0" layoutY="161.0" onAction="#saveBracket" prefHeight="25.0" prefWidth="92.0" styleClass="light-button" text="Salvar" />
                </children>
             </AnchorPane>
          </children>

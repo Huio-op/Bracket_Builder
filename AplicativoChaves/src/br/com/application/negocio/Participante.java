@@ -36,6 +36,14 @@ public class Participante {
 
     }
 
+    public void setPosicao( int posicao ) {
+        this.posicao = posicao;
+    }
+
+    public void setPontos( int pontos ) {
+        this.pontos = pontos;
+    }
+
     public int getId() {
         return id;
     }

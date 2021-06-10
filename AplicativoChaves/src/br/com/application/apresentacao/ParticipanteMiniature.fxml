@@ -3,6 +3,8 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -45,9 +47,45 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorCombo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;">
+            <AnchorPane fx:id="anchorCombo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;" StackPane.alignment="CENTER">
                <children>
                   <JFXComboBox fx:id="comboPart" layoutX="20.0" layoutY="23.0" prefHeight="25.0" prefWidth="190.0" promptText="Escolha o Participante:" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorPartConf" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;">
+               <children>
+                  <Label fx:id="lblNomeConf" layoutX="23.0" layoutY="22.0" maxWidth="-Infinity" prefHeight="27.0" prefWidth="115.0" styleClass="dark_text" text="Label" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="6.0" layoutY="18.0" styleClass="dark_text" text="&gt;">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="185.0" prefHeight="70.0" prefWidth="45.0">
+                     <children>
+                        <AnchorPane prefHeight="35.0" prefWidth="45.0" style="-fx-background-color: #5A78FF; -fx-background-radius: 5px;">
+                           <children>
+                              <Label fx:id="lblPontosConf" layoutX="19.0" layoutY="3.0" styleClass="light_text" text="13">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="45.0" styleClass="dark-button">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imgComponents/settings.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>

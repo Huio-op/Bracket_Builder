@@ -79,7 +79,8 @@ public class DBParticipante implements IDB<Participante> {
         if(participante != null){
 
             connection.runSQL("UPDATE participante SET nome = '"+ participante.getNome() +"', " +
-                    "posicao = "+participante.getPosicao()+"," + "pontos = "+participante.getPontos()+";");
+                    "posicao = "+participante.getPosicao()+"," + "pontos = "+participante.getPontos()+"" +
+                    "WHERE id_participante = " + participante.getId() + ";");
 
         }
 
