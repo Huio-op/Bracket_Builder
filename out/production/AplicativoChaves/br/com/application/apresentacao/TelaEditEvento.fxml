@@ -11,10 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="anchorBackgroundEditEvt" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="460.0" style="-fx-background-color: #191D1F;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.EditEventoController">
+<AnchorPane fx:id="anchorBackgroundEditEvt" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="550.0" prefWidth="460.0" style="-fx-background-color: #191D1F; -fx-background-radius: 10px;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.EditEventoController">
    <children>
-      <AnchorPane prefHeight="550.0" prefWidth="460.0" style="-fx-background-color: #191D1F;">
+      <AnchorPane prefHeight="550.0" prefWidth="460.0" style="-fx-background-color: #191D1F; -fx-border-color: #5A78FF; -fx-background-radius: 10px; -fx-border-radius: 10px;">
          <children>
             <JFXButton fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" onAction="#close" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
                <font>
@@ -32,9 +31,9 @@
             <Label layoutX="60.0" layoutY="152.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Jogo:" />
             <Label layoutX="60.0" layoutY="192.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Descrição:" />
             <Label layoutX="60.0" layoutY="372.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Prêmio:" />
-            <JFXTextField fx:id="textNome" layoutX="211.0" layoutY="110.0" prefHeight="25.0" prefWidth="190.0" />
-            <JFXComboBox fx:id="comboJogo" labelFloat="true" layoutX="211.0" layoutY="150.0" prefHeight="25.0" prefWidth="190.0" promptText="Selecione o jogo:" />
-            <JFXTextArea fx:id="textDesc" layoutX="60.0" layoutY="230.0" prefHeight="112.0" prefWidth="340.0" styleClass="light_text" />
+            <JFXTextField fx:id="textNome" focusColor="#5a78ff" layoutX="211.0" layoutY="110.0" prefHeight="25.0" prefWidth="190.0" />
+            <JFXComboBox fx:id="comboJogo" focusColor="#5a78ff" labelFloat="true" layoutX="211.0" layoutY="150.0" prefHeight="25.0" prefWidth="190.0" promptText="Selecione o jogo:" />
+            <JFXTextArea fx:id="textDesc" focusColor="#5a78ff" layoutX="60.0" layoutY="230.0" prefHeight="112.0" prefWidth="340.0" styleClass="light_text" />
             <AnchorPane fx:id="anchorPremio" layoutX="211.0" layoutY="375.0" prefHeight="25.0" prefWidth="190.0" />
             <Label layoutX="60.0" layoutY="412.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Prêmio:" />
             <DatePicker fx:id="datePicker" layoutX="211.0" layoutY="409.0" prefHeight="27.0" prefWidth="190.0" promptText="Escolha a data:" styleClass="date-picker" />
