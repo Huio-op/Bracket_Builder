@@ -71,9 +71,22 @@ public class CreateBracketController implements Initializable {
     private CreateParticipanteController createParticipanteController;
     private DBParticipante dbParticipante = new DBParticipante();
     private Vector<Vector<ParticipanteMiniatureController>> partControllerMatrix = new Vector<Vector<ParticipanteMiniatureController>>();
+    private AnchorPane tEditPart;
+    private EditParticipanteController editParticipanteController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            FXMLLoader loaderEdit = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaEditParticipante.fxml"));
+            this.tEditPart = loaderEdit.load();
+            this.stackPane.getChildren().add(tEditPart);
+            this.stackPane.getChildren().set(2,tEditPart);
+            this.editParticipanteController = loaderEdit.getController();
+            this.editParticipanteController.setBracketController(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         pullToFront(anchorHeader);
         pullToFront(scrollBracket);

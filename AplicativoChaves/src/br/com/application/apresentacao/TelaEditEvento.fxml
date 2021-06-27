@@ -31,9 +31,9 @@
             <Label layoutX="60.0" layoutY="152.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Jogo:" />
             <Label layoutX="60.0" layoutY="192.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Descrição:" />
             <Label layoutX="60.0" layoutY="372.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Prêmio:" />
-            <JFXTextField fx:id="textNome" layoutX="211.0" layoutY="110.0" prefHeight="25.0" prefWidth="190.0" />
-            <JFXComboBox fx:id="comboJogo" labelFloat="true" layoutX="211.0" layoutY="150.0" prefHeight="25.0" prefWidth="190.0" promptText="Selecione o jogo:" />
-            <JFXTextArea fx:id="textDesc" layoutX="60.0" layoutY="230.0" prefHeight="112.0" prefWidth="340.0" styleClass="light_text" />
+            <JFXTextField fx:id="textNome" focusColor="#5a78ff" layoutX="211.0" layoutY="110.0" prefHeight="25.0" prefWidth="190.0" />
+            <JFXComboBox fx:id="comboJogo" focusColor="#5a78ff" labelFloat="true" layoutX="211.0" layoutY="150.0" prefHeight="25.0" prefWidth="190.0" promptText="Selecione o jogo:" />
+            <JFXTextArea fx:id="textDesc" focusColor="#5a78ff" layoutX="60.0" layoutY="230.0" prefHeight="112.0" prefWidth="340.0" styleClass="light_text" />
             <AnchorPane fx:id="anchorPremio" layoutX="211.0" layoutY="375.0" prefHeight="25.0" prefWidth="190.0" />
             <Label layoutX="60.0" layoutY="412.0" prefHeight="21.0" prefWidth="126.0" styleClass="light_text" text="Trocar Prêmio:" />
             <DatePicker fx:id="datePicker" layoutX="211.0" layoutY="409.0" prefHeight="27.0" prefWidth="190.0" promptText="Escolha a data:" styleClass="date-picker" />
