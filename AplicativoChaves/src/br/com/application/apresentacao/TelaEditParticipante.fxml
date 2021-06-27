@@ -32,10 +32,11 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="textPartName" focusColor="#5a78ff" layoutX="191.0" layoutY="108.0" prefHeight="25.0" prefWidth="170.0" />
-      <Label layoutX="70.0" layoutY="112.0" styleClass="light_text" text="Mudar Nome:" />
-      <Label layoutX="67.0" layoutY="180.0" styleClass="light_text" text="Alterar Pontos:" />
-      <JFXTextField fx:id="textPartPoints" layoutX="191.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" />
-      <JFXButton layoutX="21.0" layoutY="245.0" prefHeight="31.0" prefWidth="170.0" styleClass="dark-button" text="Avançar Participante" />
+      <JFXTextField fx:id="textPartName" focusColor="#5a78ff" layoutX="191.0" layoutY="87.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label layoutX="70.0" layoutY="91.0" styleClass="light_text" text="Mudar Nome:" />
+      <Label layoutX="70.0" layoutY="149.0" styleClass="light_text" text="Alterar Pontos:" />
+      <JFXTextField fx:id="textPartPoints" layoutX="194.0" layoutY="145.0" prefHeight="25.0" prefWidth="170.0" />
+      <JFXButton layoutX="145.0" layoutY="194.0" prefHeight="31.0" prefWidth="170.0" styleClass="dark-button" text="Avançar Participante" />
+      <JFXButton layoutX="14.0" layoutY="245.0" onAction="#cleanPosition" prefHeight="31.0" prefWidth="170.0" styleClass="red-button" text="Limpar Espaço" />
    </children>
 </AnchorPane>

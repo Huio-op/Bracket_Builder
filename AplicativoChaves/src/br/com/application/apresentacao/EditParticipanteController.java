@@ -2,17 +2,25 @@ package br.com.application.apresentacao;
 
 import br.com.application.negocio.Evento;
 import br.com.application.negocio.Participante;
+import br.com.application.persistencia.DBParticipante;
+import br.univates.system32.DataBase.DataBaseException;
+import br.univates.system32.JFX.JFXInfoDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class EditParticipanteController implements Initializable {
@@ -31,21 +39,47 @@ public class EditParticipanteController implements Initializable {
     private Pane paneToBlur;
     private Pane otherPaneToBlur;
     private StackPane stackPaneFather;
+    final private DBParticipante dbParticipante = new DBParticipante();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        createPointsValidator();
     }
 
-    public void save() {
+    public void save(ActionEvent event) {
+
+        try {
+            participante.setNome(textPartName.getText());
+            participante.setPontos(Integer.valueOf(textPartPoints.getText()));
+            dbParticipante.edit(participante);
+
+            JFXButton btnSuccess = new JFXButton("Fechar.");
+            btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+
+                textPartName.setText("");
+                textPartPoints.setText("");
+
+                bracketController.renderParticipantes();
+                closeEditParticipante(event);
+
+            });
+
+            JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) editPartBackAnchor.getParent(),
+                    editPartBackAnchor, "Sucesso!",
+                    "Evento editado com sucesso!", Arrays.asList(btnSuccess));
+            dialogSuccess.showDialogPane();
+
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public void setParticipante(Participante participante) {
         this.participante = participante;
 
-        this.textPartName.setPromptText(participante.getNome());
-        this.textPartPoints.setPromptText(String.valueOf(participante.getPontos()));
+        this.textPartName.setText(participante.getNome());
+        this.textPartPoints.setText(String.valueOf(participante.getPontos()));
 
     }
 
@@ -81,6 +115,34 @@ public class EditParticipanteController implements Initializable {
 
     public AnchorPane getAnchorRoot() {
         return this.editPartBackAnchor;
+    }
+
+    public void cleanPosition(ActionEvent event) {
+
+        try {
+            this.participante.setPosicao(0);
+            dbParticipante.edit(participante);
+            bracketController.renderParticipantes();
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+
+        closeEditParticipante(event);
+    }
+
+    public void createPointsValidator() {
+        textPartPoints.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (textPartPoints.getText().length() > 4) {
+                    String s = textPartPoints.getText().substring(0, 4);
+                    textPartPoints.setText(s);
+                }
+                if (!newValue.matches("\\d*")) {
+                    textPartPoints.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
 }

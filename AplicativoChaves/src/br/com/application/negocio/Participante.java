@@ -36,6 +36,8 @@ public class Participante {
 
     }
 
+    public void setNome( String nome ) { this.nome = nome; }
+
     public void setPosicao( int posicao ) {
         this.posicao = posicao;
     }

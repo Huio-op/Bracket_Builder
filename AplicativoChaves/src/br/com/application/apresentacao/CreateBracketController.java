@@ -112,6 +112,14 @@ public class CreateBracketController implements Initializable {
     public void setChaveTorneio(ChaveTorneio chaveTorneio){
 
         this.chaveTorneio = chaveTorneio;
+        renderParticipantes();
+
+    }
+
+    public void renderParticipantes() {
+
+        this.hBox.getChildren().clear();
+
         double qtdeCols = ((Math.log(chaveTorneio.getQuantidadeParticipantes())/Math.log(2))*2)+1;
         int miniatureId = 1;
         int quantidadeColunaAtual = 0;
@@ -199,7 +207,6 @@ public class CreateBracketController implements Initializable {
             this.hBox.getChildren().add(vBox);
 
         }
-
     }
 
     public void saveBracket() {
@@ -210,7 +217,7 @@ public class CreateBracketController implements Initializable {
 
             for (int j = 0; j < vBox.getChildren().size(); j++) {
 
-                final ParticipanteMiniatureController partController = this.partControllerMatrix.get(i).get(j);
+                ParticipanteMiniatureController partController = this.partControllerMatrix.get(i).get(j);
 
                 if(partController.getParticipante() != null) {
                     try {
@@ -222,6 +229,9 @@ public class CreateBracketController implements Initializable {
                 }
             }
         }
+
+        renderParticipantes();
+
     }
 
     public void pullToFront(Object object){
