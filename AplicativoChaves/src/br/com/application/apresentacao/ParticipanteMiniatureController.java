@@ -116,6 +116,10 @@ public class ParticipanteMiniatureController implements Initializable {
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorCombo)).toFront();
     }
 
+    public void editPart() {
+        bracketController.editParticipantTransistion(this.participante);
+    }
+
     public void setPartConfig(Participante participante) {
         this.participante = participante;
         this.lblNomeConf.setText(participante.getNome());

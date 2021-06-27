@@ -237,6 +237,13 @@ public class CreateBracketController implements Initializable {
         this.lblData.setText(evento.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
+    public void editParticipantTransistion(Participante participante) {
+        this.stackPane.getChildren();
+        JFXTransitionHandler.transitionFade(editParticipanteController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
+        pullToFront(this.tEditPart);
+        editParticipanteController.show((Pane) this.anchorHeader, (Pane) this.anchorBracket,this.stackPane, participante);
+    }
+
     public ChaveTorneio getChaveTorneio(){ return this.chaveTorneio; }
 
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="290.0" prefWidth="460.0" style="-fx-background-color: #191D1F; -fx-background-radius: 10px; -fx-border-color: #5A78FF; -fx-border-radius: 10px;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.EditParticipanteController">
+<AnchorPane fx:id="editPartBackAnchor" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="290.0" prefWidth="460.0" style="-fx-background-color: #191D1F; -fx-background-radius: 10px; -fx-border-color: #5A78FF; -fx-border-radius: 10px;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.EditParticipanteController">
    <children>
       <JFXButton layoutX="14.0" layoutY="14.0" onAction="#closeEditParticipante" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
          <font>
@@ -35,7 +35,7 @@
       <JFXTextField fx:id="textPartName" focusColor="#5a78ff" layoutX="191.0" layoutY="108.0" prefHeight="25.0" prefWidth="170.0" />
       <Label layoutX="70.0" layoutY="112.0" styleClass="light_text" text="Mudar Nome:" />
       <Label layoutX="67.0" layoutY="180.0" styleClass="light_text" text="Alterar Pontos:" />
-      <JFXTextField layoutX="191.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" />
+      <JFXTextField fx:id="textPartPoints" layoutX="191.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" />
       <JFXButton layoutX="21.0" layoutY="245.0" prefHeight="31.0" prefWidth="170.0" styleClass="dark-button" text="Avançar Participante" />
    </children>
 </AnchorPane>

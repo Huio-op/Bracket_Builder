@@ -75,7 +75,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="45.0" styleClass="dark-button">
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#editPart" prefHeight="45.0" prefWidth="45.0" styleClass="dark-button">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
