@@ -49,8 +49,15 @@ public class EditParticipanteController implements Initializable {
     public void save(ActionEvent event) {
 
         try {
-            participante.setNome(textPartName.getText());
-            participante.setPontos(Integer.valueOf(textPartPoints.getText()));
+            if (!textPartName.getText().isEmpty()) {
+                participante.setNome(textPartName.getText());
+            }
+            if (!textPartPoints.getText().isEmpty()) {
+                participante.setPontos(Integer.valueOf(textPartPoints.getText()));
+            } else {
+                participante.setPontos(0);
+            }
+
             dbParticipante.edit(participante);
 
             JFXButton btnSuccess = new JFXButton("Fechar.");
