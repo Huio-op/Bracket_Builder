@@ -4,6 +4,7 @@ import br.com.application.negocio.Evento;
 import br.com.application.negocio.Jogo;
 import br.com.application.negocio.PartPosition;
 import br.com.application.negocio.Participante;
+import br.com.application.persistencia.filters.PartPositionFilterParticipante;
 import br.univates.system32.CPF;
 import br.univates.system32.DataBase.DBConnection;
 import br.univates.system32.DataBase.DataBaseException;
@@ -61,11 +62,11 @@ public class DBParticipante implements IDB<Participante> {
             int pontos = rs.getInt("pontos");
             int idChave = rs.getInt("id_chave");
 
-            participante = new Participante( id,nome,posicao,pontos,idChave);
+            participante = new Participante(id, nome, posicao, pontos, idChave);
+
+            participante.setPositions(dbPartPosition.loadFiltered(new PartPositionFilterParticipante(Integer.parseInt(idParticipante))));
 
         }
-
-
 
         return participante;
 
@@ -120,6 +121,7 @@ public class DBParticipante implements IDB<Participante> {
                 int idChave = rs.getInt("id_chave");
 
                 participante = new Participante( id,nome,posicao,pontos,idChave);
+                participante.setPositions(dbPartPosition.loadFiltered(new PartPositionFilterParticipante(id)));
                 array.add(participante);
             }
         }
