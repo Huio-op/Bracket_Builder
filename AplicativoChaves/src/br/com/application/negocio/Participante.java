@@ -1,5 +1,7 @@
 package br.com.application.negocio;
 
+import java.util.ArrayList;
+
 public class Participante {
 
     private int id;
@@ -7,6 +9,7 @@ public class Participante {
     private int posicao;
     private int pontos;
     private int idChave;
+    private ArrayList<PartPosition> positions = new ArrayList<PartPosition>();
 
     public Participante(String nome, int posicao, int pontos, int idChave){
 
@@ -40,29 +43,40 @@ public class Participante {
 
     public void setPosicao( int posicao ) {
         this.posicao = posicao;
+
     }
 
-    public void setPontos( int pontos ) {
-        this.pontos = pontos;
+    public void setPontos( int pontos ) { this.pontos = pontos; }
+
+    public void setPositions(ArrayList<PartPosition> positions) { this.positions = positions; }
+
+    public void addPosition(PartPosition position) {
+        int contador = 0;
+        for (PartPosition partPos : this.positions) {
+            if (partPos.getPosicao() == position.getPosicao()) {
+                partPos = position;
+                contador++;
+            }
+        }
+        if (contador == 0) {
+            this.positions.add(position);
+        }
+
     }
 
-    public int getId() {
-        return id;
-    }
+    public void removePosition(PartPosition position) { this.positions.remove(position); }
 
-    public String getNome() {
-        return nome;
-    }
+    public int getId() { return id; }
 
-    public int getPosicao() {
-        return posicao;
-    }
+    public String getNome() { return nome; }
 
-    public int getPontos() {
-        return pontos;
-    }
+    public int getPosicao() { return posicao; }
 
-    public int getIdChave() {
-        return idChave;
-    }
+    public int getPontos() { return pontos; }
+
+    public int getIdChave() { return idChave; }
+
+    public ArrayList<PartPosition> getPositions() { return positions; }
+
+
 }

@@ -2,6 +2,7 @@ package br.com.application.persistencia;
 
 import br.com.application.negocio.Evento;
 import br.com.application.negocio.Jogo;
+import br.com.application.negocio.PartPosition;
 import br.com.application.negocio.Participante;
 import br.univates.system32.CPF;
 import br.univates.system32.DataBase.DBConnection;
@@ -18,11 +19,10 @@ import java.util.ArrayList;
 public class DBParticipante implements IDB<Participante> {
 
     private DBConnection connection;
+    private DBPartPosition dbPartPosition = new DBPartPosition();
 
     public DBParticipante(){
-
         this.connection = DBApp.getConnection();
-
     }
 
     @Override
@@ -31,8 +31,15 @@ public class DBParticipante implements IDB<Participante> {
         if(participante != null){
 
             connection.runSQL("INSERT INTO participante (nome, posicao, pontos, id_chave)" +
-                    " VALUES( '" + participante.getNome() + "', " +participante.getPosicao() +", "+participante.getPontos()+
+                    " VALUES( '" + participante.getNome() + "', " + participante.getPosicao() +", "+participante.getPontos()+
                     ",(SELECT id_chave FROM chave_torneio WHERE id_chave = "+participante.getIdChave()+"));");
+
+        }
+
+        if (!participante.getPositions().isEmpty()) {
+            for (PartPosition partPos : participante.getPositions()) {
+                dbPartPosition.save(partPos);
+            }
 
         }
 
@@ -74,9 +81,9 @@ public class DBParticipante implements IDB<Participante> {
     }
 
     @Override
-    public void edit(Participante participante) throws DataBaseException {
+    public void edit(Participante participante) throws DataBaseException, SQLException {
 
-        if(participante != null){
+        if (participante != null){
 
             connection.runSQL("UPDATE participante SET nome = '"+ participante.getNome() +"', " +
                     "posicao = "+participante.getPosicao()+"," + "pontos = "+participante.getPontos()+"" +
@@ -84,6 +91,12 @@ public class DBParticipante implements IDB<Participante> {
 
         }
 
+        if (!participante.getPositions().isEmpty()) {
+            for (PartPosition partPos : participante.getPositions()) {
+                dbPartPosition.addOrEdit(partPos);
+            }
+
+        }
 
     }
 

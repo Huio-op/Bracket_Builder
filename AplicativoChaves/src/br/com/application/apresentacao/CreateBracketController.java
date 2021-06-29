@@ -2,6 +2,7 @@ package br.com.application.apresentacao;
 
 import br.com.application.negocio.ChaveTorneio;
 import br.com.application.negocio.Evento;
+import br.com.application.negocio.PartPosition;
 import br.com.application.negocio.Participante;
 import br.com.application.persistencia.DBParticipante;
 import br.com.application.persistencia.filters.ParticipanteFilterBracket;
@@ -119,6 +120,7 @@ public class CreateBracketController implements Initializable {
     public void renderParticipantes() {
 
         this.hBox.getChildren().clear();
+        this.partControllerMatrix.clear();
 
         double qtdeCols = ((Math.log(chaveTorneio.getQuantidadeParticipantes())/Math.log(2))*2)+1;
         int miniatureId = 1;
@@ -222,9 +224,13 @@ public class CreateBracketController implements Initializable {
                 if(partController.getParticipante() != null) {
                     try {
                         partController.getParticipante().setPosicao(partController.getId());
+                        Participante part = partController.getParticipante();
+                        part.addPosition(new PartPosition(part.getId(), partController.getId(), part.getPontos()));
                         dbParticipante.edit(partController.getParticipante());
                     } catch (DataBaseException e) {
                         e.printStackTrace();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
                     }
                 }
             }

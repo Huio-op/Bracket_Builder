@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -78,6 +79,8 @@ public class EditParticipanteController implements Initializable {
 
         } catch (DataBaseException e) {
             e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
     }
@@ -132,6 +135,8 @@ public class EditParticipanteController implements Initializable {
             bracketController.renderParticipantes();
         } catch (DataBaseException e) {
             e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         closeEditParticipante(event);

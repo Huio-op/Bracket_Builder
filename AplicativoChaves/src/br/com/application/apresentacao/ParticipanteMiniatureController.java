@@ -102,7 +102,7 @@ public class ParticipanteMiniatureController implements Initializable {
 
     }
 
-    public Participante getParticipante(){ return this.participante; }
+    public Participante getParticipante() { return this.participante; }
 
     public void setBlank() {
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorBlank)).toFront();

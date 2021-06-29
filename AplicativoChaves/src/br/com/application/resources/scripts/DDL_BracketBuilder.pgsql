@@ -78,3 +78,10 @@ CREATE TABLE participante(
     CONSTRAINT fk_chave_torneio_participante FOREIGN KEY(id_chave) REFERENCES chave_torneio(id_chave) ON DELETE CASCADE
 
 );
+
+CREATE TABLE part_pos(
+    id_participante int,
+    posicao INT,
+    pontos INT NOT NULL DEFAULT 0,
+    CONSTRAINT fk_participante_part_pos FOREIGN KEY(id_participante) REFERENCES participante(id_participante) ON DELETE CASCADE
+);
