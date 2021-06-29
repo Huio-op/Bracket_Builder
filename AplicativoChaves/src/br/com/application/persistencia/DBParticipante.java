@@ -63,7 +63,9 @@ public class DBParticipante implements IDB<Participante> {
 
             participante = new Participante( id,nome,posicao,pontos,idChave);
 
-      }
+        }
+
+
 
         return participante;
 
