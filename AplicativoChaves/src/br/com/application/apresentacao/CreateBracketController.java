@@ -165,9 +165,21 @@ public class CreateBracketController implements Initializable {
                     partControllerVector.add(loader.getController());
 
                     partControllerVector.get(j).setId(miniatureId);
+                    if(contador == 2 && quantidadeColunaAtual != 1) {
+                        partControllerVector.get(j).setWinPosition(quantidadeColunaAtual + ((int) Math.floor(((double) miniatureId) / 2)));
+                    } else if(contador == 1) {
+                        partControllerVector.get(j).setWinPosition(-1);
+                    } else if (quantidadeColunaAtual != 1) {
+                        partControllerVector.get(j).setWinPosition(quantidadeColunaAtual + ((int) Math.ceil(((double) miniatureId) / 2)));
+                    } else {
+                        partControllerVector.get(j).setWinPosition(miniatureId - (contador - 1));
+                    }
+
                     for(Participante participante : arrayPart){
-                        if(miniatureId == participante.getPosicao()){
-                            partControllerVector.get(j).setPartConfig(participante);
+                        for (PartPosition partPos : participante.getPositions()) {
+                            if(miniatureId == partPos.getPosicao()){
+                                partControllerVector.get(j).setPartConfig(participante, partPos.getPontos());
+                            }
                         }
                     }
                     if((i != 0 && i == qtdeCols-1) && partControllerVector.get(j).getParticipante() == null){
@@ -253,11 +265,11 @@ public class CreateBracketController implements Initializable {
         this.lblData.setText(evento.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
-    public void editParticipantTransistion(Participante participante) {
+    public void editParticipantTransistion(ParticipanteMiniatureController partController) {
         this.stackPane.getChildren();
         JFXTransitionHandler.transitionFade(editParticipanteController.getAnchorRoot(), JFXTransitionHandler.FADEIN, 1);
         pullToFront(this.tEditPart);
-        editParticipanteController.show((Pane) this.anchorHeader, (Pane) this.anchorBracket,this.stackPane, participante);
+        editParticipanteController.show((Pane) this.anchorHeader, (Pane) this.anchorBracket,this.stackPane, partController);
     }
 
     public ChaveTorneio getChaveTorneio(){ return this.chaveTorneio; }

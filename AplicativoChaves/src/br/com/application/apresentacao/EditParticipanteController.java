@@ -1,6 +1,7 @@
 package br.com.application.apresentacao;
 
 import br.com.application.negocio.Evento;
+import br.com.application.negocio.PartPosition;
 import br.com.application.negocio.Participante;
 import br.com.application.persistencia.DBParticipante;
 import br.univates.system32.DataBase.DataBaseException;
@@ -41,6 +42,7 @@ public class EditParticipanteController implements Initializable {
     private Pane otherPaneToBlur;
     private StackPane stackPaneFather;
     final private DBParticipante dbParticipante = new DBParticipante();
+    ParticipanteMiniatureController partController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,9 +56,9 @@ public class EditParticipanteController implements Initializable {
                 participante.setNome(textPartName.getText());
             }
             if (!textPartPoints.getText().isEmpty()) {
-                participante.setPontos(Integer.valueOf(textPartPoints.getText()));
+                participante.getPositionByMiniatureId(partController.getId()).setPontos(Integer.valueOf(textPartPoints.getText()));
             } else {
-                participante.setPontos(0);
+                participante.getPositionByMiniatureId(partController.getId()).setPontos(0);
             }
 
             dbParticipante.edit(participante);
@@ -74,7 +76,7 @@ public class EditParticipanteController implements Initializable {
 
             JFXInfoDialog dialogSuccess = new JFXInfoDialog((StackPane) editPartBackAnchor.getParent(),
                     editPartBackAnchor, "Sucesso!",
-                    "Evento editado com sucesso!", Arrays.asList(btnSuccess));
+                    "Participante editado com sucesso!", Arrays.asList(btnSuccess));
             dialogSuccess.showDialogPane();
 
         } catch (DataBaseException e) {
@@ -85,11 +87,19 @@ public class EditParticipanteController implements Initializable {
 
     }
 
+    public void advanceParticipante(ActionEvent event) {
+
+        this.participante.addPosition(new PartPosition(this.participante.getId(), this.partController.getWinPosition(), 0));
+        this.save(event);
+        closeEditParticipante(event);
+
+    }
+
     public void setParticipante(Participante participante) {
         this.participante = participante;
 
         this.textPartName.setText(participante.getNome());
-        this.textPartPoints.setText(String.valueOf(participante.getPontos()));
+        this.textPartPoints.setText(String.valueOf(participante.getPositionByMiniatureId(partController.getId()).getPontos()));
 
     }
 
@@ -97,9 +107,10 @@ public class EditParticipanteController implements Initializable {
         this.bracketController = bracketController;
     }
 
-    public void show(Pane paneToBlur, Pane otherPaneToBlur, StackPane stackPane, Participante participate) {
+    public void show(Pane paneToBlur, Pane otherPaneToBlur, StackPane stackPane, ParticipanteMiniatureController partController) {
 
-        this.setParticipante(participate);
+        this.partController = partController;
+        this.setParticipante(partController.getParticipante());
 
         this.paneToBlur = paneToBlur;
         this.otherPaneToBlur = otherPaneToBlur;
@@ -119,7 +130,8 @@ public class EditParticipanteController implements Initializable {
         JFXTransitionHandler.transitionFade(editPartBackAnchor, JFXTransitionHandler.FADEOUT, 1);
         paneToBlur.setEffect(null);
         otherPaneToBlur.setEffect(null);
-        this.stackPaneFather.getChildren().set(2,this.editPartBackAnchor);
+        int index = this.stackPaneFather.getChildren().indexOf(this.editPartBackAnchor);
+        this.stackPaneFather.getChildren().get(index).toBack();
 
     }
 

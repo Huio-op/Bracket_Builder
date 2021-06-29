@@ -61,7 +61,6 @@ public class Participante {
         if (contador == 0) {
             this.positions.add(position);
         }
-
     }
 
     public void removePosition(PartPosition position) { this.positions.remove(position); }
@@ -77,6 +76,16 @@ public class Participante {
     public int getIdChave() { return idChave; }
 
     public ArrayList<PartPosition> getPositions() { return positions; }
+
+
+    public PartPosition getPositionByMiniatureId(int id) {
+        for (PartPosition partPos : this.positions) {
+            if (partPos.getPosicao() == id) {
+                return partPos;
+            }
+        }
+        return null;
+    }
 
 
 }

@@ -220,7 +220,8 @@ public class EditEventoController implements Initializable {
         JFXTransitionHandler.transitionFade(anchorBackgroundEditEvt, JFXTransitionHandler.FADEOUT, 1);
         paneToBlur.setEffect(null);
         otherPaneToBlur.setEffect(null);
-        this.stackPaneFather.getChildren().set(3,this.anchorBackgroundEditEvt);
+        int index = this.stackPaneFather.getChildren().indexOf(this.anchorBackgroundEditEvt);
+        this.stackPaneFather.getChildren().get(index).toBack();
 
     }
 

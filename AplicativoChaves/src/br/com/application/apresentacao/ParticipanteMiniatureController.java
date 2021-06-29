@@ -67,6 +67,7 @@ public class ParticipanteMiniatureController implements Initializable {
     public StartEventoController startEventoController;
     private Participante participante;
     private int id;
+    private int winPosition;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,7 +87,7 @@ public class ParticipanteMiniatureController implements Initializable {
         this.comboPart.valueProperty().addListener(new ChangeListener<Participante>() {
             @Override
             public void changed(ObservableValue<? extends Participante> observableValue, Participante oldPart, Participante newPart) {
-                setPartConfig(newPart);
+                setPartConfig(newPart, 0);
             }
         });
 
@@ -117,14 +118,14 @@ public class ParticipanteMiniatureController implements Initializable {
     }
 
     public void editPart() {
-        bracketController.editParticipantTransistion(this.participante);
+        bracketController.editParticipantTransistion(this);
     }
 
-    public void setPartConfig(Participante participante) {
+    public void setPartConfig(Participante participante, int pontos) {
         this.participante = participante;
         this.lblNomeConf.setText(participante.getNome());
         this.lblNomeConf.setWrapText(true);
-        this.lblPontosConf.setText(String.valueOf(participante.getPontos()));
+        this.lblPontosConf.setText(String.valueOf(pontos));
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorPartConf)).toFront();
     }
 
@@ -137,6 +138,14 @@ public class ParticipanteMiniatureController implements Initializable {
 
         this.id = id;
 
+    }
+
+    public void setWinPosition(int winPosition) {
+        this.winPosition = winPosition;
+    }
+
+    public int getWinPosition() {
+        return this.winPosition;
     }
 
     public int getId(){

@@ -36,7 +36,7 @@
       <Label layoutX="70.0" layoutY="91.0" styleClass="light_text" text="Mudar Nome:" />
       <Label layoutX="70.0" layoutY="149.0" styleClass="light_text" text="Alterar Pontos:" />
       <JFXTextField fx:id="textPartPoints" layoutX="194.0" layoutY="145.0" prefHeight="25.0" prefWidth="170.0" />
-      <JFXButton layoutX="145.0" layoutY="194.0" prefHeight="31.0" prefWidth="170.0" styleClass="dark-button" text="Avançar Participante" />
+      <JFXButton layoutX="145.0" layoutY="194.0" onAction="#advanceParticipante" prefHeight="31.0" prefWidth="170.0" styleClass="dark-button" text="Avançar Participante" />
       <JFXButton layoutX="14.0" layoutY="245.0" onAction="#cleanPosition" prefHeight="31.0" prefWidth="170.0" styleClass="red-button" text="Limpar Espaço" />
    </children>
 </AnchorPane>
