@@ -31,9 +31,9 @@ public class DBParticipante implements IDB<Participante> {
 
         if(participante != null){
 
-            connection.runSQL("INSERT INTO participante (nome, posicao, pontos, id_chave)" +
-                    " VALUES( '" + participante.getNome() + "', " + participante.getPosicao() +", "+participante.getPontos()+
-                    ",(SELECT id_chave FROM chave_torneio WHERE id_chave = "+participante.getIdChave()+"));");
+            connection.runSQL("INSERT INTO participante (nome, id_chave)" +
+                    " VALUES( '" + participante.getNome() + "'," +
+                    "(SELECT id_chave FROM chave_torneio WHERE id_chave = "+participante.getIdChave()+"));");
 
         }
 
@@ -58,11 +58,9 @@ public class DBParticipante implements IDB<Participante> {
             rs.next();
             int id = rs.getInt("id_participante");
             String nome = rs.getString("nome");
-            int posicao = rs.getInt("posicao");
-            int pontos = rs.getInt("pontos");
             int idChave = rs.getInt("id_chave");
 
-            participante = new Participante(id, nome, posicao, pontos, idChave);
+            participante = new Participante(id, nome, idChave);
 
             participante.setPositions(dbPartPosition.loadFiltered(new PartPositionFilterParticipante(Integer.parseInt(idParticipante))));
 
@@ -88,8 +86,7 @@ public class DBParticipante implements IDB<Participante> {
 
         if (participante != null){
 
-            connection.runSQL("UPDATE participante SET nome = '"+ participante.getNome() +"', " +
-                    "posicao = "+participante.getPosicao()+"," + "pontos = "+participante.getPontos()+"" +
+            connection.runSQL("UPDATE participante SET nome = '"+ participante.getNome() +"' " +
                     "WHERE id_participante = " + participante.getId() + ";");
 
         }
@@ -116,11 +113,9 @@ public class DBParticipante implements IDB<Participante> {
             while(rs.next()){
                 int id = rs.getInt("id_participante");
                 String nome = rs.getString("nome");
-                int posicao = rs.getInt("posicao");
-                int pontos = rs.getInt("pontos");
                 int idChave = rs.getInt("id_chave");
 
-                participante = new Participante( id,nome,posicao,pontos,idChave);
+                participante = new Participante(id, nome, idChave);
                 participante.setPositions(dbPartPosition.loadFiltered(new PartPositionFilterParticipante(id)));
                 array.add(participante);
             }

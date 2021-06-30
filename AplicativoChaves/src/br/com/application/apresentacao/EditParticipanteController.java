@@ -3,6 +3,7 @@ package br.com.application.apresentacao;
 import br.com.application.negocio.Evento;
 import br.com.application.negocio.PartPosition;
 import br.com.application.negocio.Participante;
+import br.com.application.persistencia.DBPartPosition;
 import br.com.application.persistencia.DBParticipante;
 import br.univates.system32.DataBase.DataBaseException;
 import br.univates.system32.JFX.JFXInfoDialog;
@@ -42,6 +43,7 @@ public class EditParticipanteController implements Initializable {
     private Pane otherPaneToBlur;
     private StackPane stackPaneFather;
     final private DBParticipante dbParticipante = new DBParticipante();
+    final private DBPartPosition dbPartPosition = new DBPartPosition();
     ParticipanteMiniatureController partController;
 
     @Override
@@ -56,9 +58,9 @@ public class EditParticipanteController implements Initializable {
                 participante.setNome(textPartName.getText());
             }
             if (!textPartPoints.getText().isEmpty()) {
-                participante.getPositionByMiniatureId(partController.getId()).setPontos(Integer.valueOf(textPartPoints.getText()));
+                participante.getPositionByMiniatureId(partController.getId(), partController.getCol()).setPontos(Integer.valueOf(textPartPoints.getText()));
             } else {
-                participante.getPositionByMiniatureId(partController.getId()).setPontos(0);
+                participante.getPositionByMiniatureId(partController.getId(), partController.getCol()).setPontos(0);
             }
 
             dbParticipante.edit(participante);
@@ -89,9 +91,8 @@ public class EditParticipanteController implements Initializable {
 
     public void advanceParticipante(ActionEvent event) {
 
-        this.participante.addPosition(new PartPosition(this.participante.getId(), this.partController.getWinPosition(), 0));
+        this.participante.addPosition(new PartPosition(this.participante.getId(), this.partController.getWinPosition()[0], this.partController.getWinPosition()[1], 0));
         this.save(event);
-        closeEditParticipante(event);
 
     }
 
@@ -99,7 +100,7 @@ public class EditParticipanteController implements Initializable {
         this.participante = participante;
 
         this.textPartName.setText(participante.getNome());
-        this.textPartPoints.setText(String.valueOf(participante.getPositionByMiniatureId(partController.getId()).getPontos()));
+        this.textPartPoints.setText(String.valueOf(participante.getPositionByMiniatureId(partController.getId(), partController.getCol()).getPontos()));
 
     }
 
@@ -142,7 +143,8 @@ public class EditParticipanteController implements Initializable {
     public void cleanPosition(ActionEvent event) {
 
         try {
-            this.participante.setPosicao(0);
+            dbPartPosition.delete(this.participante.getPositionByMiniatureId(this.partController.getId(), this.partController.getCol()));
+            this.participante.removePosition(this.participante.getPositionByMiniatureId(this.partController.getId(), this.partController.getCol()));
             dbParticipante.edit(participante);
             bracketController.renderParticipantes();
         } catch (DataBaseException e) {

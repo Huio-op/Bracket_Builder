@@ -76,9 +76,10 @@ public class DBChaveTorneio implements IDB<ChaveTorneio> {
 
         if(chave != null){
 
-            connection.runSQL("UPDATE chave_torneio SET tipo = "+ chave.getTipoTorneio() +", " +
-                    "qtde_participantes = "+chave.getQuantidadeParticipantes()+"," +
-                    "comecou = "+chave.isComecou()+";");
+            connection.runSQL("UPDATE chave_torneio SET tipo = " + chave.getTipoTorneio() + ", " +
+                    "qtde_participantes = " + chave.getQuantidadeParticipantes() + "," +
+                    "comecou = " + chave.isComecou() + " " +
+                    "WHERE id_chave = " + chave.getId() + ";");
 
         }
 

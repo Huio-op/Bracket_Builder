@@ -123,7 +123,6 @@ public class CreateBracketController implements Initializable {
         this.partControllerMatrix.clear();
 
         double qtdeCols = ((Math.log(chaveTorneio.getQuantidadeParticipantes())/Math.log(2))*2)+1;
-        int miniatureId = 1;
         int quantidadeColunaAtual = 0;
         int contador = 0;
 
@@ -137,6 +136,8 @@ public class CreateBracketController implements Initializable {
         }
 
         for (int i = 0; i < qtdeCols; i++){
+
+            int miniatureId = 1;
 
             VBox vBox = new VBox();
             vBox.setPrefWidth(260);
@@ -164,20 +165,18 @@ public class CreateBracketController implements Initializable {
 
                     partControllerVector.add(loader.getController());
 
-                    partControllerVector.get(j).setId(miniatureId);
-                    if(contador == 2 && quantidadeColunaAtual != 1) {
-                        partControllerVector.get(j).setWinPosition(quantidadeColunaAtual + ((int) Math.floor(((double) miniatureId) / 2)));
-                    } else if(contador == 1) {
-                        partControllerVector.get(j).setWinPosition(-1);
-                    } else if (quantidadeColunaAtual != 1) {
-                        partControllerVector.get(j).setWinPosition(quantidadeColunaAtual + ((int) Math.ceil(((double) miniatureId) / 2)));
+                    partControllerVector.get(j).setId(miniatureId, i);
+                    if (contador == 2) {
+                        partControllerVector.get(j).setWinPosition(i - 1, ((int) Math.ceil(((double) miniatureId) / 2)));
+                    } else if (contador == 1) {
+                        partControllerVector.get(j).setWinPosition(-1, -1);
                     } else {
-                        partControllerVector.get(j).setWinPosition(miniatureId - (contador - 1));
+                        partControllerVector.get(j).setWinPosition(i + 1, ((int) Math.ceil(((double) miniatureId) / 2)));
                     }
 
                     for(Participante participante : arrayPart){
                         for (PartPosition partPos : participante.getPositions()) {
-                            if(miniatureId == partPos.getPosicao()){
+                            if(i == partPos.getPosCol() && miniatureId == partPos.getPosLin()){
                                 partControllerVector.get(j).setPartConfig(participante, partPos.getPontos());
                             }
                         }
@@ -202,22 +201,6 @@ public class CreateBracketController implements Initializable {
 
             this.partControllerMatrix.add(partControllerVector);
 
-//                for(int j = 0; j < chaveTorneio.getQuantidadeParticipantes()/2 ; j++){
-//                    try {
-//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/ParticipanteMiniature.fxml"));
-//                        AnchorPane pMiniature = loader.load();
-//
-//                        this.partController = loader.getController();
-//                        partController.setId(miniatureId);
-//                        miniatureId++;
-//                        partController.setBracketController(this);
-//                        vBox.getChildren().add(pMiniature);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-
             this.hBox.getChildren().add(vBox);
 
         }
@@ -235,9 +218,8 @@ public class CreateBracketController implements Initializable {
 
                 if(partController.getParticipante() != null) {
                     try {
-                        partController.getParticipante().setPosicao(partController.getId());
                         Participante part = partController.getParticipante();
-                        part.addPosition(new PartPosition(part.getId(), partController.getId(), part.getPontos()));
+                        part.addPosition(new PartPosition(part.getId(), i, j + 1, partController.getPontos()));
                         dbParticipante.edit(partController.getParticipante());
                     } catch (DataBaseException e) {
                         e.printStackTrace();

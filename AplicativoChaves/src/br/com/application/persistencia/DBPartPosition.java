@@ -27,7 +27,7 @@ public class DBPartPosition implements IDB<PartPosition> {
     public void save(PartPosition partPos) throws DataBaseException, SQLException {
 
         connection.runSQL("INSERT INTO part_pos VALUES( " + partPos.getIdPart() + "" +
-                ", " + partPos.getPosicao() + ", " + partPos.getPontos() + ");");
+                ", " + partPos.getPosCol() + ", " + partPos.getPosLin() + ", " + partPos.getPontos() + ");");
 
     }
 
@@ -41,7 +41,8 @@ public class DBPartPosition implements IDB<PartPosition> {
 
         if(partPos != null){
 
-            connection.runSQL("DELETE FROM part_pos WHERE id_participante = " + partPos.getIdPart() + " AND posicao" + partPos.getPosicao()  + ";");
+            connection.runSQL("DELETE FROM part_pos WHERE id_participante = " + partPos.getIdPart() +
+                    "AND pos_col = " + partPos.getPosCol()  + " AND pos_lin = " + partPos.getPosLin() + ";");
 
         }
 
@@ -53,7 +54,8 @@ public class DBPartPosition implements IDB<PartPosition> {
         if(partPos != null){
 
             connection.runSQL("UPDATE part_pos SET pontos = "+ partPos.getPontos() +
-                    "WHERE id_participante = " + partPos.getIdPart() + " AND posicao = " + partPos.getPosicao() + ";");
+                    "WHERE id_participante = " + partPos.getIdPart() + " AND pos_col = " + partPos.getPosCol() + " AND " +
+                    "pos_lin = " + partPos.getPosLin() + ";");
 
         }
 
@@ -71,10 +73,11 @@ public class DBPartPosition implements IDB<PartPosition> {
         if(rs.isBeforeFirst()) {
             while(rs.next()){
                 int id = rs.getInt("id_participante");
-                int posicao = rs.getInt("posicao");
+                int posCol = rs.getInt("pos_col");
+                int posLin = rs.getInt("pos_lin");
                 int pontos = rs.getInt("pontos");
 
-                partPos = new PartPosition( id,posicao,pontos);
+                partPos = new PartPosition( id, posCol, posLin, pontos);
                 arrayPartPos.add(partPos);
             }
         }
@@ -121,7 +124,7 @@ public class DBPartPosition implements IDB<PartPosition> {
 
         ArrayList<Filter> filterArray = new ArrayList<>();
         filterArray.add(new PartPositionFilterParticipante(partPos.getIdPart()));
-        filterArray.add(new PartPositionFilterPosition(partPos.getPosicao()));
+        filterArray.add(new PartPositionFilterPosition(partPos.getPosCol(), partPos.getPosLin()));
         ArrayList<PartPosition> array = loadMultiFiltered(filterArray);
 
         if (!array.isEmpty()) {

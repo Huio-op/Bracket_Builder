@@ -58,7 +58,7 @@ public class CreateParticipanteController implements Initializable {
 
 
             try {
-                Participante p = new Participante(textNome.getText(), miniature.getId(),0,startEventoController.getChaveTorneio().getId());
+                Participante p = new Participante(textNome.getText(), startEventoController.getChaveTorneio().getId());
                 dbParticipante.save(p);
 
                 this.miniature.setParticipante(p);

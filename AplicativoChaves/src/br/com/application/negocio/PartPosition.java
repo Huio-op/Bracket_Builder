@@ -3,12 +3,14 @@ package br.com.application.negocio;
 public class PartPosition {
 
     private int idPart;
-    private int posicao;
+    private int posCol;
+    private int posLin;
     private int pontos;
 
-    public PartPosition(int idPart, int posicao, int pontos) {
+    public PartPosition(int idPart, int posCol, int posLin, int pontos) {
         this.idPart = idPart;
-        this.posicao = posicao;
+        this.posCol = posCol;
+        this.posLin = posLin;
         this.pontos = pontos;
     }
 
@@ -20,12 +22,16 @@ public class PartPosition {
         this.idPart = idPart;
     }
 
-    public int getPosicao() {
-        return posicao;
+    public int getPosCol() {
+        return posCol;
     }
 
-    public void setPosicao(int posicao) {
-        this.posicao = posicao;
+    public void setPosCol(int posCol) {
+        this.posCol = posCol;
+    }
+
+    public int getPosLin() {
+        return this.posLin;
     }
 
     public int getPontos() {

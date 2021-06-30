@@ -1,7 +1,9 @@
 package br.com.application.apresentacao;
 
 import br.com.application.negocio.ChaveTorneio;
+import br.com.application.negocio.PartPosition;
 import br.com.application.negocio.Participante;
+import br.com.application.persistencia.DBPartPosition;
 import br.com.application.persistencia.DBParticipante;
 import br.com.application.persistencia.filters.ParticipanteFilterBracket;
 import br.univates.system32.DataBase.DataBaseException;
@@ -62,12 +64,15 @@ public class ParticipanteMiniatureController implements Initializable {
     @FXML
     private Label lblPontosConf;
 
-    private final  DBParticipante dbParticipante = new DBParticipante();
+    private final DBParticipante dbParticipante = new DBParticipante();
+    private final DBPartPosition dbPartPosition = new DBPartPosition();
     public CreateBracketController bracketController;
     public StartEventoController startEventoController;
     private Participante participante;
     private int id;
-    private int winPosition;
+    private int col;
+    private int pontos;
+    private int[] winPosition = new int[2];
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -98,7 +103,6 @@ public class ParticipanteMiniatureController implements Initializable {
         this.participante = participante;
         this.lblNome.setText(participante.getNome());
         this.lblNome.setWrapText(true);
-        this.lblPontos.setText(String.valueOf(participante.getPontos()));
         this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorPart)).toFront();
 
     }
@@ -122,7 +126,18 @@ public class ParticipanteMiniatureController implements Initializable {
     }
 
     public void setPartConfig(Participante participante, int pontos) {
+
+        if (this.participante != null) {
+            try {
+                this.dbPartPosition.delete(this.participante.getPositionByMiniatureId(this.col, this.id));
+                this.participante.removePosition(this.participante.getPositionByMiniatureId(this.col, this.id));
+            } catch (DataBaseException e) {
+                e.printStackTrace();
+            }
+        }
+
         this.participante = participante;
+        participante.addPosition(new PartPosition(participante.getId(), this.col, this.id, 0));
         this.lblNomeConf.setText(participante.getNome());
         this.lblNomeConf.setWrapText(true);
         this.lblPontosConf.setText(String.valueOf(pontos));
@@ -134,23 +149,29 @@ public class ParticipanteMiniatureController implements Initializable {
 
     }
 
-    public void setId(int id) {
+    public void setId(int id, int col) {
 
         this.id = id;
+        this.col = col;
 
     }
 
-    public void setWinPosition(int winPosition) {
-        this.winPosition = winPosition;
+    public void setWinPosition(int winPosCol, int winPosLin) {
+        this.winPosition[0] = winPosCol;
+        this.winPosition[1] = winPosLin;
     }
 
-    public int getWinPosition() {
+    public int[] getWinPosition() {
         return this.winPosition;
     }
 
     public int getId(){
         return this.id;
     }
+
+    public int getCol() { return this.col; }
+
+    public int getPontos() { return this.pontos; }
 
     public void createParticipanteTransition(){
         this.startEventoController.createParticipanteChaveTransition(this);
