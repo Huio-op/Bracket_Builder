@@ -111,6 +111,7 @@ public class CreateOrganizadorController implements Initializable {
                 btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 
                     this.homeController.refreshFooter();
+                    homeController.setOrganizador(org);
                     returnPage(event);
 
                 });

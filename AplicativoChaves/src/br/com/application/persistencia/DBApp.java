@@ -28,7 +28,6 @@ public class DBApp {
         try {
             db.connect();
             db.runQuerySQL("SELECT * FROM usuario;");
-            db.closeConnection();
         } catch (DataBaseException e) {
             return false;
         }
