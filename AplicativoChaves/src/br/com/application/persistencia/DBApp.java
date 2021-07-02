@@ -23,4 +23,16 @@ public class DBApp {
 
     }
 
+    public static boolean isDBCreated() {
+
+        try {
+            db.connect();
+            db.runQuerySQL("SELECT * FROM usuario;");
+            db.closeConnection();
+        } catch (DataBaseException e) {
+            return false;
+        }
+        return true;
+    }
+
 }
