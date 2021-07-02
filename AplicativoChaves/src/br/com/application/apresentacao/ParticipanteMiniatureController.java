@@ -44,6 +44,9 @@ public class ParticipanteMiniatureController implements Initializable {
     private AnchorPane anchorButton;
 
     @FXML
+    private AnchorPane anchorWin;
+
+    @FXML
     private Label lblNome;
 
     @FXML
@@ -63,6 +66,9 @@ public class ParticipanteMiniatureController implements Initializable {
 
     @FXML
     private Label lblPontosConf;
+
+    @FXML
+    private Label lblNomeWin;
 
     private final DBParticipante dbParticipante = new DBParticipante();
     private final DBPartPosition dbPartPosition = new DBPartPosition();
@@ -136,12 +142,19 @@ public class ParticipanteMiniatureController implements Initializable {
             }
         }
 
+
+
         this.participante = participante;
         participante.addPosition(new PartPosition(participante.getId(), this.col, this.id, 0));
         this.lblNomeConf.setText(participante.getNome());
         this.lblNomeConf.setWrapText(true);
         this.lblPontosConf.setText(String.valueOf(pontos));
-        this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorPartConf)).toFront();
+        if (this.winPosition[0] < 0) {
+            this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorWin)).toFront();
+            this.lblNomeWin.setText(participante.getNome());
+        } else {
+            this.stackPart.getChildren().get(this.stackPart.getChildren().indexOf(anchorPartConf)).toFront();
+        }
     }
 
     public void fillComboBox(ArrayList<Participante> arrayParticipante) {

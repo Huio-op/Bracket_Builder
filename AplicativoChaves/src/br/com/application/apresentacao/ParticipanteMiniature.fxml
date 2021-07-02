@@ -88,6 +88,33 @@
                   </VBox>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="anchorWin" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="230.0" style="-fx-background-color: #191D1F;">
+               <children>
+                  <Label fx:id="lblNomeWin" layoutX="23.0" layoutY="22.0" maxWidth="-Infinity" prefHeight="27.0" prefWidth="115.0" styleClass="dark_text" text="Label" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="6.0" layoutY="18.0" styleClass="dark_text" text="&gt;">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="174.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="55.0">
+                     <children>
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#editPart" prefHeight="70.0" prefWidth="59.0" style="-fx-background-color: #FFD700;" styleClass="dark-button">
+                           <graphic>
+                              <ImageView fitHeight="41.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imgComponents/trophy_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
          </children>
       </StackPane>
    </children>
