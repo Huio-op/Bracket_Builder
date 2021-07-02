@@ -20,7 +20,6 @@ public class SystemBracketBuilder extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			DBApp.getConnection().connectionTest();
-
 		} catch(DataBaseException e){
 			System.out.println(e.getMessage());
 		}
