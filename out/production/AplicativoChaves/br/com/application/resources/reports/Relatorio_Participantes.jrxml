@@ -10,11 +10,11 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT p.id_participante,
        p.nome,
-       p.pontos,
+       SUM (o.pontos) AS pontos,
        e.nome AS nomeEvento,
        c.id_chave AS chaveId,
        c.qtde_participantes
-FROM participante p, evento e, chave_torneio c WHERE
+FROM participante p, evento e, chave_torneio c, part_pos o WHERE
  e.id_evento = c.id_evento 
  AND p.id_chave = c.id_chave AND
  c.id_evento = CASE WHEN $P{idEvento} IS NULL THEN c.id_evento 
@@ -23,6 +23,8 @@ FROM participante p, evento e, chave_torneio c WHERE
  AND c.tipo = CASE WHEN $P{idTipo} IS NULL THEN c.tipo
  ELSE $P{idTipo}
  END
+ AND o.id_participante = p.id_participante
+ GROUP BY p.id_participante, e.nome, p.nome, p.id_participante, c.id_chave, c.qtde_participantes
 ORDER BY p.id_participante;]]>
 	</queryString>
 	<field name="id_participante" class="java.lang.Integer">

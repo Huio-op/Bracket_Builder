@@ -6,15 +6,18 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="402"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="588"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT p.id_participante,
+		<![CDATA[
+SELECT p.id_participante,
        p.nome,
-       p.pontos,
+       SUM (o.pontos) as pontos,
        e.nome AS nomeEvento,
        c.id_chave AS chaveId,
        c.qtde_participantes
-FROM participante p, evento e, chave_torneio c WHERE
- e.id_evento = c.id_evento
- AND p.id_chave = c.id_chave
+FROM participante p, evento e, chave_torneio c, part_pos o WHERE
+        e.id_evento = c.id_evento
+                                                              AND p.id_chave = c.id_chave
+                                                              AND o.id_participante = p.id_participante
+GROUP BY p.id_participante, e.nome, p.nome, p.id_participante, c.id_chave, c.qtde_participantes
 ORDER BY p.id_participante;]]>
 	</queryString>
 	<field name="id_participante" class="java.lang.Integer">
