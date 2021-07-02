@@ -11,12 +11,14 @@ import br.univates.system32.JFX.JFXErrorDialog;
 import br.univates.system32.JFX.JFXTransitionHandler;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.awt.*;
@@ -26,6 +28,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -64,6 +67,7 @@ public class CreateBracketController implements Initializable {
 //    @FXML
 //    private VBox vBox;
 
+    private HBox hboxLosers;
     JFXTransitionHandler th = new JFXTransitionHandler();
     private VerEventosController verEventosController;
     private ChaveTorneio chaveTorneio;
@@ -74,6 +78,8 @@ public class CreateBracketController implements Initializable {
     private Vector<Vector<ParticipanteMiniatureController>> partControllerMatrix = new Vector<Vector<ParticipanteMiniatureController>>();
     private AnchorPane tEditPart;
     private EditParticipanteController editParticipanteController;
+    private AnchorPane tConfirmRand;
+    private ConfirmController confirmController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,6 +91,13 @@ public class CreateBracketController implements Initializable {
             this.stackPane.getChildren().set(2,tEditPart);
             this.editParticipanteController = loaderEdit.getController();
             this.editParticipanteController.setBracketController(this);
+
+            FXMLLoader loaderConfirm = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaConfirm.fxml"));
+            this.tConfirmRand = loaderConfirm.load();
+            this.stackPane.getChildren().add(tConfirmRand);
+            this.stackPane.getChildren().set(3,tConfirmRand);
+            this.confirmController = loaderConfirm.getController();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +135,7 @@ public class CreateBracketController implements Initializable {
         this.hBox.getChildren().clear();
         this.partControllerMatrix.clear();
 
-        double qtdeCols = ((Math.log(chaveTorneio.getQuantidadeParticipantes())/Math.log(2))*2)+1;
+        double qtdeCols = getQtdeCols(chaveTorneio);
         int quantidadeColunaAtual = 0;
         int contador = 0;
 
@@ -204,6 +217,16 @@ public class CreateBracketController implements Initializable {
             this.hBox.getChildren().add(vBox);
 
         }
+
+        if (this.chaveTorneio.getTipoTorneio() == 2) {
+
+            hboxLosers = new HBox();
+            this.anchorBracket.getChildren().add(hboxLosers);
+
+            hboxLosers.getChildren().add(this.hBox);
+
+        }
+
     }
 
     public void saveBracket() {
@@ -232,6 +255,62 @@ public class CreateBracketController implements Initializable {
 
         renderParticipantes();
 
+    }
+
+    public void openRandomConfirm() {
+
+        final String message = "Tem certeza que quer colocar os participantes em posições aleatórias? " +
+                                "Todas as posições dos participantes serão perdidas!";
+        pullToFront(tConfirmRand);
+        this.confirmController.show(anchorBracket, anchorHeader, stackPane, message, (MouseEvent e) -> {
+            this.randomPositions();
+            confirmController.close();
+        });
+
+    }
+
+    public void randomPositions() {
+
+        try {
+
+            ArrayList<Participante> arrayPart = dbParticipante.loadFiltered(new ParticipanteFilterBracket(chaveTorneio));
+            ArrayList<Integer> arrayPos = new ArrayList<Integer>();
+
+            for (int i = 1; i < arrayPart.size()/2; i++) {
+                arrayPos.add(i);
+            }
+
+            Collections.shuffle(arrayPart);
+
+            int i = 0;
+            int j = 0;
+
+            while (i < arrayPart.size()) {
+                Participante part = arrayPart.get(i);
+                part.cleanPositions();
+                if (i >= arrayPart.size()/2) {
+                    part.addPosition(new PartPosition(part.getId(), (int)(getQtdeCols(this.chaveTorneio)-1), j, 0));
+                    j --;
+                } else {
+                    j++;
+                    part.addPosition(new PartPosition(part.getId(), 0, j, 0));
+                }
+                dbParticipante.edit(part);
+                i++;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+
+        renderParticipantes();
+
+    }
+
+    public double getQtdeCols(ChaveTorneio chaveTorneio) {
+        return ((Math.log(chaveTorneio.getQuantidadeParticipantes())/Math.log(2))*2)+1;
     }
 
     public void pullToFront(Object object){

@@ -48,28 +48,29 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXTextArea fx:id="textDescricao" editable="false" layoutX="14.0" layoutY="60.0" prefHeight="126.0" prefWidth="545.0" styleClass="light_text" />
-                  <Label layoutX="585.0" layoutY="100.0" styleClass="dark_text" text="Prêmio:">
+                  <JFXTextArea fx:id="textDescricao" editable="false" layoutX="14.0" layoutY="60.0" prefHeight="126.0" prefWidth="500.0" styleClass="light_text" />
+                  <Label layoutX="538.0" layoutY="100.0" styleClass="dark_text" text="Prêmio:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="585.0" layoutY="145.0" prefHeight="27.0" prefWidth="61.0" styleClass="dark_text" text="Data:">
+                  <Label layoutX="538.0" layoutY="145.0" prefHeight="27.0" prefWidth="61.0" styleClass="dark_text" text="Data:">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblPremio" layoutX="662.0" layoutY="100.0" prefHeight="27.0" prefWidth="230.0" styleClass="light_text" text="Premio">
+                  <Label fx:id="lblPremio" layoutX="615.0" layoutY="100.0" prefHeight="27.0" prefWidth="210.0" styleClass="light_text" text="Premio">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblData" layoutX="662.0" layoutY="145.0" prefHeight="27.0" prefWidth="230.0" styleClass="light_text" text="Data">
+                  <Label fx:id="lblData" layoutX="615.0" layoutY="145.0" prefHeight="27.0" prefWidth="210.0" styleClass="light_text" text="Data">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                   <JFXButton fx:id="btnSave" layoutX="844.0" layoutY="161.0" onAction="#saveBracket" prefHeight="25.0" prefWidth="92.0" styleClass="light-button" text="Salvar" />
+                  <JFXButton layoutX="844.0" layoutY="112.0" onAction="#openRandomConfirm" prefHeight="25.0" prefWidth="92.0" styleClass="dark-button" text="Aleatório" />
                </children>
             </AnchorPane>
          </children>

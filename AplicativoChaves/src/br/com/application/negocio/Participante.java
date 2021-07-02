@@ -1,5 +1,8 @@
 package br.com.application.negocio;
 
+import br.com.application.persistencia.DBPartPosition;
+import br.univates.system32.DataBase.DataBaseException;
+
 import java.util.ArrayList;
 
 public class Participante {
@@ -8,6 +11,8 @@ public class Participante {
     private String nome;
     private int idChave;
     private ArrayList<PartPosition> positions = new ArrayList<PartPosition>();
+
+    private final DBPartPosition dbPartPosition = new DBPartPosition();
 
     public Participante(String nome, int idChave){
 
@@ -42,6 +47,15 @@ public class Participante {
     }
 
     public void removePosition(PartPosition position) { this.positions.remove(position); }
+
+    public void cleanPositions() {
+        try {
+            dbPartPosition.deleteAllFromPart(this.id);
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        }
+        this.positions = new ArrayList<PartPosition>();
+    }
 
     public int getId() { return id; }
 

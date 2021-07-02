@@ -36,7 +36,7 @@
                      <children>
                         <AnchorPane prefHeight="70.0" prefWidth="45.0" style="-fx-background-color: #5A78FF;">
                            <children>
-                              <Label fx:id="lblPontos" layoutX="12.0" layoutY="22.0" styleClass="light_text" text="13">
+                              <Label fx:id="lblPontos" alignment="CENTER" layoutX="19.0" layoutY="22.0" prefHeight="27.0" prefWidth="45.0" styleClass="light_text" text="0" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

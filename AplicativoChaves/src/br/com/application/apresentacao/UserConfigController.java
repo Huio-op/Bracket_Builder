@@ -47,6 +47,9 @@ public class UserConfigController implements Initializable {
     private AnchorPane anchorEdit;
 
     @FXML
+    private AnchorPane anchorFiller;
+
+    @FXML
     private JFXTextField textNewName;
 
     @FXML
@@ -68,6 +71,8 @@ public class UserConfigController implements Initializable {
     private DBUsuarios db;
     private AnchorPane tReports;
     private ReportsController reportsController;
+    private AnchorPane tConfirmRand;
+    private ConfirmController confirmController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,8 +91,17 @@ public class UserConfigController implements Initializable {
             this.tReports = loaderEdit.load();
             this.tReports.setOpacity(0);
             this.stackPane.getChildren().add(tReports);
-            this.stackPane.getChildren().set(1,tReports);
+            this.stackPane.getChildren().set(2,tReports);
             this.reportsController = loaderEdit.getController();
+            sendToBack(tReports);
+
+            FXMLLoader loaderConfirm = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaConfirm.fxml"));
+            this.tConfirmRand = loaderConfirm.load();
+            this.stackPane.getChildren().add(tConfirmRand);
+            this.stackPane.getChildren().set(3,tConfirmRand);
+            this.confirmController = loaderConfirm.getController();
+            sendToBack(tConfirmRand);
+
         } catch (IOException e) {
             e.printStackTrace();
             JFXErrorDialog error = new JFXErrorDialog((StackPane) anchorBackgroundSett.getParent().getParent(),
@@ -135,13 +149,29 @@ public class UserConfigController implements Initializable {
 
     }
 
-    public void pullToFront(Object object){
+    public void pullToFront(Object object) {
         int index = this.stackPane.getChildren().indexOf(object);
         this.stackPane.getChildren().get(index).toFront();
     }
 
-    public void delete(ActionEvent event){
+    public void sendToBack(Object object) {
+        int index = this.stackPane.getChildren().indexOf(object);
+        this.stackPane.getChildren().get(index).toBack();
+    }
 
+    public void openConfirmDelete(ActionEvent event) {
+
+        final String message = "Tem certeza que deseja excluir este usuário? " +
+                                "Todos os eventos que foram criados por este usuário serão perdidos!";
+        pullToFront(tConfirmRand);
+        this.confirmController.show(anchorEdit, anchorFiller, stackPane, message, (MouseEvent e) -> {
+            delete(event);
+            confirmController.close();
+        });
+
+    }
+
+    public void delete(ActionEvent event){
 
         try {
             db.delete(HomeController.user);

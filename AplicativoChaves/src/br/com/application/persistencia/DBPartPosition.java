@@ -135,4 +135,12 @@ public class DBPartPosition implements IDB<PartPosition> {
 
     }
 
+    public void deleteAllFromPart (int partId) throws DataBaseException {
+
+
+        connection.runSQL("DELETE FROM part_pos WHERE id_participante = " + partId + ";");
+
+
+    }
+
 }

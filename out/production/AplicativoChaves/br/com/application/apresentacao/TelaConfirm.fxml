@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorBackgroundConfirm" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" style="-fx-background-color: #191D1F; -fx-background-radius: 10px; -fx-border-color: #5A78FF; -fx-border-radius: 10px;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.ConfirmController">
+   <children>
+      <Label layoutX="174.0" layoutY="14.0" styleClass="dark_text" text="Atenção!">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblConfirmMessage" alignment="CENTER" layoutX="90.0" layoutY="70.0" prefHeight="110.0" prefWidth="320.0" styleClass="light_text" text=" sad astek asas asas asas asas asas asas asas asas asas asas asas asas asas asas asas" textAlignment="CENTER" wrapText="true" />
+      <JFXButton fx:id="btnConfirm" layoutX="400.0" layoutY="205.0" styleClass="light-button" text="Confirmar" />
+      <JFXButton layoutX="14.0" layoutY="205.0" onAction="#close" prefHeight="31.0" prefWidth="86.0" styleClass="red-button" text="Cancelar" />
+   </children>
+</AnchorPane>
