@@ -1,4 +1,4 @@
-CREATE TABLE usuario (
+CREATE TABLE IF NOT EXISTS usuario (
 
     email VARCHAR(100) NOT NULL,
     nome VARCHAR(60) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE usuario (
 
 );
 
-CREATE TABLE organizador(
+CREATE TABLE IF NOT EXISTS organizador(
 
     cpf VARCHAR(14) NOT NULL,
     email VARCHAR(100) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE organizador(
 
 );
 
-CREATE TABLE jogo(
+CREATE TABLE IF NOT EXISTS jogo(
 
     id_jogo SERIAL,
     nome VARCHAR(45) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE jogo(
 
 );
 
-CREATE TABLE evento(
+CREATE TABLE IF NOT EXISTS evento(
 
     id_evento SERIAL,
     nome VARCHAR(45) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE evento(
 
 );
 
-CREATE TABLE tipos_torneio(
+CREATE TABLE IF NOT EXISTS tipos_torneio(
     id_tipos_torneio INT NOT NULL,
     nome VARCHAR(40) NOT NULL,
     CONSTRAINT pk_tipos_torneio PRIMARY KEY(id_tipos_torneio) ,
@@ -54,7 +54,7 @@ CREATE TABLE tipos_torneio(
 INSERT INTO tipos_torneio VALUES(1,'Eliminação Simples');
 INSERT INTO tipos_torneio VALUES(2,'Eliminação Dupla');
 
-CREATE TABLE chave_torneio(
+CREATE TABLE IF NOT EXISTS chave_torneio(
 
     id_chave SERIAL,
     tipo INT NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE chave_torneio(
 
 );
 
-CREATE TABLE participante(
+CREATE TABLE IF NOT EXISTS participante(
 
     id_participante SERIAL,
     nome VARCHAR(45) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE participante(
 
 );
 
-CREATE TABLE part_pos(
+CREATE TABLE IF NOT EXISTS part_pos(
     id_participante int,
     pos_col INT,
     pos_lin INT,
