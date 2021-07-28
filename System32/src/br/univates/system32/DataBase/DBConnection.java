@@ -41,10 +41,8 @@ public class DBConnection {
 	public void connect() throws DataBaseException {
 		
 		try{
-
 			Connection connection = DriverManager.getConnection(url, user, password);
 			this.connection = connection;
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DataBaseException("Falha na conexão com o servidor!");
@@ -55,17 +53,14 @@ public class DBConnection {
 	public void connectionTest() throws DataBaseException {
 		
 			try {
-				
 				connect();
 				this.connection.close();
 				
 			}catch (SQLException e) {
-					throw new DataBaseException("Teste de Concexão com o Banco de Dados falhou.");
-				}
-			catch (DataBaseException e) {
+				throw new DataBaseException("Teste de Concexão com o Banco de Dados falhou.");
+			} catch (DataBaseException e) {
 				throw new DataBaseException("Teste de Concexão com o Banco de Dados falhou.");
 			}
-			
 		
 	}
 	
@@ -146,6 +141,12 @@ public class DBConnection {
 			throw new DataBaseException("Conexão com Banco de Dados não efetuada.");
 		}
 		
+	}
+
+	public Connection getConnection(){
+
+		return this.connection;
+
 	}
 	
 }

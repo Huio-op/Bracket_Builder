@@ -58,6 +58,7 @@ public class CreateOrganizadorController implements Initializable {
 
     private JFXTransitionHandler th = new JFXTransitionHandler();
     private DBOrganizador dbo;
+    private HomeController homeController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,6 +89,12 @@ public class CreateOrganizadorController implements Initializable {
 
     }
 
+    public void setHomeController(HomeController homeController){
+
+        this.homeController = homeController;
+
+    }
+
     public void createOrganizador(ActionEvent event){
 
         if(textCPF.validate() && checkTerms.isSelected() && boxNationality.getValue()!=null){
@@ -103,6 +110,8 @@ public class CreateOrganizadorController implements Initializable {
                 JFXButton btnSuccess = new JFXButton("Voltar à tela de Principal");
                 btnSuccess.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
 
+                    this.homeController.refreshFooter();
+                    homeController.setOrganizador(org);
                     returnPage(event);
 
                 });
@@ -111,15 +120,6 @@ public class CreateOrganizadorController implements Initializable {
                         anchorBackgroundOrg.getParent().getParent(), "Sucesso!",
                         "Organizador criado com sucesso!", Arrays.asList(btnSuccess));
                 dialogSuccess.showDialogPane();
-
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/com/application/apresentacao/TelaHome.fxml"));
-//                Parent root = (Parent) loader.load();
-//                HomeController homeController = loader.getController();
-//                homeController.refresh();
-//
-//                Stage stage = new Stage();
-//                stage.setScene(new Scene(root));
-//                stage.show();
 
             } catch (DataBaseException e) {
                 e.printStackTrace();

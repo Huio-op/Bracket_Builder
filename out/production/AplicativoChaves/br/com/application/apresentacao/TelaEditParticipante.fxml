@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="editPartBackAnchor" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="290.0" prefWidth="460.0" style="-fx-background-color: #191D1F; -fx-background-radius: 10px; -fx-border-color: #5A78FF; -fx-border-radius: 10px;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.application.apresentacao.EditParticipanteController">
+   <children>
+      <JFXButton layoutX="14.0" layoutY="14.0" onAction="#closeEditParticipante" prefHeight="19.0" prefWidth="92.0" style="-fx-background-color: #3C50AA;" text="Voltar" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imgComponents/icon_arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnSave" layoutX="276.0" layoutY="245.0" onAction="#save" prefHeight="31.0" prefWidth="170.0" style="-fx-background-color: #5A78FF;" text="Salvar" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXButton>
+      <Label ellipsisString="" layoutX="126.0" layoutY="12.0" styleClass="dark_text" text="Editar Participante">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="textPartName" focusColor="#5a78ff" layoutX="191.0" layoutY="87.0" prefHeight="25.0" prefWidth="170.0" />
+      <Label layoutX="70.0" layoutY="91.0" styleClass="light_text" text="Mudar Nome:" />
+      <Label layoutX="70.0" layoutY="149.0" styleClass="light_text" text="Alterar Pontos:" />
+      <JFXTextField fx:id="textPartPoints" layoutX="194.0" layoutY="145.0" prefHeight="25.0" prefWidth="170.0" />
+      <JFXButton layoutX="145.0" layoutY="194.0" onAction="#advanceParticipante" prefHeight="31.0" prefWidth="170.0" styleClass="dark-button" text="Avançar Participante" />
+      <JFXButton layoutX="14.0" layoutY="245.0" onAction="#cleanPosition" prefHeight="31.0" prefWidth="170.0" styleClass="red-button" text="Limpar Espaço" />
+   </children>
+</AnchorPane>
