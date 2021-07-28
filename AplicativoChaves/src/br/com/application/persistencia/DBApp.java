@@ -11,8 +11,8 @@ public class DBApp {
 
         if(db == null){
             try {
-                db = new DBConnection("wnlrmkyd", "RrqNt3iigJVgBsFIPOMi3KurycXoU7cD", "wnlrmkyd"
-                        , "motty.db.elephantsql.com", "5432");
+                db = new DBConnection("UserNameHere", "passwordHere", "DataBaseNameHere"
+                        , "IpHere", "5432");
                 return db;
             } catch (DataBaseException e) {
                 e.printStackTrace();
